@@ -1,11 +1,13 @@
 
-1. For Eclipse CDT users
+1. Eclipse CDT users (tested with Galileo 3.5)
 
-    Simply choose 'Import | Existing Projects into Workspace' from the Eclipse
-    Project Explorer and point to your ALOA root directory.
+    Simply choose 'Import | General | Existing Projects into Workspace' from
+    the Eclipse Project Explorer and point to your ALOA root directory.
 
-2. For make users
+2. Make users
 
-    TODO
+    Simply change to 'make' directory and type 'make'.
+
+
 
 
