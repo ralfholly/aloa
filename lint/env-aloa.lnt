@@ -1,0 +1,21 @@
+// Overwrite output formatting options from policy;
+// The following formatting options make sure that 
+// the ouput is in a form suitable for ALOA (XML)
+
+-v                              // Turn off verbosity
++xml(lintanalysis)              // Turn on XML escapes
+-"format=<issue file =\q%f\q line = \q%l\q number = \q%n\q desc = \q%m\q/>"
+-"format_specific= "
+-hFs1                           // The height of a message should be 1 (i.e. don't output the line in error
+-width(0,0)                     // Don't break long lines
+
+-e830                           // 'Reference cited in prior message' doesn't make sense
+-e831                           // 'Reference cited in prior message' doesn't make sense
+-e900                           // 'Successful completion message' confuses ALOA
+
+
+
+
+
+
+

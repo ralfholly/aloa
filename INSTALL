@@ -1,0 +1,11 @@
+
+1. For Eclipse CDT users
+
+    Simply choose 'Import | Existing Projects into Workspace' from the Eclipse
+    Project Explorer and point to your ALOA root directory.
+
+2. For make users
+
+    TODO
+
+
