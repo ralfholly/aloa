@@ -1,7 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 // ALOA - A Lint Output Analyzer
-// Copyright (C) 2003 - 2004 PERA Software Solutions GmbH
-// Written by Ralf Holly (rholly@pera-software.com)
+// Copyright (c) 2010 by Ralf Holly.
 // 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
