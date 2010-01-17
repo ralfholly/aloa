@@ -1,3 +1,4 @@
+
 # Tools definitions.
 RM := rm -rf
 MKDIR := mkdir -p
@@ -7,9 +8,6 @@ TARGET_EXE := aloa
 SRC_DIR := ../src
 OBJ_DIR := obj
 
-# Make sure output directory exists.
-make-output-dir := $(shell [ -d $(OBJ_DIR) ] || $(MKDIR) $(OBJ_DIR))
-
 # Create list of all cpp files.
 SRCS := $(shell find $(SRC_DIR) -name '*.cpp')
 HELPER := $(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS))
@@ -18,6 +16,13 @@ OBJS := $(subst .cpp,.o,$(HELPER))
 # Create list of all dependency files.
 CPP_DEPS := $(subst .cpp,.d,$(HELPER))
 
+# Make sure whole output directory tree exists.
+OUTPUT_TREE:= $(sort $(dir $(OBJS)))
+make-output-dir := $(shell $(MKDIR) $(OUTPUT_TREE))
+
+all:
+
+# Generate C/C++ dependencies.
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
 
@@ -36,5 +41,10 @@ $(TARGET_EXE): $(OBJS)
 clean:
 	-$(RM) $(OBJ_DIR) $(TARGET_EXE) 
 
-.PHONY: all clean 
+debug:
+	@echo $(OBJS)
+	@echo $(CPP_DEPS)
+	@echo $(OUTPUT_TREE)
+
+.PHONY: all clean debug
 

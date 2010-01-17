@@ -22,41 +22,22 @@
 
 #include <string>
 
+//lint --e{1712} No default ctor needed
 class ParseError {
 public:
-    virtual ~ParseError() { /* dummy */ }
-};
+	ParseError(const std::string &msg) : m_msg(msg) {
+	}
 
+	const std::string& getMessage() const {
+		return m_msg;
+	}
 
-//lint --e{1712} No default ctor needed
-class ParseFileError : public ParseError {
-public:
-    ParseFileError(const char* pFilename)  :  
-        m_filename(pFilename) {}
-    const std::string& getFilename() const { return m_filename; }
-
+    virtual ~ParseError() {
+    }
 private:
-    const std::string m_filename;
+    std::string m_msg;
 };
 
-
-class ParseFileNotFoundError : public ParseFileError {
-public:
-    ParseFileNotFoundError(const char* pFilename)  : 
-        ParseFileError(pFilename) {}
-};
-
-class ParseMalformedLineError : public ParseFileError {
-public:
-    ParseMalformedLineError(const char* pFilename, int lineNo)   :
-        ParseFileError(pFilename),
-        m_LineNo(lineNo) { }
-    int getLineNo() const { return m_LineNo; }
-
-private:
-    int m_LineNo;
-};
- 
 typedef void (*LINT_ISSUE_HANDLER)(const char* pFilename, int number);
 void parseLintOutputFile(const char* pFilename, LINT_ISSUE_HANDLER pfHandler);
 

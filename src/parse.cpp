@@ -23,12 +23,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sstream>
 
-static const char ATTRIBUTE_VALUE_SEPARATOR = '=';
+#include "tinyxml/tinyxml.h"
 
-static int compareXMLAttribute(const char* pLine, const char* pAttribute, const char* p);
-static void getXMLValue(const char* pLineEnd, const char* p, char* pValue);
-static char* getXMLAttributeValue(const char* pLine, const char *pAttribute, char *pValue);
+
+static void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc);
 
 // Parses a lint output file (pFilename). 
 // If an lint issue is encountered, calls back on pfHandler.
@@ -36,94 +36,55 @@ void parseLintOutputFile(const char* pFilename, LINT_ISSUE_HANDLER pfHandler) {
     assert(pFilename != 0);
     assert(pfHandler != 0);
 
-    static char buffer[1024 + 1];
-    static char currFilename[512 + 1];
-    static char currNumber[100 + 1]; 
-   
-    int line = 0;
-    int number = 0;
+	TiXmlDocument doc(pFilename);
 
-    // Open lint output file
-    FILE* pFile = fopen(pFilename, "r");
+	if (!doc.LoadFile()) {
+        throwXmlParseError(&doc, doc.ErrorDesc());
+	}
 
-    if (pFile == 0)
-        throw ParseFileNotFoundError(pFilename);
-    
-    // Read next line
-    while (fgets(buffer, sizeof(buffer), pFile) != 0) {
-        ++line;
-        // If new issue found
-        if (strstr(buffer, "<issue")) {
-            if (    (getXMLAttributeValue(buffer, "file", currFilename))
-                 && (getXMLAttributeValue(buffer, "number", currNumber))
-                 && ((number = atoi(currNumber)) > 0) ) {
-                (*pfHandler)(currFilename, number); 
-            } else
-                throw ParseMalformedLineError(pFilename, line);
+    TiXmlNode *root = 0;
+    TiXmlElement *messageElement = 0;
+
+    root = doc.FirstChild("doc");
+    messageElement = root->FirstChildElement("message");
+
+    while (messageElement != 0) {
+        TiXmlElement *fileElement, *codeElement;
+
+        // Get filename from 'file' element.
+        fileElement = messageElement->FirstChildElement("file");
+        if (fileElement == 0) {
+            throwXmlParseError(fileElement, "'file' element not found");
         }
-    } 
-}
-
-static inline bool isXMLValueDelimiter(char c) {
-    return c == '\'' || c == '\"';
-}
-
-static int compareXMLAttribute(const char* pLine, const char* pAttribute, const char* p) {
-    assert(p > pLine);
-    assert(*p != ATTRIBUTE_VALUE_SEPARATOR);
-
-    // Eat whitespace
-    while ((p > pLine) && isspace(*p))
-        --p;
-    // Go left until beginning of attribute name
-    while ((p > pLine) && isalnum(*(p - 1)))
-        --p;
-    // Compare attribute with given attribute
-    while (*pAttribute != 0) {
-        if (*(p++) != *(pAttribute++))
-            // Given attribute not found
-            return 0;
-    }
-
-    // Given attribute found
-    return 1;
-}
-
-static void getXMLValue(const char* pLineEnd, const char* p, char* pValue) {
-    // Go to beginning of value
-    while (((p < pLineEnd) && (isspace(*p) || isXMLValueDelimiter(*p))))
-        ++p;
-
-    const char valueDelim = *(p - 1);
-
-    // Copy value to destination buffer
-    while (p < pLineEnd && *p != valueDelim)
-        *(pValue++) = *(p++);
-
-    // Terminate value string in destination buffer
-    *pValue = '\0';
-}
-
-static char* getXMLAttributeValue(const char* pLine, const char *pAttribute, char *pValue) {
-    const char* pLineEnd = pLine + strlen(pLine);
-    const char* p;
-
-    assert(pLine != 0 && pAttribute != 0 && pValue != 0);
-    assert(*pLine != 0 && *pAttribute != 0);
-
-    // Scan trough given line
-    for (p = pLine; p < pLineEnd; ++p) {
-
-        // If given attribute has been found
-        if (   *p == ATTRIBUTE_VALUE_SEPARATOR  
-            && compareXMLAttribute(pLine, pAttribute, p - 1)) {
-            // Return value that belongs to given attribute
-            getXMLValue(pLineEnd, p + 1, pValue);
-            return pValue;
+        const char *filename = fileElement->GetText();
+        if (filename == 0 || *filename == '\0') {
+            filename = "<unknown>";
         }
-    }
 
-    // Given attribute not found
-    return 0;
+        // Get issue number from 'code' element.
+        codeElement = fileElement->NextSiblingElement("code");
+        if (fileElement == 0) {
+            throwXmlParseError(codeElement, "'code' element not found");
+        }
+        const char *number = codeElement->GetText();
+        if (number == 0) {
+            throwXmlParseError(codeElement, "'code' value test missing");
+        }
+        int issueNumber = atoi(number);
+
+        (*pfHandler)(filename, issueNumber);
+
+        messageElement = messageElement->NextSiblingElement();
+    }
 }
+
+static void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc)
+{
+    std::ostringstream ost;
+    ost << desc << " row: " << xmlbase->Row() << " col: " << xmlbase->Column();
+    throw ParseError(ost.str());
+}
+
+
+
 

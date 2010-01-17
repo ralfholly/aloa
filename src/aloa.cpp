@@ -129,12 +129,8 @@ int main(int argc, const char* const argv[]) {
         parseLintOutputFile(gpLintOutputFile, &onNewIssueHandler);
         buildMetricsLists();
         reportMetrics();
-    } catch (const ParseFileNotFoundError& e) {
-        reportFatalError("Cannot access " + e.getFilename());
-    } catch (const ParseMalformedLineError& e) {
-        ostringstream s;
-        s << "Malformed file: " << e.getFilename() << ", line: " << e.getLineNo();
-        reportFatalError(s.str());
+    } catch (const ParseError& e) {
+        reportFatalError("Parse error: " + e.getMessage());
     } catch (...) {
         reportFatalError("Unspecified fatal error");        
     }
