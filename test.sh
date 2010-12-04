@@ -13,11 +13,14 @@ if [ ! -x "$ALOA_PATH" ]; then
     exit 1
 fi
 
-$ALOA_PATH test/lint.output.xml > test/output
+$ALOA_PATH -f test/lint.output.xml > test/output
 
 diff test/output test/output.ref
 
-if [ $? -ne 0 ]; then exit_code=1; fi
+if [ $? -ne 0 ]; then 
+    echo "*** Test failed! ***"
+    exit_code=1; 
+    fi
 
 exit $exit_code
     
