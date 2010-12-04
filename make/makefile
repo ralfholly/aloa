@@ -1,7 +1,9 @@
-
 # Tools definitions.
 RM := rm -rf
 MKDIR := mkdir -p
+# Remember: COMPILE.cpp = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+# By default, do a debug build; pass -O3 as CXXFLAGS to get a release build.
+CXXFLAGS := -O0 -g3 -Wall
 
 # Project definitions.
 TARGET_EXE := aloa
@@ -24,7 +26,7 @@ all:
 
 # Generate C/C++ dependencies.
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	$(COMPILE.cpp) -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(strip $(CPP_DEPS)),)

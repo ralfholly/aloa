@@ -16,6 +16,7 @@ fi
 $ALOA_PATH test/lint.output.xml > test/output
 
 diff test/output test/output.ref
+
 if [ $? -ne 0 ]; then exit_code=1; fi
 
 exit $exit_code

@@ -36,11 +36,11 @@ void parseLintOutputFile(const char* pFilename, LINT_ISSUE_HANDLER pfHandler) {
     assert(pFilename != 0);
     assert(pfHandler != 0);
 
-	TiXmlDocument doc(pFilename);
+    TiXmlDocument doc(pFilename);
 
-	if (!doc.LoadFile()) {
+    if (!doc.LoadFile()) {
         throwXmlParseError(&doc, doc.ErrorDesc());
-	}
+    }
 
     TiXmlNode *root = 0;
     TiXmlElement *messageElement = 0;

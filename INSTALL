@@ -6,8 +6,9 @@
 
 2. Make users
 
-    Simply change to 'make' directory and type 'make'.
-
-
-
+    Simply change to 'make' directory and type 'make'. 
+    By default, make performs a debug build; in order to make a release build,
+    do this:
+     
+        'make CXXFLAGS=-O2'
 

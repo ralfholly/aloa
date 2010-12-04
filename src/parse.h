@@ -25,12 +25,12 @@
 //lint --e{1712} No default ctor needed
 class ParseError {
 public:
-	ParseError(const std::string &msg) : m_msg(msg) {
-	}
+    ParseError(const std::string &msg) : m_msg(msg) {
+    }
 
-	const std::string& getMessage() const {
-		return m_msg;
-	}
+    const std::string& getMessage() const {
+        return m_msg;
+    }
 
     virtual ~ParseError() {
     }

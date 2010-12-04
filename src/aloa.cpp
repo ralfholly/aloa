@@ -135,7 +135,7 @@ int main(int argc, const char* const argv[]) {
         reportFatalError("Unspecified fatal error");        
     }
 
-	return gIssuesCount == 0 ?
+    return gIssuesCount == 0 ?
         EXIT_SUCCESS :
         EXIT_ALOA_ISSUES;
 }
