@@ -5,4 +5,16 @@ Maybe it will be even more. Who knows?
 
 Please stay tuned...
 
+Usage:
+
+- Do a PC-Lint run and use Gimpel's env-xml.lnt file to produce XML-formatted output.
+- Redirect standard output to a file, e. g. output.xml.
+- Run ALOA and provide the output file as an argument, e. g.:
+    aloa -f output.xml
+
+For further information consult the ALOA help, e. g.:
+    aloa --help
+
+
+
 

@@ -22,7 +22,6 @@
 
 using namespace std;
 
-const char* gpLintOutputFile;
 int gSeverityScore = 0;
 int gIssuesCount = 0;
 ISSUETYPE_LIST gIssueTypeList;

@@ -1,5 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
-// ALOA - A Lint Output Analyzer
+/////////////////////////////////////////////////////////////////////////////// // ALOA - A Lint Output Analyzer
 // Copyright (c) 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
@@ -17,15 +16,26 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "parse.h"
+#include <cstdlib>
 
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "globals.h"
+#include "report.h"
+#include "Aloa.h"
 
+int main(int argc, const char* argv[])
+{
+    try {
+        initGlobals();
+        Aloa aloa(argc, argv);
+        reportMetrics();
+    } catch (const ParseError& e) {
+        reportFatalError("Parse error: " + e.getMessage());
+    } catch (...) {
+        reportFatalError("Unspecified fatal error");
+    }
 
-// TODO:2010-12-05:ralf:delete this file (and header as well)
-
-
+    return gIssuesCount == 0 ?
+           EXIT_SUCCESS :
+           EXIT_FAILURE;
+}
 

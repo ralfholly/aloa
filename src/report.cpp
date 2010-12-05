@@ -119,7 +119,6 @@ void reportMetrics()
          << COPYRIGHT
          << COPYLEFT
          << endl
-         << "Lint output file ........... : " << gpLintOutputFile << endl
          << "Total number of issues found : " << gIssuesCount << endl
          << "Total severity score ....... : " << gSeverityScore << endl;
 

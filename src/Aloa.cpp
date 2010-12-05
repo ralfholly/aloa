@@ -1,5 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
-// ALOA - A Lint Output Analyzer
+/////////////////////////////////////////////////////////////////////////////// // ALOA - A Lint Output Analyzer
 // Copyright (c) 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
@@ -17,6 +16,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "Aloa.h"
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -24,19 +25,28 @@
 #include <sstream>
 #include <cassert>
 #include <cstring>
+#include <sstream>
+#include "tinyxml/tinyxml.h"
 
-#include "parse.h"
 #include "globals.h"
 #include "report.h"
 
 using namespace std;
 
-static void showVersion()
+Aloa::Aloa(int argc, const char* argv[]) : 
+    m_argc(argc), m_argv(argv), m_lintOutputFile("")
+{
+    scanCommandLine();
+    parseLintOutputFile();
+    buildMetricsLists();
+}
+
+void Aloa::showVersion() const
 {
     cout << COPYRIGHT;
 }
 
-static void showHelp()
+void Aloa::showHelp() const
 {
     showVersion();
 
@@ -66,21 +76,20 @@ static void showHelp()
     exit(0);
 }
 
-static const char* getArgOption(int argc, const char* argv[], const char* optShort,
-        const char* optLong)
+const char* Aloa::getArgOption(const char* optShort, const char* optLong) const
 {
     // Argument not found.
     const char* opt = NULL;
 
-    for (int i = 1; i < argc; ++i) {
+    for (int i = 1; i < m_argc; ++i) {
         // If short or long option found.
-        if ((optShort != NULL && strcmp(optShort, argv[i]) == 0)
-                || (optLong != NULL && strcmp(optLong, argv[i]) == 0)) {
+        if ((optShort != NULL && strcmp(optShort, m_argv[i]) == 0)
+                || (optLong != NULL && strcmp(optLong, m_argv[i]) == 0)) {
 
             // Peek at next command-line argument; if it does not start with a
             // dash, it's the option of our current argument.
-            if (i < argc - 1 && *argv[i + 1] != '-') {
-                opt = argv[i + 1];
+            if (i < m_argc - 1 && *m_argv[i + 1] != '-') {
+                opt = m_argv[i + 1];
             }
             // Otherwise, we don't have an option for our current argument.
             else {
@@ -93,21 +102,24 @@ static const char* getArgOption(int argc, const char* argv[], const char* optSho
     return opt;
 }
 
-static void scanCommandLine(int argc, const char* argv[])
+void Aloa::scanCommandLine()
 {
-    if (argc < 2 || getArgOption(argc, argv, "-h", "--help") != NULL) {
+    const char* opt = NULL;
+
+    if (m_argc < 2 || getArgOption("-h", "--help") != NULL) {
         showHelp();
-    } else if (getArgOption(argc, argv, "-v", "--version") != NULL) {
+    } else if (getArgOption("-v", "--version") != NULL) {
         showVersion();
         exit(0);
-    } else if ((gpLintOutputFile = getArgOption(argc, argv, "-f", "--file")) != NULL) {
+    } else if ((opt = getArgOption("-f", "--file")) != NULL) {
         // Great! Got a lint output file...
+        m_lintOutputFile = opt;
     } else {
         showHelp();
     }
 }
 
-static void onNewIssueHandler(const char* pFilename, int number)
+void Aloa::onNewIssueHandler(const string& filename, int number)
 {
     int severity = getSeverity(number);
 
@@ -116,7 +128,6 @@ static void onNewIssueHandler(const char* pFilename, int number)
     gSeverityScore += severity;
 
     // Obtain file object
-    string filename(pFilename);
     File* pFile = 0;
     FILE_MAP::iterator iterFile = gFileMap.find(filename);
 
@@ -149,7 +160,7 @@ static void onNewIssueHandler(const char* pFilename, int number)
     pIssue->addFile(pFile);
 }
 
-static void buildMetricsLists()
+void Aloa::buildMetricsLists()
 {
     // Create sorted file list
     FILE_MAP::iterator iterFile = gFileMap.begin();
@@ -166,21 +177,59 @@ static void buildMetricsLists()
     sort(gIssueList.begin(), gIssueList.end());
 }
 
-int main(int argc, const char* argv[])
+
+// Parses a lint output file (pFilename).
+// If an lint issue is encountered, calls back on pfHandler.
+void Aloa::parseLintOutputFile()
 {
-    try {
-        initGlobals();
-        scanCommandLine(argc, argv);
-        parseLintOutputFile(gpLintOutputFile, &onNewIssueHandler);
-        buildMetricsLists();
-        reportMetrics();
-    } catch (const ParseError& e) {
-        reportFatalError("Parse error: " + e.getMessage());
-    } catch (...) {
-        reportFatalError("Unspecified fatal error");
+    TiXmlDocument doc(m_lintOutputFile.c_str());
+
+    if (!doc.LoadFile()) {
+        throwXmlParseError(&doc, doc.ErrorDesc());
     }
 
-    return gIssuesCount == 0 ?
-           EXIT_SUCCESS :
-           EXIT_FAILURE;
+    TiXmlNode *root = 0;
+    TiXmlElement *messageElement = 0;
+
+    root = doc.FirstChild("doc");
+    messageElement = root->FirstChildElement("message");
+
+    while (messageElement != 0) {
+        TiXmlElement *fileElement, *codeElement;
+
+        // Get filename from 'file' element.
+        fileElement = messageElement->FirstChildElement("file");
+        if (fileElement == 0) {
+            throwXmlParseError(fileElement, "'file' element not found");
+        }
+        const char *filename = fileElement->GetText();
+        if (filename == 0 || *filename == '\0') {
+            filename = "<unknown>";
+        }
+
+        // Get issue number from 'code' element.
+        codeElement = fileElement->NextSiblingElement("code");
+        if (fileElement == 0) {
+            throwXmlParseError(codeElement, "'code' element not found");
+        }
+        const char *number = codeElement->GetText();
+        if (number == 0) {
+            throwXmlParseError(codeElement, "'code' value test missing");
+        }
+        int issueNumber = atoi(number);
+
+        onNewIssueHandler(filename, issueNumber);
+
+        messageElement = messageElement->NextSiblingElement();
+    }
 }
+
+void Aloa::throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc)
+{
+    std::ostringstream ost;
+    ost << desc << " row: " << xmlbase->Row() << " col: " << xmlbase->Column();
+    throw ParseError(ost.str());
+}
+
+
+
