@@ -24,17 +24,19 @@
 
 int main(int argc, const char* argv[])
 {
+    bool issues = true;
     try {
         initGlobals();
         Aloa aloa(argc, argv);
-        reportMetrics();
+        reportMetrics(aloa.getIssuesCount(), aloa.getSeverityScore());
+        issues = aloa.getIssuesCount() != 0;
     } catch (const ParseError& e) {
         reportFatalError("Parse error: " + e.getMessage());
     } catch (...) {
         reportFatalError("Unspecified fatal error");
     }
 
-    return gIssuesCount == 0 ?
+    return issues ?
            EXIT_SUCCESS :
            EXIT_FAILURE;
 }

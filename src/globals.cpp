@@ -22,11 +22,7 @@
 
 using namespace std;
 
-int gSeverityScore = 0;
-int gIssuesCount = 0;
 ISSUETYPE_LIST gIssueTypeList;
-FILE_MAP gFileMap;
-ISSUE_MAP gIssueMap;
 FILE_LIST gFileList;
 ISSUE_LIST gIssueList;
 

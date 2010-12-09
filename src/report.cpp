@@ -113,14 +113,14 @@ static void printFooter()
          << endl;
 }
 
-void reportMetrics()
+void reportMetrics(int issuesCount, int severityScore)
 {
     cout << endl
          << COPYRIGHT
          << COPYLEFT
          << endl
-         << "Total number of issues found : " << gIssuesCount << endl
-         << "Total severity score ....... : " << gSeverityScore << endl;
+         << "Total number of issues found : " << issuesCount << endl
+         << "Total severity score ....... : " << severityScore << endl;
 
     printFileList();
     printIssueList();

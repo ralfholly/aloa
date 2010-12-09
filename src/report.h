@@ -20,7 +20,7 @@
 #ifndef _report_h
 #define _report_h
 
-void reportMetrics(void);
+void reportMetrics(int issuesCount, int severityScore);
 void reportIllegalLintIssueNumber(void);
 void reportFatalError(const std::string& message);
 

@@ -20,6 +20,7 @@
 #define Aloa_h
 
 #include <string>
+#include "MetricsBuilder.h"
 
 class TiXmlBase;
 
@@ -37,6 +38,8 @@ class Aloa
 {
 public:
     Aloa(int argc, const char* argv[]);
+    int getIssuesCount() const;
+    int getSeverityScore() const;
 
 private:
     Aloa();
@@ -47,16 +50,13 @@ private:
     void showHelp() const;
     const char* getArgOption(const char* optShort, const char* optLong) const;
     void scanCommandLine();
-    void onNewIssueHandler(const std::string& filename, int issueNumber);
-
     void parseLintOutputFile();
-    void buildMetricsLists();
-
     void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc);
 
     int m_argc;
     const char** m_argv;
     std::string m_lintOutputFile;
+    MetricsBuilder m_metricsBuilder;
 };
 
 #endif

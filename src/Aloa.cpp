@@ -34,11 +34,24 @@
 using namespace std;
 
 Aloa::Aloa(int argc, const char* argv[]) : 
-    m_argc(argc), m_argv(argv), m_lintOutputFile("")
+    m_argc(argc), 
+    m_argv(argv), 
+    m_lintOutputFile(""),
+    m_metricsBuilder()
 {
     scanCommandLine();
     parseLintOutputFile();
-    buildMetricsLists();
+    m_metricsBuilder.buildMetricsLists();
+}
+
+int Aloa::getIssuesCount() const
+{
+    return m_metricsBuilder.getIssuesCount();
+}
+
+int Aloa::getSeverityScore() const
+{
+    return m_metricsBuilder.getSeverityScore();
 }
 
 void Aloa::showVersion() const
@@ -119,65 +132,6 @@ void Aloa::scanCommandLine()
     }
 }
 
-void Aloa::onNewIssueHandler(const string& filename, int number)
-{
-    int severity = getSeverity(number);
-
-    // Update global metrics
-    ++gIssuesCount;
-    gSeverityScore += severity;
-
-    // Obtain file object
-    File* pFile = 0;
-    FILE_MAP::iterator iterFile = gFileMap.find(filename);
-
-    // If unknown filename, create new file object
-    if (iterFile == gFileMap.end()) {
-        pFile = new File(filename);
-        bool wasInserted = gFileMap.insert(make_pair(filename, pFile)).second;
-        assert(wasInserted);
-        // If known filename, retrieve existing file object
-    } else {
-        pFile = (*iterFile).second;
-    }
-
-    // Obtain issue object
-    Issue* pIssue = 0;
-    ISSUE_MAP::iterator iterIssue = gIssueMap.find(number);
-
-    // If unknown issue, create new issue object
-    if (iterIssue == gIssueMap.end()) {
-        pIssue = new Issue(number, severity);
-        bool wasInserted = gIssueMap.insert(make_pair(number, pIssue)).second;
-        assert(wasInserted);
-        // If known issue, retrieve existing issue object
-    } else {
-        pIssue = (*iterIssue).second;
-    }
-
-    // Update file/issue metrics
-    pFile->addIssue(pIssue);
-    pIssue->addFile(pFile);
-}
-
-void Aloa::buildMetricsLists()
-{
-    // Create sorted file list
-    FILE_MAP::iterator iterFile = gFileMap.begin();
-    for (; iterFile != gFileMap.end(); ++iterFile) {
-        gFileList.push_back(*(*iterFile).second);
-    }
-    sort(gFileList.begin(), gFileList.end());
-
-    // Create sorted issue list
-    ISSUE_MAP::iterator iterIssue = gIssueMap.begin();
-    for (; iterIssue != gIssueMap.end(); ++iterIssue) {
-        gIssueList.push_back(*(*iterIssue).second);
-    }
-    sort(gIssueList.begin(), gIssueList.end());
-}
-
-
 // Parses a lint output file (pFilename).
 // If an lint issue is encountered, calls back on pfHandler.
 void Aloa::parseLintOutputFile()
@@ -218,7 +172,7 @@ void Aloa::parseLintOutputFile()
         }
         int issueNumber = atoi(number);
 
-        onNewIssueHandler(filename, issueNumber);
+        m_metricsBuilder.onNewIssue(filename, issueNumber);
 
         messageElement = messageElement->NextSiblingElement();
     }
