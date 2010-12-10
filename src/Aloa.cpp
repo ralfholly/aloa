@@ -29,7 +29,7 @@
 #include "tinyxml/tinyxml.h"
 
 #include "globals.h"
-#include "report.h"
+#include "ClassicMetricsReporter.h"
 
 using namespace std;
 
@@ -41,7 +41,8 @@ Aloa::Aloa(int argc, const char* argv[]) :
 {
     scanCommandLine();
     parseLintOutputFile();
-    m_metricsBuilder.buildMetricsLists();
+    MetricsReporter* reporter = new ClassicMetricsReporter();
+    m_metricsBuilder.buildMetricsLists(reporter);
 }
 
 int Aloa::getIssuesCount() const

@@ -27,8 +27,6 @@
 
 #include "File.h"
 #include "Issue.h"
-typedef std::vector<File> FILE_LIST;
-typedef std::vector<Issue> ISSUE_LIST;
 
 const std::string VERSION   = "4.1.0"; 
 const std::string YEAR      = "2010";
@@ -39,14 +37,6 @@ const std::string COPYLEFT  =
     "General Public License and comes WITHOUT ANY WARRANTY.\n"
     "For details, run aloa without arguments.\n";
 
-const int MAX_ISSUE_NUMBER         = 2000;    // Highest possible lint issue number
-
-
-extern const char* gpLintOutputFile;
-extern int gSeverityScore;
-extern int gIssuesCount;
-extern FILE_LIST gFileList;
-extern ISSUE_LIST gIssueList;
 
 
 #endif // _globals_h

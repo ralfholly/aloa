@@ -3,6 +3,7 @@
 
 #include "globals.h"
 #include "IssueTable.h"
+#include "MetricsReporter.h"
 
 using namespace std;
 
@@ -64,21 +65,30 @@ void MetricsBuilder::onNewIssue(const string& filename, int number)
     pIssue->addFile(filename);
 }
 
-void MetricsBuilder::buildMetricsLists()
+void MetricsBuilder::buildMetricsLists(MetricsReporter* reporter)
 {
     // Create sorted file list
     FILE_MAP::iterator iterFile = m_fileMap.begin();
     for (; iterFile != m_fileMap.end(); ++iterFile) {
-        gFileList.push_back((*iterFile).second);
+        m_fileList.push_back((*iterFile).second);
     }
-    sort(gFileList.begin(), gFileList.end());
+    sort(m_fileList.begin(), m_fileList.end());
 
     // Create sorted issue list
     ISSUE_MAP::iterator iterIssue = m_issueMap.begin();
     for (; iterIssue != m_issueMap.end(); ++iterIssue) {
-        gIssueList.push_back((*iterIssue).second);
+        m_issueList.push_back((*iterIssue).second);
     }
-    sort(gIssueList.begin(), gIssueList.end());
-}
+    sort(m_issueList.begin(), m_issueList.end());
 
+    // Now send the metrics on to the reporter.
+    assert(reporter != NULL);
+    reporter->reportMetrics(
+        m_severityScore,
+        m_issuesCount,
+        m_fileMap,
+        m_issueMap,
+        m_fileList,
+        m_issueList);
+}
 

@@ -17,17 +17,25 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <cstdlib>
+#include <iostream>
 
 #include "globals.h"
 #include "report.h"
 #include "Aloa.h"
+
+using namespace std;
+
+void reportFatalError(const string& message)
+{
+    cerr << endl << "Fatal error: " << message << endl;
+    exit(EXIT_FAILURE);
+}
 
 int main(int argc, const char* argv[])
 {
     bool issues = true;
     try {
         Aloa aloa(argc, argv);
-        reportMetrics(aloa.getIssuesCount(), aloa.getSeverityScore());
         issues = aloa.getIssuesCount() != 0;
     } catch (const ParseError& e) {
         reportFatalError("Parse error: " + e.getMessage());

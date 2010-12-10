@@ -22,7 +22,4 @@
 
 using namespace std;
 
-FILE_LIST gFileList;
-ISSUE_LIST gIssueList;
-
 
