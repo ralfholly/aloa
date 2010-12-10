@@ -19,7 +19,7 @@ OBJS := $(subst .cpp,.o,$(HELPER))
 CPP_DEPS := $(subst .cpp,.d,$(HELPER))
 
 # Make sure whole output directory tree exists.
-OUTPUT_TREE:= $(sort $(dir $(OBJS)))
+OUTPUT_TREE := $(sort $(dir $(OBJS)))
 make-output-dir := $(shell $(MKDIR) $(OUTPUT_TREE))
 
 all:
@@ -48,5 +48,9 @@ debug:
 	@echo $(CPP_DEPS)
 	@echo $(OUTPUT_TREE)
 
-.PHONY: all clean debug
+test:
+	cd ../test && test.sh
+
+.PHONY: all clean debug test
+
 

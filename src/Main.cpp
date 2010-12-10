@@ -26,7 +26,6 @@ int main(int argc, const char* argv[])
 {
     bool issues = true;
     try {
-        initGlobals();
         Aloa aloa(argc, argv);
         reportMetrics(aloa.getIssuesCount(), aloa.getSeverityScore());
         issues = aloa.getIssuesCount() != 0;

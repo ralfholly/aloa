@@ -24,6 +24,7 @@
 
 #include "globals.h"
 #include "report.h"
+#include "IssueTable.h"
 
 using namespace std;
 
@@ -48,7 +49,7 @@ static void printFileList()
             ++iter) {
         ++pos;
         int severestIssueNr = (*iter).getSeverestIssueNumber();
-        int maxSeverity = getSeverity(severestIssueNr);
+        int maxSeverity = IssueTable::getSeverity(severestIssueNr);
 
         cout << setw(7) << pos
              << setw(7) << (*iter).getSeverityScore()
@@ -95,10 +96,9 @@ static void printFooter()
          << "------" << endl
          << endl;
 
-    ISSUETYPE_LIST::iterator iter = gIssueTypeList.begin();
-    for (; iter != gIssueTypeList.end(); ++iter) {
-        cout << "Severity level " << setw(3) << (*iter).getSeverity() << " : "
-             << (*iter).getIssueName() << endl;
+    for (size_t i = 0; i < IssueTable::getIssueTableSize(); ++i) {
+        cout << "Severity level " << setw(3) << IssueTable::getIssueTableSeverityByIndex(i) << " : "
+             << IssueTable::getIssueTableTitleByIndex(i) << endl;
     }
 
     cout << endl

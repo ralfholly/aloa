@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Performs a simple regression test by comparing
 # the results of a test run on some sample files
@@ -6,16 +6,21 @@
 
 exit_code=0
 
-ALOA_PATH=make/aloa
+ALOA_PATH=../make/aloa
+CURR_DIR=$(pwd)
 
+if [ "test" != ${CURR_DIR##*/} ]; then
+    echo "Run this script from the 'test' directory."
+    exit 1
+fi
 if [ ! -x "$ALOA_PATH" ]; then
     echo "$ALOA_PATH doesn't exist. Please perform a build first."
     exit 1
 fi
 
-$ALOA_PATH -f test/lint.output.xml > test/output
+$ALOA_PATH -f lint.output.xml > output
 
-diff test/output test/output.ref
+diff output output.ref
 
 if [ $? -ne 0 ]; then 
     echo "*** Test failed! ***"

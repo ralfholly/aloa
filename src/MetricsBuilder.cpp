@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "globals.h"
+#include "IssueTable.h"
 
 using namespace std;
 
@@ -33,7 +34,7 @@ void MetricsBuilder::addIssuesCount(int count)
 
 void MetricsBuilder::onNewIssue(const string& filename, int number)
 {
-    int severity = ::getSeverity(number);
+    int severity = IssueTable::getSeverity(number);
 
     // Update global metrics
     addIssuesCount(1);

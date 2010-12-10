@@ -40,38 +40,8 @@ const std::string COPYLEFT  =
     "For details, run aloa without arguments.\n";
 
 const int MAX_ISSUE_NUMBER         = 2000;    // Highest possible lint issue number
-void initGlobals(void);
-int getSeverity(int number);
 
 
-// Encapsulates a type of Lint issue (ie. error, warning, informational)
-class IssueType
-{
-public:
-    IssueType(const std::string& issueName, int severity, int lowerBound, int upperBound) :
-        m_issueName(issueName), m_severity(severity),
-        m_lowerBound(lowerBound), m_upperBound(upperBound) {}
-    const std::string& getIssueName() const      {
-        return m_issueName;
-    }
-    int getSeverity() const                      {
-        return m_severity;
-    }
-    bool isThisIssueType(int issueNo) const      {
-        return m_lowerBound <= issueNo && issueNo <= m_upperBound;
-    }
-
-private:
-    std::string m_issueName;        // Descriptive name of this issue type
-    int m_severity;                 // Severity level of this issue type
-    int m_lowerBound;               // Issue numbers in the range [m_lowerBound;m_upperBound]
-    int m_upperBound;               // belong to this issue type
-};
-
-
-typedef std::vector<IssueType> ISSUETYPE_LIST;
-
-extern ISSUETYPE_LIST gIssueTypeList;
 extern const char* gpLintOutputFile;
 extern int gSeverityScore;
 extern int gIssuesCount;
