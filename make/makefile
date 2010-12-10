@@ -36,9 +36,8 @@ endif
 
 all: $(TARGET_EXE)
 
-$(TARGET_EXE): $(OBJS) 
+$(TARGET_EXE): $(OBJS)
 	g++  -o"$(TARGET_EXE)" $(OBJS) 
-	@echo 'Done.'
 
 clean:
 	-$(RM) $(OBJ_DIR) $(TARGET_EXE) 
