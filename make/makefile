@@ -50,6 +50,9 @@ debug:
 test:
 	cd ../test && test.sh
 
-.PHONY: all clean debug test
+todo:
+	@grep --exclude-dir ".svn*" -iRE "TODO:\w.+" ..
+
+.PHONY: all clean debug test todo
 
 
