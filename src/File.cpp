@@ -23,9 +23,9 @@
 
 const int File::UNUSED_ISSUE_NUMBER; 
 
-void File::addIssue(int issueNumber) 
+void File::addIssue(int issueNumber, int line) 
 {
-    m_issues.push_back(issueNumber);
+    m_issues.push_back(FileIssue(issueNumber, line));
     int severity = IssueTable::getSeverity(issueNumber);
     if (   m_severestIssueNumber == UNUSED_ISSUE_NUMBER
             || severity > IssueTable::getSeverity(m_severestIssueNumber) ) {

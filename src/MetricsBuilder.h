@@ -34,7 +34,7 @@ public:
     int getIssuesCount() const;
     void addSeverityScore(int score);
     void addIssuesCount(int count);
-    void onNewIssue(const std::string& filename, int issueNumber);
+    void onNewIssue(const std::string& filename, int issueNumber, int line);
     void buildMetricsLists(MetricsReporter* reporter);
 
 private:

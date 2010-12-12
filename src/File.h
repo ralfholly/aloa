@@ -22,6 +22,13 @@
 #include <vector>
 #include <string>
 
+struct FileIssue
+{
+    FileIssue(int number, int line) : m_number(number), m_line(line) { }
+    int m_number;
+    int m_line;
+};
+
 // Encapsulates a source code file with possibly many lint issues
 class File
 {
@@ -32,7 +39,7 @@ public:
         m_severestIssueNumber(UNUSED_ISSUE_NUMBER) {}
 
     // Registers a lint issue with this file
-    void addIssue(int issueNumber);
+    void addIssue(int issueNumber, int line);
 
     const std::string& getFilename() const {
         return m_filename;
@@ -51,10 +58,10 @@ private:
     static const int UNUSED_ISSUE_NUMBER = 0;  // Sentinel marker value
 
     friend bool operator<(const File& lhs, const File& rhs);
-    std::string m_filename;         // The name of this source code module
-    int m_severityScore;            // The accumulated severity score
-    int m_severestIssueNumber;      // The issue number with the highest severity
-    std::vector<int> m_issues;      // A list of all Lint issues contained in this file
+    std::string m_filename;             // The name of this source code module
+    int m_severityScore;                // The accumulated severity score
+    int m_severestIssueNumber;          // The issue number with the highest severity
+    std::vector<FileIssue> m_issues;    // A list of all Lint issues contained in this file
 };
 
 inline bool operator<(const File& lhs, const File&  rhs)

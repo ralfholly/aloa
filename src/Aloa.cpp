@@ -32,12 +32,12 @@
 
 using namespace std;
 
-Aloa::Aloa(int argc, const char* argv[]) : 
-    m_argc(argc), 
-    m_argv(argv), 
+Aloa::Aloa(int argc, const char* argv[]) :
+    m_argc(argc),
+    m_argv(argv),
     m_lintOutputFile(""),
     m_metricsBuilder(),
-    m_xmlOutputFile("") 
+    m_xmlOutputFile("")
 {
     scanCommandLine();
     parseLintOutputFile();
@@ -66,30 +66,30 @@ void Aloa::showHelp() const
     showVersion();
 
     cout << endl
-         << "This program is free software; you can redistribute it and/or" << endl
-         << "modify it under the terms of the GNU General Public License" << endl
-         << "as published by the Free Software Foundation; either version 2" << endl
-         << "of the License, or (at your option) any later version." << endl
-         << endl
-         << "This program is distributed in the hope that it will be useful," << endl
-         << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << endl
-         << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << endl
-         << "GNU General Public License for more details." << endl
-         << endl
-         << "You should have received a copy of the GNU General Public License" << endl
-         << "along with this program; if not, write to the Free Software" << endl
-         << "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA." << endl
-         << endl
-         << "Usage: aloa <command> [option...]" << endl
-         << endl
-         << "command:" << endl
-         << "   -h, --help                      Shows help message" << endl
-         << "   -v, --version                   Shows version information" << endl
-         << "   -f <file>, --file <file>        Analyzes Lint ouput file (XML-formatted)" << endl
-         << endl
-         << "option:" << endl
-         << "   -x <file>, --xmlout <file>      Writes output to an XML file instead of stdout" << endl
-         << endl;
+            << "This program is free software; you can redistribute it and/or" << endl
+            << "modify it under the terms of the GNU General Public License" << endl
+            << "as published by the Free Software Foundation; either version 2" << endl
+            << "of the License, or (at your option) any later version." << endl
+            << endl
+            << "This program is distributed in the hope that it will be useful," << endl
+            << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << endl
+            << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << endl
+            << "GNU General Public License for more details." << endl
+            << endl
+            << "You should have received a copy of the GNU General Public License" << endl
+            << "along with this program; if not, write to the Free Software" << endl
+            << "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA." << endl
+            << endl
+            << "Usage: aloa <command> [option...]" << endl
+            << endl
+            << "command:" << endl
+            << "   -h, --help                      Shows help message" << endl
+            << "   -v, --version                   Shows version information" << endl
+            << "   -f <file>, --file <file>        Analyzes Lint ouput file (XML-formatted)" << endl
+            << endl
+            << "option:" << endl
+            << "   -x <file>, --xmlout <file>      Writes output to an XML file instead of stdout" << endl
+            << endl;
 
     exit(0);
 }
@@ -102,7 +102,7 @@ const char* Aloa::getArgOption(const char* optShort, const char* optLong) const
     for (int i = 1; i < m_argc; ++i) {
         // If short or long option found.
         if ((optShort != NULL && strcmp(optShort, m_argv[i]) == 0)
-                || (optLong != NULL && strcmp(optLong, m_argv[i]) == 0)) {
+            || (optLong != NULL && strcmp(optLong, m_argv[i]) == 0)) {
 
             // Peek at next command-line argument; if it does not start with a
             // dash, it's the option of our current argument.
@@ -130,7 +130,7 @@ void Aloa::scanCommandLine()
         showVersion();
         exit(0);
     } else if ((opt = getArgOption("-f", "--file")) != NULL &&
-        *opt != '\0') {
+            *opt != '\0') {
         // Great! Got a lint output file...
         m_lintOutputFile = opt;
 
@@ -156,21 +156,21 @@ void Aloa::parseLintOutputFile()
         throwXmlParseError(&doc, doc.ErrorDesc());
     }
 
-    TiXmlNode *root = 0;
-    TiXmlElement *messageElement = 0;
+    TiXmlNode* root = 0;
+    TiXmlElement* messageElement = 0;
 
     root = doc.FirstChild("doc");
     messageElement = root->FirstChildElement("message");
 
     while (messageElement != 0) {
-        TiXmlElement *fileElement, *codeElement;
+        TiXmlElement* fileElement, *codeElement;
 
         // Get filename from 'file' element.
         fileElement = messageElement->FirstChildElement("file");
         if (fileElement == 0) {
             throwXmlParseError(fileElement, "'file' element not found");
         }
-        const char *filename = fileElement->GetText();
+        const char* filename = fileElement->GetText();
         if (filename == 0 || *filename == '\0') {
             filename = "<unknown>";
         }
@@ -180,18 +180,27 @@ void Aloa::parseLintOutputFile()
         if (fileElement == 0) {
             throwXmlParseError(codeElement, "'code' element not found");
         }
-        const char *number = codeElement->GetText();
+        const char* number = codeElement->GetText();
         if (number == 0) {
             throwXmlParseError(codeElement, "'code' value test missing");
         }
 
-        int issueNumber = atoi(number);
-        m_metricsBuilder.onNewIssue(filename, issueNumber);
+        // Get line number from 'line' element.
+        codeElement = fileElement->NextSiblingElement("line");
+        if (fileElement == 0) {
+            throwXmlParseError(codeElement, "'line' element not found");
+        }
+        const char* line = codeElement->GetText();
+        if (line == 0) {
+            throwXmlParseError(codeElement, "'line' value test missing");
+        }
+
+        m_metricsBuilder.onNewIssue(filename, atoi(number), atoi(line));
         messageElement = messageElement->NextSiblingElement();
     }
 }
 
-void Aloa::throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc)
+void Aloa::throwXmlParseError(const TiXmlBase* xmlbase, const std::string& desc)
 {
     std::ostringstream ost;
     ost << desc << " row: " << xmlbase->Row() << " col: " << xmlbase->Column();

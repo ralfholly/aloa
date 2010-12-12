@@ -51,7 +51,7 @@ void MetricsBuilder::addIssuesCount(int count)
     m_issuesCount += count;
 }
 
-void MetricsBuilder::onNewIssue(const string& filename, int number)
+void MetricsBuilder::onNewIssue(const string& filename, int number, int line)
 {
     int severity = IssueTable::getSeverity(number);
 
@@ -68,7 +68,7 @@ void MetricsBuilder::onNewIssue(const string& filename, int number)
         iterFile = m_fileMap.insert(make_pair(filename, file)).first;
     }
     File* file = &(*iterFile).second ;
-    file->addIssue(number);
+    file->addIssue(number, line);
 
     // Update metrics of this issue.
     // If given issue is already known and has a corresponding Issue object,
