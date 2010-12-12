@@ -18,14 +18,25 @@ if [ ! -x "$ALOA_PATH" ]; then
     exit 1
 fi
 
+###################################
+# Test output to stdout.
+#
 $ALOA_PATH -f lint.output.xml > output
-
 diff output output.ref
-
 if [ $? -ne 0 ]; then 
-    echo "*** Test failed! ***"
+    echo "*** Test (stdout) failed! ***"
+    exit_code=1; 
+    fi
+
+###################################
+# Test XML ouput.
+#
+$ALOA_PATH -f lint.output.xml -x output.xml 
+diff output.xml output.xml.ref
+if [ $? -ne 0 ]; then 
+    echo "*** Test (XML output) failed! ***"
     exit_code=1; 
     fi
 
 exit $exit_code
-    
+

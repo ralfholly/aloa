@@ -1,9 +1,4 @@
 
-ALOA version 4.1.0. Copyright 2010 by Ralf Holly.
-This program is free software according to the GNU
-General Public License and comes WITHOUT ANY WARRANTY.
-For details, run aloa without arguments.
-
 Total number of issues found : 7672
 Total severity score ....... : 19473
 
@@ -279,5 +274,4 @@ Msg    Lint issue number
 Sev    Issue severity level
 Count  Total number of occurrences of issue in project
 Issues Total number of issues in file
-
 

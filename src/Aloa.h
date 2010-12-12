@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////// // ALOA - A Lint Output Analyzer
+///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
@@ -19,8 +19,18 @@
 #ifndef Aloa_h
 #define Aloa_h
 
-#include <string>
 #include "MetricsBuilder.h"
+
+#include <string>
+
+const std::string VERSION   = "4.1.0"; 
+const std::string YEAR      = "2010";
+const std::string COPYRIGHT = "ALOA version " + VERSION + 
+    ". Copyright " + YEAR + " by Ralf Holly.\n";
+const std::string COPYLEFT  =
+    "This program is free software according to the GNU\n"
+    "General Public License and comes WITHOUT ANY WARRANTY.\n"
+    "For details, run aloa without arguments.\n";
 
 class TiXmlBase;
 
@@ -39,7 +49,6 @@ class Aloa
 public:
     Aloa(int argc, const char* argv[]);
     int getIssuesCount() const;
-    int getSeverityScore() const;
 
 private:
     Aloa();
@@ -57,6 +66,7 @@ private:
     const char** m_argv;
     std::string m_lintOutputFile;
     MetricsBuilder m_metricsBuilder;
+    std::string m_xmlOutputFile;
 };
 
 #endif

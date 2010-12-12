@@ -1,5 +1,4 @@
 ///////////////////////////////////////////////////////////////////////////////
-// ALOA - A Lint Output Analyzer
 // Copyright (c) 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
@@ -17,15 +16,28 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "parse.h"
+#ifndef XmlMetricsReporter_h
+#define XmlMetricsReporter_h
 
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "MetricsReporter.h"
+#include <string>
 
+class TiXmlElement;
 
-// TODO:2010-12-05:ralf:delete this file (and header as well)
+class XmlMetricsReporter : public MetricsReporter
+{
+public:
+    XmlMetricsReporter(const std::string& xmlfile);
+    virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
+        const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList);
 
+private:
+    void printFileList(const FILE_LIST& fileList, TiXmlElement* root);
+    void printIssueList(const ISSUE_LIST& issueList, TiXmlElement* root);
 
+    std::string m_xmlfile;
+};
+
+#endif
 

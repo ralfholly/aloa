@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////// // ALOA - A Lint Output Analyzer
+///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
@@ -17,6 +17,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "Aloa.h"
+#include "ClassicMetricsReporter.h"
+#include "XmlMetricsReporter.h"
+#include "tinyxml/tinyxml.h"
 
 #include <iostream>
 #include <vector>
@@ -26,10 +29,6 @@
 #include <cassert>
 #include <cstring>
 #include <sstream>
-#include "tinyxml/tinyxml.h"
-
-#include "globals.h"
-#include "ClassicMetricsReporter.h"
 
 using namespace std;
 
@@ -37,22 +36,24 @@ Aloa::Aloa(int argc, const char* argv[]) :
     m_argc(argc), 
     m_argv(argv), 
     m_lintOutputFile(""),
-    m_metricsBuilder()
+    m_metricsBuilder(),
+    m_xmlOutputFile("") 
 {
     scanCommandLine();
     parseLintOutputFile();
-    MetricsReporter* reporter = new ClassicMetricsReporter();
+    MetricsReporter* reporter;
+    if (m_xmlOutputFile.empty()) {
+        reporter = new ClassicMetricsReporter();
+    } else {
+        reporter = new XmlMetricsReporter(m_xmlOutputFile);
+    }
     m_metricsBuilder.buildMetricsLists(reporter);
+    delete reporter;
 }
 
 int Aloa::getIssuesCount() const
 {
     return m_metricsBuilder.getIssuesCount();
-}
-
-int Aloa::getSeverityScore() const
-{
-    return m_metricsBuilder.getSeverityScore();
 }
 
 void Aloa::showVersion() const
@@ -79,11 +80,14 @@ void Aloa::showHelp() const
          << "along with this program; if not, write to the Free Software" << endl
          << "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA." << endl
          << endl
-         << "Usage: aloa [command]" << endl
+         << "Usage: aloa <command> [option...]" << endl
          << endl
+         << "command:" << endl
          << "   -h, --help                      Shows help message" << endl
          << "   -v, --version                   Shows version information" << endl
          << "   -f <file>, --file <file>        Analyzes Lint ouput file (XML-formatted)" << endl
+         << endl
+         << "option:" << endl
          << "   -x <file>, --xmlout <file>      Writes output to an XML file instead of stdout" << endl
          << endl;
 
@@ -125,9 +129,18 @@ void Aloa::scanCommandLine()
     } else if (getArgOption("-v", "--version") != NULL) {
         showVersion();
         exit(0);
-    } else if ((opt = getArgOption("-f", "--file")) != NULL) {
+    } else if ((opt = getArgOption("-f", "--file")) != NULL &&
+        *opt != '\0') {
         // Great! Got a lint output file...
         m_lintOutputFile = opt;
+
+        // Write output to XML file instead of stdout?
+        if ((opt = getArgOption("-x", "--xmlout")) != NULL) {
+            if (*opt == '\0') {
+                showHelp();
+            }
+            m_xmlOutputFile = opt;
+        }
     } else {
         showHelp();
     }
@@ -171,10 +184,9 @@ void Aloa::parseLintOutputFile()
         if (number == 0) {
             throwXmlParseError(codeElement, "'code' value test missing");
         }
+
         int issueNumber = atoi(number);
-
         m_metricsBuilder.onNewIssue(filename, issueNumber);
-
         messageElement = messageElement->NextSiblingElement();
     }
 }

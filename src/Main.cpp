@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////// // ALOA - A Lint Output Analyzer
+///////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
@@ -16,12 +16,10 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "Aloa.h"
+
 #include <cstdlib>
 #include <iostream>
-
-#include "globals.h"
-#include "report.h"
-#include "Aloa.h"
 
 using namespace std;
 

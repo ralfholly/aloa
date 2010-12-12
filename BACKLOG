@@ -1,0 +1,15 @@
+Possible extensions/modifications to ALOA:
+
+Add support for output of inner data tables (file map/issue map).
+Add hll.pl and gcclinter (tools/).
+Add doxygen comments.
+
+Run profiler on ALOA.
+Run PC-Lint on ALOA (Make a snapshot first for training purposes!).
+
+Makefile dependency on makefile.
+
+WIN32 Build.
+
+GUI-based issue browser.
+
