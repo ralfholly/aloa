@@ -15,8 +15,8 @@ For further information consult the ALOA help, e. g.:
     aloa --help
 
 legacy/ 
-    Contains the original Aloa for Win32 as well as the corresponding DDJ
-    article as PDF.
+    Contains the original version of ALOA for Win32 as well as the
+    corresponding DDJ article.
 
 tools/
     Contains various PC-Lint-related utilities; see tools/README for details.
