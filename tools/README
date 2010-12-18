@@ -1,2 +1,27 @@
-TODO:2010-12-14:ralf
-:
+This directory contains various PC-Lint related tools.
+
+HLL
+
+    HLL -- Heuristic Lint issue Locator.
+
+    After a PC-Lint run, you frequently want to know what exactly a warning is
+    about. In this case, you fire-up 'msg.txt' and search for the error number.
+
+    With HLL its much easier: you just pass it the error number (or numbers)
+    and it extracts the corresponding parts from ‘msg.txt’ and displays them on
+    the console.
+
+    You can find more info on HLL in the Perl script or by running HLL without any
+    arguments. 
+
+
+GCCLINT
+    
+    GCCLINT allows you to use PC-Lint via the Wine emulator with Linux/GCC. 
+
+    In a first step, GCCLINT extracts GCC include path settings and
+    preprocesser definitions and creates a corresponding .lnt file. In a second
+    step, this .lnt file is passed (together with any user provided PC-Lint
+    command-line options) to PC-Lint.
+
+
