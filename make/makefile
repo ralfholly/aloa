@@ -37,7 +37,7 @@ endif
 all: $(TARGET_EXE)
 
 $(TARGET_EXE): $(OBJS)
-	g++  -o"$(TARGET_EXE)" $(OBJS) 
+	$(CXX) -o $(TARGET_EXE) $^
 
 clean:
 	-$(RM) $(OBJ_DIR) $(TARGET_EXE) 

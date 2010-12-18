@@ -1,0 +1,22 @@
+#!/bin/sh
+
+##################################################
+# HLL wrapper script.
+# Put this script together with hll.pl in a 
+# directory that is listed in $PATH, eg. ~/bin.
+##################################################
+
+if [ ! -d "$PCLINT_PATH" ]; then
+    echo "Please define \$PCLINT_PATH"
+    exit 1
+fi
+
+MSG_TXT_PATH="$PCLINT_PATH/msg.txt"
+
+if [ ! -f "$MSG_TXT_PATH" ]; then
+    echo "Cannot find $MSG_TXT_PATH"
+    exit 1
+fi
+
+hll.pl "$MSG_TXT_PATH" $*
+

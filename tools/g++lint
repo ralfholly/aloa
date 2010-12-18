@@ -1,0 +1,10 @@
+#!/bin/bash
+
+##################################################
+# gcclint wrapper script for C++ code.
+# Put this script together with gcclint.sh in a 
+# directory that is listed in $PATH, eg. ~/bin.
+##################################################
+
+. gcclint.sh $*
+
