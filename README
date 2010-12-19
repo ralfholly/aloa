@@ -1,7 +1,7 @@
                          ALOA -- A Lint Output Analyzer.
 
-When this is ready, it will be the GCC/G++ version of the original ALOA tool
-(http://www.approxion.com/?page_id=26). Maybe it will be even more. Who knows?
+This project is the continuation of the original ALOA project, as featured in DDJ:
+    http://www.drdobbs.com/184401810
 
 Usage:
 

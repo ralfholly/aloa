@@ -47,7 +47,7 @@ Aloa::Aloa(int argc, const char* argv[]) :
     } else {
         reporter = new XmlMetricsReporter(m_xmlOutputFile);
     }
-    m_metricsBuilder.buildMetricsLists(reporter);
+    m_metricsBuilder.reportMetrics(reporter);
     delete reporter;
 }
 
@@ -195,7 +195,7 @@ void Aloa::parseLintOutputFile()
             throwXmlParseError(codeElement, "'line' value test missing");
         }
 
-        m_metricsBuilder.onNewIssue(filename, atoi(number), atoi(line));
+        m_metricsBuilder.onNewIssue(atoi(number), filename, atoi(line));
         messageElement = messageElement->NextSiblingElement();
     }
 }

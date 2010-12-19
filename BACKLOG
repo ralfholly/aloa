@@ -1,6 +1,5 @@
 Possible extensions/modifications to ALOA:
 
-Add hll.pl and gcclinter (tools/).
 Add doxygen comments.
 
 Add support for output of inner data tables (file map/issue map).

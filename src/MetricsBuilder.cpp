@@ -41,23 +41,13 @@ int MetricsBuilder::getIssuesCount() const
     return m_issuesCount;
 }
 
-void MetricsBuilder::addSeverityScore(int score)
-{
-    m_severityScore += score;
-}
-
-void MetricsBuilder::addIssuesCount(int count)
-{
-    m_issuesCount += count;
-}
-
-void MetricsBuilder::onNewIssue(const string& filename, int number, int line)
+void MetricsBuilder::onNewIssue(int number, const string& filename, int line)
 {
     int severity = IssueTable::getSeverity(number);
 
     // Update global metrics
-    addIssuesCount(1);
-    addSeverityScore(severity);
+    ++m_issuesCount;
+    m_severityScore += severity;
 
     // Update metrics of this file.
     // If given filename is already known and has a corresponding File object,
@@ -83,7 +73,7 @@ void MetricsBuilder::onNewIssue(const string& filename, int number, int line)
     pIssue->addFile(filename);
 }
 
-void MetricsBuilder::buildMetricsLists(MetricsReporter* reporter)
+void MetricsBuilder::reportMetrics(MetricsReporter* reporter)
 {
     // Create sorted file list
     FILE_MAP::iterator iterFile = m_fileMap.begin();

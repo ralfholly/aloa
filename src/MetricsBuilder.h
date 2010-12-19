@@ -16,6 +16,10 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** MetricsBuild -- header file.
+ * @file
+ */
+
 #ifndef MetricsBuilder_h
 #define MetricsBuilder_h
 
@@ -25,17 +29,38 @@ class File;
 class Issue;
 class MetricsReporter;
 
+/** This class collects and builds Lint metrics.
+ * Whenever Aloa has fetched a Lint issue, it passes is to an instance of
+ * MetricsBuilder by calling onNewIssue(). When all issues have been read, Aloa
+ * calls buildMetricsLists() and passes an instance of a MetricsReporter, whose
+ * job it is to present the metrics to the user.
+ */
 class MetricsBuilder
 {
 public:
+    /** MetricsBuild constructor. */
     MetricsBuilder();
 
+    /** Returns the total severity score of all issues found. */
     int getSeverityScore() const;
+
+    /** Returns the total number of issues found. */
     int getIssuesCount() const;
-    void addSeverityScore(int score);
-    void addIssuesCount(int count);
-    void onNewIssue(const std::string& filename, int issueNumber, int line);
-    void buildMetricsLists(MetricsReporter* reporter);
+
+    /** Informs MetricsBuilder about a new issue.
+     * @param number Issue number of this issue.
+     * @param filename Name of file to which issue applies.
+     * @param line Line number in file to which this issue belongs.
+     */ 
+    void onNewIssue(int number, const std::string& filename, int line);
+
+    /** Builds and reports metrics. 
+     * @param reporter MetricsReporter that is to be used to report the computed
+     * metrics.
+     * @note This method shall not be called before all issues have been
+     * reported via onNewIssue().
+     */
+    void reportMetrics(MetricsReporter* reporter);
 
 private:
     MetricsBuilder(const MetricsBuilder& rhs);
