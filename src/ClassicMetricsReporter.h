@@ -19,8 +19,14 @@
 #ifndef ClassicMetricsReporter_h
 #define ClassicMetricsReporter_h
 
+/** ClassicMetricsReporter -- header file. 
+ * @file
+ */
+
 #include "MetricsReporter.h"
 
+/** This class is a concrete subclass of MetricsReporter that writes metrics to
+ * standard output. */
 class ClassicMetricsReporter : public MetricsReporter
 {
 public:

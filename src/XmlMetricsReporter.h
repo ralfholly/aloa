@@ -16,6 +16,10 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** XmlMetricsReporter -- header file. 
+ * @file
+ */
+
 #ifndef XmlMetricsReporter_h
 #define XmlMetricsReporter_h
 
@@ -24,9 +28,13 @@
 
 class TiXmlElement;
 
+/** This class is a concrete subclass of MetricsReporter that writes metrics to
+ * as an XML file. */
 class XmlMetricsReporter : public MetricsReporter
 {
 public:
+    /** Constructor.
+     * @param xmlfile Name of the XML file to which the ouput is written to. */
     XmlMetricsReporter(const std::string& xmlfile);
     virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,

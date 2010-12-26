@@ -16,6 +16,10 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** XmlMetricsReporter -- implementation file. 
+ * @file
+ */
+
 #include "XmlMetricsReporter.h"
 #include "tinyxml/tinyxml.h"
 #include "IssueTable.h"
