@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,40 +16,73 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** File -- header file.
+ * @file
+ */
+
 #ifndef File_h
 #define File_h
 
 #include <vector>
 #include <string>
 
+/** Encapsulates a particular issue reported against a file. */
 struct FileIssue
 {
+    /** Constructor.
+     * @param number Issue number.
+     * @param line Line on which issue was found.
+     */
     FileIssue(int number, int line) : m_number(number), m_line(line) { }
+
+    /** Issue number. */
     int m_number;
+    /** Line on which issue was found. */
     int m_line;
 };
 
-// Encapsulates a source code file with possibly many lint issues
+/** Encapsulates a source code file with possibly many lint issues. */
 class File
 {
 public:
+    /** Constructor.
+     * @param filename Filename of this file.
+     */
     File(const std::string& filename) :
         m_filename(filename),
         m_severityScore(0),
         m_severestIssueNumber(UNUSED_ISSUE_NUMBER) {}
 
-    // Registers a lint issue with this file
-    void addIssue(int issueNumber, int line);
+    /** Registers a lint issue with this file.
+     * @param number Issue number.
+     * @param line Line on which issue was found.
+     */
+    void addIssue(int number, int line);
 
+    /** Returns the filename of this file.
+     * @return Filename of this file.
+     */
     const std::string& getFilename() const {
         return m_filename;
     }
+
+    /** Returns the severity score of this file.
+     * @return Severity score.
+     */
     int getSeverityScore() const {
         return m_severityScore;
     }
+
+    /** Returns the issue number of the severest issue found in this file. 
+     * @return Issue number.
+     */
     int getSeverestIssueNumber() const {
         return m_severestIssueNumber;
     }
+
+    /** Returns the total number of issues found in this file.
+     * @return Total number of issues.
+     */
     unsigned int getIssueCount() const {
         return m_issues.size();
     }

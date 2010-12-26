@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,6 +16,10 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** MetricTypes -- header file.
+ * @file
+ */
+
 #ifndef MetricsTypes_h
 #define MetricsTypes_h
 
@@ -26,9 +30,16 @@
 #include <map>
 #include <string>
 
+/** Map of filename vs File objects. */
 typedef std::map<std::string, File> FILE_MAP;
+
+/** Map of issue number vs Issue objects. */
 typedef std::map<int, Issue> ISSUE_MAP;
+
+/** List of all File objects. */
 typedef std::vector<File> FILE_LIST;
+
+/** List of all Issue objects. */
 typedef std::vector<Issue> ISSUE_LIST;
 
 #endif

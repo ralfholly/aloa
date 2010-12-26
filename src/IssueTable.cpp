@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -19,6 +19,17 @@
 #include "IssueTable.h"
 
 #include <cassert>
+
+const IssueTable::IssueTableEntry IssueTable::ISSUE_TABLE[] = 
+{
+//    Category             Sev  From  To
+//    -----------------------------------
+    { "Elective note",       1, 900, 999 },
+    { "Informational",       2, 700, 899 },
+    { "Warning",             3, 400, 699 },
+    { "Syntax error",        4,   1, 199 },
+    { "PC-Lint error",     999, 200, 399 },
+};
 
 const int IssueTable::MAX_ISSUE_NUMBER;
 

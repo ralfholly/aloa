@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,6 +16,10 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** File -- implementation file.
+ * @file
+ */
+
 #include "File.h"
 #include "IssueTable.h"
 
@@ -23,13 +27,13 @@
 
 const int File::UNUSED_ISSUE_NUMBER; 
 
-void File::addIssue(int issueNumber, int line) 
+void File::addIssue(int number, int line) 
 {
-    m_issues.push_back(FileIssue(issueNumber, line));
-    int severity = IssueTable::getSeverity(issueNumber);
+    m_issues.push_back(FileIssue(number, line));
+    int severity = IssueTable::getSeverity(number);
     if (   m_severestIssueNumber == UNUSED_ISSUE_NUMBER
             || severity > IssueTable::getSeverity(m_severestIssueNumber) ) {
-        m_severestIssueNumber = issueNumber;
+        m_severestIssueNumber = number;
     }
     m_severityScore += severity;
 }

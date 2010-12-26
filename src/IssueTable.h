@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,36 +16,54 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** IssueTable -- header file. 
+ * @file
+ */
+
 #ifndef IssueTable_h
 #define IssueTable_h
 
 #include <cstddef>
 
-struct IssueTableEntry
-{
-    const char* title;
-    int severity;
-    int lowerBound;
-    int upperBound;
-};
-
-const IssueTableEntry ISSUE_TABLE[] = 
-{
-    { "Elective note",       1, 900, 999 },
-    { "Informational",       2, 700, 899 },
-    { "Warning",             3, 400, 699 },
-    { "Syntax error",        4,   1, 199 },
-    { "PC-Lint error",     999, 200, 399 },
-};
-
+/** Encapsulates a table of PC-Lint issue categories. */
 class IssueTable
 {
 public:
+    /** Highest possible PC-Lint issue number. */
     static const int MAX_ISSUE_NUMBER = 2000;
+
+    /** Returns size of this table.
+     * @return Number of table rows. 
+     */
     static size_t getIssueTableSize();
+
+    /** Looks-up severity by number. 
+     * @param number Issue number.
+     * @return Severity of given number.
+     */
     static int getSeverity(int number);
+
+    /** Returns severity of a given table row.
+     * @param i table row.
+     * @return Severety of given row.
+     */
     static int getIssueTableSeverityByIndex(size_t i);
+
+    /** Returns category title of a given table row.
+     * @param i table row.
+     * @return Category title of given row.
+     */
     static const char* getIssueTableTitleByIndex(size_t i);
+
+private:
+    struct IssueTableEntry
+    {
+        const char* title;
+        int severity;
+        int lowerBound;
+        int upperBound;
+    };
+    static const IssueTableEntry ISSUE_TABLE[]; 
 };
 
 #endif

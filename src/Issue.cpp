@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,12 +16,14 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** Issue -- implementation file.
+ * @file
+ */
+
 #include "Issue.h"
 #include <cassert>
 
-using namespace std;
-
-void Issue::addFile(const string& filename) 
+void Issue::addFile(const std::string& filename) 
 {
     m_files.push_back(filename);
     ++m_count;

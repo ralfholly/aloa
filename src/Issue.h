@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2010 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,45 +16,66 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
+/** Issue -- header file.
+ * @file
+ */
+
 #ifndef Issue_h
 #define Issue_h
 
 #include <vector>
 #include <string>
 
-// Encapsulates a lint issue (ie. warning, error)
+/** This class encapsulates a lint issue (ie. warning, error). */
 class Issue
 {
 public:
+    /** Constructor.
+     * @param number Issue number.
+     * @param severity Severity of issue.
+     */
     Issue(int number, int severity) :
         m_number(number),
         m_severity(severity),
         m_count(0) {}
 
-    // Register a file with this issue
+    /** Register a file with this issue. 
+     * @param filename Filename to which this issue is registered.
+     */
     void addFile(const std::string& filename);
 
+    /** Returns issue number of this issue.
+     * @return Issue number.
+     */
     int getNumber() const { 
         return m_number;
     }
+
+    /** Returns severity of this issue.
+     * @return Severity.
+     */
     int getSeverity() const {
         return m_severity;
     }
+
+    /** Returns total number of occurrences of this issue.
+     * @return Number of occurrences.
+     */
     int getCount() const {
         return m_count;
     }
 
 private:
     friend bool operator<(const Issue& lhs, const Issue& rhs);
-    int m_number;         // Lint issue number
-    int m_severity;       // The severity level of this lint issue
-    int m_count;          // Total number of occurrences of this lint issue
-    std::vector<std::string> m_files;  // List of all files that contain this lint issue
+    int m_number;         // Lint issue number.
+    int m_severity;       // The severity level of this lint issue.
+    int m_count;          // Total number of occurrences of this lint issue.
+    std::vector<std::string> m_files;  // List of all files that contain this lint issue.
 };
 
 inline bool operator<(const Issue& lhs, const Issue& rhs)
 {
-    // Sort by count, then by severity
+    // Sort by count, then by severity.
     if (lhs.m_count == rhs.m_count)
         return lhs.m_severity > rhs.m_severity;
     return lhs.m_count > rhs.m_count;

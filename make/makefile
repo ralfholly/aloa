@@ -9,6 +9,8 @@ CXXFLAGS := -O0 -g3 -Wall
 TARGET_EXE := aloa
 SRC_DIR := ../src
 OBJ_DIR := obj
+DOXY_DIR := ../doxygen
+DOXY_FILE := $(PWD)/Doxyfile
 
 # Create list of all cpp files.
 SRCS := $(shell find $(SRC_DIR) -name '*.cpp')
@@ -40,7 +42,7 @@ $(TARGET_EXE): $(OBJS)
 	$(CXX) -o $(TARGET_EXE) $^
 
 clean:
-	-$(RM) $(OBJ_DIR) $(TARGET_EXE) 
+	-$(RM) $(OBJ_DIR) $(TARGET_EXE) $(DOXY_DIR)
 
 debug:
 	@echo $(OBJS)
@@ -53,6 +55,9 @@ test:
 todo:
 	@grep --exclude-dir ".svn*" -iRE "TODO:\w.+" ..
 
-.PHONY: all clean debug test todo
+doxy:
+	@cd $(SRC_DIR) && doxygen $(DOXY_FILE)
+
+.PHONY: all clean debug test todo doxygen
 
 
