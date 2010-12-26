@@ -1,4 +1,4 @@
 
 4.0.0  2010-12-04   Initial release.
-TODO:2010-12-12:ralf:Update for release 4.1.0
-4.1.0               XML output, major refactoring, make test.
+4.1.0  2010-12-26   XML output, major refactoring, Doxygen documentation, 
+                    make test, make todo, make doxy.
