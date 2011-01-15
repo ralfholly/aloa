@@ -40,21 +40,18 @@ size_t IssueTable::getIssueTableSize()
 
 int IssueTable::getSeverity(int number)
 {
-    // Issue numbers 1xxx have same severity as numbers xxx.
-    number %= 1000;
+   const size_t tableSize = getIssueTableSize();
 
-    const size_t tableSize = getIssueTableSize();
-
-    for (size_t i = 0; i < tableSize; ++i) {
-        if (ISSUE_TABLE[i].lowerBound <= number &&
-                ISSUE_TABLE[i].upperBound >= number) {
-            return ISSUE_TABLE[i].severity;
+   for (size_t i = 0; i < tableSize; ++i) {
+       if (ISSUE_TABLE[i].lowerBound <= number &&
+           ISSUE_TABLE[i].upperBound >= number) {
+           return ISSUE_TABLE[i].severity;
         }
-    }
-    // Error: issue not contained within issue table.
-    assert(false);
-    // TODO:2010-12-12:ralf:Add proper error handling.
-    return -1;
+   }
+   // Error: issue not contained within issue table.
+   assert(false);
+   // TODO:2010-12-12:ralf:Add proper error handling.
+   return -1;
 }
 
 const char* IssueTable::getIssueTableTitleByIndex(size_t i)

@@ -7706,5 +7706,4 @@
 <message><file>y.tab.c</file> <line>7913</line> <type>Info</type> <code>766</code> <desc>Header file 'include\maxpath.h' not used in module 'y.tab.c'</desc></message>
 <message><file>y.tab.c</file> <line>7913</line> <type>Info</type> <code>766</code> <desc>Header file 'include\memalloc.h' not used in module 'y.tab.c'</desc></message>
 <message><file></file> <line>0</line> <type>Error</type> <code>305</code> <desc>Unable to open module 't'</desc></message>
-<message><file>somefile.cpp</file> <line>50</line> <type>Info</type> <code>1713</code> <desc>Parentheses have inconsistent interpretation</desc></message>
 </doc>
