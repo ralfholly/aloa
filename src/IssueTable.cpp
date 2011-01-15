@@ -40,7 +40,7 @@ size_t IssueTable::getIssueTableSize()
 
 int IssueTable::getSeverity(int number)
 {
-   const size_t tableSize = getIssueTableSize();
+	const size_t tableSize = getIssueTableSize();
 
    for (size_t i = 0; i < tableSize; ++i) {
        if (ISSUE_TABLE[i].lowerBound <= number &&
