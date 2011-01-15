@@ -84,14 +84,18 @@ void MetricsBuilder::reportMetrics(MetricsReporter* reporter)
     for (; iterFile != m_fileMap.end(); ++iterFile) {
         m_fileList.push_back((*iterFile).second);
     }
-    sort(m_fileList.begin(), m_fileList.end());
+    // Note! stable_sort maintains relative order of output; this makes
+    // diffing outputs easier when only few issues have changed.
+    stable_sort(m_fileList.begin(), m_fileList.end());
 
     // Create sorted issue list
     ISSUE_MAP::iterator iterIssue = m_issueMap.begin();
     for (; iterIssue != m_issueMap.end(); ++iterIssue) {
         m_issueList.push_back((*iterIssue).second);
     }
-    sort(m_issueList.begin(), m_issueList.end());
+    // Note! stable_sort maintains relative order of output; this makes
+    // diffing outputs easier when only few issues have changed.
+    stable_sort(m_issueList.begin(), m_issueList.end());
 
     // Now send the metrics on to the reporter.
     assert(reporter != NULL);
