@@ -74,6 +74,10 @@ public:
     /** Returns the total number of issues found in the Lint output file. */
     int getIssuesCount() const;
 
+    /** Destructor. */
+    ~Aloa();
+
+
 private:
     Aloa();
     Aloa(const Aloa& rhs);
@@ -91,6 +95,8 @@ private:
     std::string m_lintOutputFile;
     MetricsBuilder m_metricsBuilder;
     std::string m_xmlOutputFile;
+    MetricsReporter* m_reporter;
+
 };
 
 #endif

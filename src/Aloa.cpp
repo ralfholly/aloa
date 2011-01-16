@@ -41,18 +41,22 @@ Aloa::Aloa(int argc, const char* argv[]) :
     m_argv(argv),
     m_lintOutputFile(""),
     m_metricsBuilder(),
-    m_xmlOutputFile("")
+    m_xmlOutputFile(""),
+    m_reporter(NULL)
 {
     scanCommandLine();
     parseLintOutputFile();
-    MetricsReporter* reporter;
     if (m_xmlOutputFile.empty()) {
-        reporter = new ClassicMetricsReporter();
+        m_reporter = new ClassicMetricsReporter();
     } else {
-        reporter = new XmlMetricsReporter(m_xmlOutputFile);
+        m_reporter = new XmlMetricsReporter(m_xmlOutputFile);
     }
-    m_metricsBuilder.reportMetrics(reporter);
-    delete reporter;
+    m_metricsBuilder.reportMetrics(m_reporter);
+}
+
+Aloa::~Aloa() 
+{
+    delete m_reporter;
 }
 
 int Aloa::getIssuesCount() const
