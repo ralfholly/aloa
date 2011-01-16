@@ -1,6 +1,7 @@
+// ALOA Lint Policy
+
 -w3
 -wlib(0)
-+libclass(angle,foreign)
 
 -e537       // Repeated include file OK, as long as there is an inclusion shield.
 

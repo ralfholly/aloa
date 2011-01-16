@@ -65,16 +65,18 @@ lint:
 	$(call lint)
 
 lintaloa:
-	$(call lint,env-xml.lnt) > _aloa.xml
-	aloa -f _aloa.xml
+	$(call lint,env-xml.lnt -e830 -e831) > lint.output.xml
+	aloa -f lint.output.xml
 
 clean:
 	-$(RM) $(OBJ_DIR) $(TARGET_EXE) $(DOXY_DIR)
 
 debug:
-	@echo $(OBJS)
-	@echo $(CPP_DEPS)
-	@echo $(OUTPUT_TREE)
+	@echo SRCS_ALOA: $(SRCS_ALOA)
+	@echo SRCS: $(SRCS)
+	@echo OBJS: $(OBJS)
+	@echo CPP_DEPS: $(CPP_DEPS)
+	@echo OUTPUT_TREE: $(OUTPUT_TREE)
 
 test:
 	cd ../test && test.sh
@@ -84,6 +86,4 @@ todo:
 
 doxy:
 	@cd $(SRC_DIR) && doxygen $(DOXY_FILE)
-
-
 
