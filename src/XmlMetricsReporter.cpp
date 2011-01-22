@@ -21,7 +21,7 @@
  */
 
 #include "XmlMetricsReporter.h"
-#include "tinyxml/tinyxml.h"
+#include <tinyxml/tinyxml.h>
 #include "IssueTable.h"
 
 #include <sstream>

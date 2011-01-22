@@ -41,9 +41,6 @@ public:
     /** MetricsBuild constructor. */
     MetricsBuilder();
 
-    /** Returns the total severity score of all issues found. */
-    int getSeverityScore() const;
-
     /** Returns the total number of issues found. */
     int getIssuesCount() const;
 

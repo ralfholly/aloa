@@ -31,8 +31,6 @@ const IssueTable::IssueTableEntry IssueTable::ISSUE_TABLE[] =
     { "PC-Lint error",     999, 200, 399 },
 };
 
-const int IssueTable::MAX_ISSUE_NUMBER;
-
 size_t IssueTable::getIssueTableSize()
 {
     return sizeof(ISSUE_TABLE) / sizeof(ISSUE_TABLE[0]);

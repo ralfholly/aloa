@@ -9,9 +9,6 @@
 // Only headers included via <> are library header files.
 +libclass(angle)
 
-// TinyXml is considered a library, all headers are library headers.
-+libdir(src/tinyxml)
-
 // These routines never return.
 -function(exit, Aloa::throwXmlParseError)
 -function(exit, __assert_fail)
@@ -24,6 +21,23 @@
 // Repeated include file OK, as long as there is an inclusion shield.
 -e537
 
+// Ignoring of return value: returns/mirrors only the given pointer arg.
+-esym(534,TiXmlNode::LinkEndChild)  
+
+// Private constructor OK.
+-e1704
+
+// No default constructor OK.
+-e1712
+
+// TiXmlString is a base class but doesn't have a virtual destructor. We don't
+// care, as it is part of a library (it is reported during 'global wrap-up', so
+// the library header suppressions are not sufficient).
+-esym(1512,TiXmlString)
+
+// Repeatedly included standard header without include guards.
+-efile(451,cstddef)
+
 // I couldn't get rid of this error message; it seems to be a problem in the
 // STL but is reported against MetricsBuilder.cpp
 // if (iterFile == m_fileMap.end()) { 
@@ -33,10 +47,5 @@
 //     std::basic_string<char>,File>>::operator==(const std::_Rb_tree_iterator<std::pair<const 
 //     std::basic_string<char>,File>> &) const'
 -e1702
-
-// Ignoring of return value: returns/mirrors only the given pointer arg.
--esym(534,TiXmlNode::LinkEndChild)  
-
-
 
 

@@ -35,11 +35,6 @@ MetricsBuilder::MetricsBuilder() :
 {
 }
 
-int MetricsBuilder::getSeverityScore() const
-{
-    return m_severityScore;
-}
-
 int MetricsBuilder::getIssuesCount() const
 {
     return m_issuesCount;

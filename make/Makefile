@@ -4,9 +4,6 @@ MKDIR := mkdir -p
 GPPLINT := ../tools/g++lint
 
 # Project definitions.
-# Remember: COMPILE.cpp = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
-# By default, do a debug build; pass -O3 as CXXFLAGS to get a release build.
-CXXFLAGS := -O0 -g3 -Wall
 TARGET_EXE := aloa
 SRC_DIR := ../src
 INCLUDE := ../src
@@ -15,6 +12,11 @@ DOXY_DIR := ../doxygen
 DOXY_FILE := $(PWD)/Doxyfile
 LINT_POLICY := policy.lnt
 LINTFLAGS := 
+
+# Remember: COMPILE.cpp = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+# By default, do a debug build; pass -O3 as CXXFLAGS to get a release build.
+CXXFLAGS := -O0 -g3 -Wall
+CPPFLAGS += -I $(INCLUDE)
 
 define lint-base-cmd
 $(GPPLINT) $(LINT_POLICY) -i$(INCLUDE) $(LINTFLAGS) $1 
@@ -82,8 +84,8 @@ test: $(TARGET_EXE)
 	cd ../test && test.sh
 
 todo:
-	# Put an escape before ':' to avoid finding ourselves.
-	grep --exclude-dir ".svn*" -RE "TODO\:" ..
+	@# Put an escape before ':' to avoid finding ourselves.
+	@-grep --exclude-dir ".svn*" -RE "TODO\:" ..
 
 doxy:
 	@cd $(SRC_DIR) && doxygen $(DOXY_FILE)

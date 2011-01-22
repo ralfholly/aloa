@@ -32,11 +32,8 @@ const std::string VERSION   = "4.1.0";
 const std::string YEAR      = "2006 - 2010";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";
-const std::string COPYLEFT  =
-    "This program is free software according to the GNU\n"
-    "General Public License and comes WITHOUT ANY WARRANTY.\n"
-    "For details, run aloa without arguments.\n";
 
+//lint -esym(1512,TiXmlBase) Destructor for base class 'TiXmlBase' not virtual.
 class TiXmlBase;
 
 /** Parser error exception.
@@ -47,7 +44,8 @@ class ParseError
 public:
     ParseError(const std::string &msg) : m_msg(msg) { }
     const std::string& getMessage() const { return m_msg; }
-    virtual ~ParseError() { }
+    ~ParseError() { }
+
 private:
     std::string m_msg;
 };
@@ -79,7 +77,6 @@ public:
 
 
 private:
-    Aloa();
     Aloa(const Aloa& rhs);
     Aloa& operator=(const Aloa& rhs);
 

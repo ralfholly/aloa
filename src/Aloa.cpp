@@ -23,7 +23,7 @@
 #include "Aloa.h"
 #include "ClassicMetricsReporter.h"
 #include "XmlMetricsReporter.h"
-#include "tinyxml/tinyxml.h"
+#include <tinyxml/tinyxml.h>
 
 #include <iostream>
 #include <vector>
