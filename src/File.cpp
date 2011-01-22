@@ -23,8 +23,6 @@
 #include "File.h"
 #include "IssueTable.h"
 
-#include <cassert>
-
 const int File::UNUSED_ISSUE_NUMBER; 
 
 void File::addIssue(int number, int line) 

@@ -1,8 +1,42 @@
-// ALOA Lint Policy
+// ALOA Lint Policy.
+
+// Turn off verbosity.
+-v
 
 -w3
 -wlib(0)
 
--e537       // Repeated include file OK, as long as there is an inclusion shield.
+// Only headers included via <> are library header files.
++libclass(angle)
+
+// TinyXml is considered a library, all headers are library headers.
++libdir(src/tinyxml)
+
+// These routines never return.
+-function(exit, Aloa::throwXmlParseError)
+-function(exit, __assert_fail)
+-sem(TiXmlNode::LinkEndChild,custodial(1))
+
+//////////////////////////////////////////////////////////////////////
+// Suppression section.
+//
+
+// Repeated include file OK, as long as there is an inclusion shield.
+-e537
+
+// I couldn't get rid of this error message; it seems to be a problem in the
+// STL but is reported against MetricsBuilder.cpp
+// if (iterFile == m_fileMap.end()) { 
+//     ../src/MetricsBuilder.cpp  60  Info 1702: operator 'operator==' is both an 
+//     ordinary function 'std::operator==(const std::pair<<1>,<2>> &, const 
+//     std::pair<<1>,<2>> &)' and a member function 'std::_Rb_tree_iterator<std::pair<const 
+//     std::basic_string<char>,File>>::operator==(const std::_Rb_tree_iterator<std::pair<const 
+//     std::basic_string<char>,File>> &) const'
+-e1702
+
+// Ignoring of return value: returns/mirrors only the given pointer arg.
+-esym(534,TiXmlNode::LinkEndChild)  
+
+
 
 

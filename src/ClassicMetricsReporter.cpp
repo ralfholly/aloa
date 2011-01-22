@@ -32,7 +32,7 @@ using namespace std;
 
 void ClassicMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList)
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList) const
 {
     // Unused parameters.
     (void)fileMap;
@@ -46,7 +46,7 @@ void ClassicMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssu
     printFooter();
 }
 
-void ClassicMetricsReporter::printFileList(const FILE_LIST& fileList)
+void ClassicMetricsReporter::printFileList(const FILE_LIST& fileList) const
 {
     cout << endl
          << "File List" << endl
@@ -79,7 +79,7 @@ void ClassicMetricsReporter::printFileList(const FILE_LIST& fileList)
     }
 }
 
-void ClassicMetricsReporter::printIssueList(const ISSUE_LIST& issueList)
+void ClassicMetricsReporter::printIssueList(const ISSUE_LIST& issueList) const
 {
     cout << endl
          << "Issue List" << endl
@@ -106,7 +106,7 @@ void ClassicMetricsReporter::printIssueList(const ISSUE_LIST& issueList)
     }
 }
 
-void ClassicMetricsReporter::printFooter()
+void ClassicMetricsReporter::printFooter() const
 {
     cout << endl
          << "Legend" << endl

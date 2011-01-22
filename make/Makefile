@@ -78,11 +78,12 @@ debug:
 	@echo CPP_DEPS: $(CPP_DEPS)
 	@echo OUTPUT_TREE: $(OUTPUT_TREE)
 
-test:
+test: $(TARGET_EXE)
 	cd ../test && test.sh
 
 todo:
-	@grep --exclude-dir ".svn*" -iRE "TODO:\w.+" ..
+	# Put an escape before ':' to avoid finding ourselves.
+	grep --exclude-dir ".svn*" -RE "TODO\:" ..
 
 doxy:
 	@cd $(SRC_DIR) && doxygen $(DOXY_FILE)

@@ -77,7 +77,7 @@ void MetricsBuilder::onNewIssue(int number, const std::string& filename, int lin
     pIssue->addFile(filename);
 }
 
-void MetricsBuilder::reportMetrics(MetricsReporter* reporter)
+void MetricsBuilder::reportMetrics(const MetricsReporter* reporter)
 {
     // Create sorted file list
     FILE_MAP::iterator iterFile = m_fileMap.begin();

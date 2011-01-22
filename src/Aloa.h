@@ -88,7 +88,7 @@ private:
     const char* getArgOption(const char* optShort, const char* optLong) const;
     void scanCommandLine();
     void parseLintOutputFile();
-    void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc);
+    void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc) const;
 
     int m_argc;
     const char** m_argv;
