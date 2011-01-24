@@ -2,4 +2,9 @@
 4.0.0  2010-12-04   Initial release.
 4.1.0  2010-12-26   XML output, major refactoring, Doxygen documentation, 
                     make test, make todo, make doxy.
-4.1.1  2011-01-16   FIX: Lint issues with numbers >= 1000 didn't work.
+4.1.2  2011-01-24   PC-Lint support ('make lint' etc.)
+                    Cleanup of lint issues
+                    Minor bugfixes (exit code was not 0 if no lint 
+                        issues were found, handling of malformed lint output
+                        files.)
+

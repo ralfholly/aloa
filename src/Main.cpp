@@ -20,7 +20,6 @@
  * @file
  */
 
-#include "Main.h"
 #include "Aloa.h"
 
 #include <cstdlib>
@@ -28,7 +27,7 @@
 
 using namespace std;
 
-void reportFatalError(const string& message)
+static void reportFatalError(const string& message)
 {
     cerr << endl << "Fatal error: " << message << endl;
     exit(EXIT_FAILURE);
@@ -47,7 +46,7 @@ int main(int argc, const char* argv[])
     }
 
     return issues ?
-           EXIT_SUCCESS :
-           EXIT_FAILURE;
+           EXIT_FAILURE :
+           EXIT_SUCCESS;
 }
 

@@ -32,10 +32,6 @@ const std::string VERSION   = "4.1.0";
 const std::string YEAR      = "2006 - 2010";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";
-const std::string COPYLEFT  =
-    "This program is free software according to the GNU\n"
-    "General Public License and comes WITHOUT ANY WARRANTY.\n"
-    "For details, run aloa without arguments.\n";
 
 class TiXmlBase;
 
@@ -47,7 +43,8 @@ class ParseError
 public:
     ParseError(const std::string &msg) : m_msg(msg) { }
     const std::string& getMessage() const { return m_msg; }
-    virtual ~ParseError() { }
+    ~ParseError() { }
+
 private:
     std::string m_msg;
 };
@@ -74,8 +71,11 @@ public:
     /** Returns the total number of issues found in the Lint output file. */
     int getIssuesCount() const;
 
+    /** Destructor. */
+    ~Aloa();
+
+
 private:
-    Aloa();
     Aloa(const Aloa& rhs);
     Aloa& operator=(const Aloa& rhs);
 
@@ -84,13 +84,15 @@ private:
     const char* getArgOption(const char* optShort, const char* optLong) const;
     void scanCommandLine();
     void parseLintOutputFile();
-    void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc);
+    void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc) const;
 
     int m_argc;
     const char** m_argv;
     std::string m_lintOutputFile;
     MetricsBuilder m_metricsBuilder;
     std::string m_xmlOutputFile;
+    MetricsReporter* m_reporter;
+
 };
 
 #endif

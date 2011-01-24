@@ -31,8 +31,6 @@ const IssueTable::IssueTableEntry IssueTable::ISSUE_TABLE[] =
     { "PC-Lint error",     999, 200, 399 },
 };
 
-const int IssueTable::MAX_ISSUE_NUMBER;
-
 size_t IssueTable::getIssueTableSize()
 {
     return sizeof(ISSUE_TABLE) / sizeof(ISSUE_TABLE[0]);
@@ -51,21 +49,20 @@ int IssueTable::getSeverity(int number)
             return ISSUE_TABLE[i].severity;
         }
     }
-    // Error: issue not contained within issue table.
-    assert(false);
-    // TODO:2010-12-12:ralf:Add proper error handling.
     return -1;
 }
 
 const char* IssueTable::getIssueTableTitleByIndex(size_t i)
 {
-    assert(0 <= i && i <= getIssueTableSize());
+    const size_t tableSize = getIssueTableSize();
+    assert(i < tableSize);
     return ISSUE_TABLE[i].title;
 }
 
 int IssueTable::getIssueTableSeverityByIndex(size_t i)
 {
-    assert(0 <= i && i <= getIssueTableSize());
+    const size_t tableSize = getIssueTableSize();
+    assert(i < tableSize);
     return ISSUE_TABLE[i].severity;
 }
 

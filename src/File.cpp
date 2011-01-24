@@ -23,8 +23,8 @@
 #include "File.h"
 #include "IssueTable.h"
 
-#include <cassert>
-
+//lint -esym(729, File::UNUSED_ISSUE_NUMBER) symbol initialized in header file,
+//so it is OK if it is not initialized here.
 const int File::UNUSED_ISSUE_NUMBER; 
 
 void File::addIssue(int number, int line) 

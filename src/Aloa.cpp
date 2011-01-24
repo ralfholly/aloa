@@ -23,7 +23,7 @@
 #include "Aloa.h"
 #include "ClassicMetricsReporter.h"
 #include "XmlMetricsReporter.h"
-#include "tinyxml/tinyxml.h"
+#include <tinyxml/tinyxml.h>
 
 #include <iostream>
 #include <vector>
@@ -41,18 +41,23 @@ Aloa::Aloa(int argc, const char* argv[]) :
     m_argv(argv),
     m_lintOutputFile(""),
     m_metricsBuilder(),
-    m_xmlOutputFile("")
+    m_xmlOutputFile(""),
+    m_reporter(NULL)
 {
     scanCommandLine();
     parseLintOutputFile();
-    MetricsReporter* reporter;
     if (m_xmlOutputFile.empty()) {
-        reporter = new ClassicMetricsReporter();
+        m_reporter = new ClassicMetricsReporter;
     } else {
-        reporter = new XmlMetricsReporter(m_xmlOutputFile);
+        m_reporter = new XmlMetricsReporter(m_xmlOutputFile);
     }
-    m_metricsBuilder.reportMetrics(reporter);
-    delete reporter;
+    m_metricsBuilder.reportMetrics(m_reporter);
+}
+
+Aloa::~Aloa() 
+{
+    delete m_reporter;
+    m_argv = NULL;
 }
 
 int Aloa::getIssuesCount() const
@@ -160,11 +165,8 @@ void Aloa::parseLintOutputFile()
         throwXmlParseError(&doc, doc.ErrorDesc());
     }
 
-    TiXmlNode* root = 0;
-    TiXmlElement* messageElement = 0;
-
-    root = doc.FirstChild("doc");
-    messageElement = root->FirstChildElement("message");
+    TiXmlNode* root = doc.FirstChild("doc");
+    TiXmlElement* messageElement = root->FirstChildElement("message");
 
     while (messageElement != 0) {
         TiXmlElement* fileElement, *codeElement;
@@ -172,7 +174,7 @@ void Aloa::parseLintOutputFile()
         // Get filename from 'file' element.
         fileElement = messageElement->FirstChildElement("file");
         if (fileElement == 0) {
-            throwXmlParseError(fileElement, "'file' element not found");
+            throwXmlParseError(root, "'file' element not found");
         }
         const char* filename = fileElement->GetText();
         if (filename == 0 || *filename == '\0') {
@@ -181,22 +183,22 @@ void Aloa::parseLintOutputFile()
 
         // Get issue number from 'code' element.
         codeElement = fileElement->NextSiblingElement("code");
-        if (fileElement == 0) {
-            throwXmlParseError(codeElement, "'code' element not found");
+        if (codeElement == 0) {
+            throwXmlParseError(fileElement, "'code' element not found");
         }
         const char* number = codeElement->GetText();
         if (number == 0) {
-            throwXmlParseError(codeElement, "'code' value test missing");
+            throwXmlParseError(codeElement, "'code' value missing");
         }
 
         // Get line number from 'line' element.
         codeElement = fileElement->NextSiblingElement("line");
-        if (fileElement == 0) {
-            throwXmlParseError(codeElement, "'line' element not found");
+        if (codeElement == 0) {
+            throwXmlParseError(fileElement, "'line' element not found");
         }
         const char* line = codeElement->GetText();
         if (line == 0) {
-            throwXmlParseError(codeElement, "'line' value test missing");
+            throwXmlParseError(codeElement, "'line' value missing");
         }
 
         m_metricsBuilder.onNewIssue(atoi(number), filename, atoi(line));
@@ -204,8 +206,9 @@ void Aloa::parseLintOutputFile()
     }
 }
 
-void Aloa::throwXmlParseError(const TiXmlBase* xmlbase, const std::string& desc)
+void Aloa::throwXmlParseError(const TiXmlBase* xmlbase, const std::string& desc) const
 {
+    assert(xmlbase != NULL);
     std::ostringstream ost;
     ost << desc << " row: " << xmlbase->Row() << " col: " << xmlbase->Column();
     throw ParseError(ost.str());

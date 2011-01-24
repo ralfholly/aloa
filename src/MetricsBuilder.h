@@ -41,9 +41,6 @@ public:
     /** MetricsBuild constructor. */
     MetricsBuilder();
 
-    /** Returns the total severity score of all issues found. */
-    int getSeverityScore() const;
-
     /** Returns the total number of issues found. */
     int getIssuesCount() const;
 
@@ -60,7 +57,7 @@ public:
      * @note This method shall not be called before all issues have been
      * reported via onNewIssue().
      */
-    void reportMetrics(MetricsReporter* reporter);
+    void reportMetrics(const MetricsReporter* reporter);
 
 private:
     MetricsBuilder(const MetricsBuilder& rhs);

@@ -41,10 +41,10 @@ public:
      */
     virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList) = 0;
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList) const = 0;
 
     /** Destructor. */
-    virtual ~MetricsReporter() { }
+    virtual ~MetricsReporter() throw() { }
 };
 
 #endif

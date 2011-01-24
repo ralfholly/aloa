@@ -21,7 +21,6 @@
  */
 
 #include "Issue.h"
-#include <cassert>
 
 void Issue::addFile(const std::string& filename) 
 {
