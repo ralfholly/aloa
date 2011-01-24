@@ -33,7 +33,6 @@ const std::string YEAR      = "2006 - 2010";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";
 
-//lint -esym(1512,TiXmlBase) Destructor for base class 'TiXmlBase' not virtual.
 class TiXmlBase;
 
 /** Parser error exception.

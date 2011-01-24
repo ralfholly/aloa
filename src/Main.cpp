@@ -46,7 +46,7 @@ int main(int argc, const char* argv[])
     }
 
     return issues ?
-           EXIT_SUCCESS :
-           EXIT_FAILURE;
+           EXIT_FAILURE :
+           EXIT_SUCCESS;
 }
 
