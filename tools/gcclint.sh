@@ -70,6 +70,6 @@ if [ ! -d $SETTINGS_DIR ]; then
 fi
 
 # Now, invoke PC-Lint.
-$PCLINT_PATH/LINT-NT.EXE -I$SETTINGS_DIR -I$PCLINT_PATH/lnt co-gcc.lnt $INCLUDE_PATH_FILE $*
+$PCLINT_PATH/LINT-NT.EXE -I$SETTINGS_DIR -I$PCLINT_PATH/lnt co-gcc.lnt $INCLUDE_PATH_FILE $* | tr '\\\r' '/ ' 
 
 

@@ -38,11 +38,14 @@ public:
     XmlMetricsReporter(const std::string& xmlfile);
     virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList);
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList) const;
+
+    /** Destructor. */
+    virtual ~XmlMetricsReporter() throw() { }
 
 private:
-    void printFileList(const FILE_LIST& fileList, TiXmlElement* root);
-    void printIssueList(const ISSUE_LIST& issueList, TiXmlElement* root);
+    void printFileList(const FILE_LIST& fileList, TiXmlElement* root) const;
+    void printIssueList(const ISSUE_LIST& issueList, TiXmlElement* root) const;
 
     std::string m_xmlfile;
 };

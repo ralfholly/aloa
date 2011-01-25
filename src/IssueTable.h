@@ -29,9 +29,6 @@
 class IssueTable
 {
 public:
-    /** Highest possible PC-Lint issue number. */
-    static const int MAX_ISSUE_NUMBER = 2000;
-
     /** Returns size of this table.
      * @return Number of table rows. 
      */

@@ -6,5 +6,5 @@
 # directory that is listed in $PATH, eg. ~/bin.
 ##################################################
 
-. gcclint.sh $*
+. $(dirname $0)/gcclint.sh $*
 

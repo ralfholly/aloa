@@ -21,7 +21,7 @@
  */
 
 #include "XmlMetricsReporter.h"
-#include "tinyxml/tinyxml.h"
+#include <tinyxml/tinyxml.h>
 #include "IssueTable.h"
 
 #include <sstream>
@@ -43,16 +43,16 @@ TiXmlElement* NewXmlElementWithValue(const char* elemName,
 }
 
 XmlMetricsReporter::XmlMetricsReporter(const std::string& xmlfile) :
-    MetricsReporter(),
     m_xmlfile(xmlfile)
 {
 }
 
 void XmlMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssuesCount,
-        const FILE_MAP& fileMap, const ISSUE_MAP& issueMap, const FILE_LIST& fileList, const ISSUE_LIST& issueList)
+        const FILE_MAP& fileMap, const ISSUE_MAP& issueMap, const FILE_LIST& fileList, const ISSUE_LIST& issueList) const
 {
-    // same as write_simple_doc1 but add each node
-    // as early as possible into the tree.
+    // Unused parameters.
+    (void)fileMap;
+    (void)issueMap;
 
     TiXmlDocument doc;
     TiXmlDeclaration* decl = new TiXmlDeclaration("1.0", "", "");
@@ -73,7 +73,7 @@ void XmlMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssuesCo
     }
 }
 
-void XmlMetricsReporter::printFileList(const FILE_LIST& fileList, TiXmlElement* root)
+void XmlMetricsReporter::printFileList(const FILE_LIST& fileList, TiXmlElement* root) const
 {
     TiXmlElement* flist = new TiXmlElement("FileList");
     root->LinkEndChild(flist);
@@ -99,7 +99,7 @@ void XmlMetricsReporter::printFileList(const FILE_LIST& fileList, TiXmlElement* 
     }
 }
 
-void XmlMetricsReporter::printIssueList(const ISSUE_LIST& issueList, TiXmlElement* root)
+void XmlMetricsReporter::printIssueList(const ISSUE_LIST& issueList, TiXmlElement* root) const
 {
     TiXmlElement* ilist = new TiXmlElement("IssueList");
     root->LinkEndChild(ilist);

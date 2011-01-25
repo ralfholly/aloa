@@ -32,12 +32,12 @@ class ClassicMetricsReporter : public MetricsReporter
 public:
     virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList);
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList) const;
 
 private:
-    void printFileList(const FILE_LIST& fileList);
-    void printIssueList(const ISSUE_LIST& issueList);
-    void printFooter();
+    void printFileList(const FILE_LIST& fileList) const;
+    void printIssueList(const ISSUE_LIST& issueList) const;
+    void printFooter() const;
 };
 
 #endif
