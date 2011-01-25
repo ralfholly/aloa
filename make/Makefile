@@ -49,11 +49,11 @@ debug:
 	@echo $(CPP_DEPS)
 	@echo $(OUTPUT_TREE)
 
-test:
+test: $(TARGET_EXE)
 	cd ../test && test.sh
 
 todo:
-	@grep --exclude-dir ".svn*" -iRE "TODO:\w.+" ..
+	-grep --exclude-dir ".svn*" -iRE "TODO:\w.+" .. 
 
 doxy:
 	@cd $(SRC_DIR) && doxygen $(DOXY_FILE)
