@@ -4,7 +4,7 @@
 -v
 
 -w3
--wlib(0)
+-wlib(1)
 
 // Only headers included via <> are library header files.
 +libclass(angle)
@@ -47,5 +47,6 @@
 //     std::basic_string<char>,File>>::operator==(const std::_Rb_tree_iterator<std::pair<const 
 //     std::basic_string<char>,File>> &) const'
 -e1702
+
 
 

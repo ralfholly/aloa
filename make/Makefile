@@ -19,7 +19,7 @@ CXXFLAGS := -O0 -g3 -Wall
 CPPFLAGS += -I $(INCLUDE)
 
 define lint-base-cmd
-$(GPPLINT) $(LINT_POLICY) -i$(INCLUDE) $(LINTFLAGS) $1 
+$(GPPLINT) -b $(LINT_POLICY) -i$(INCLUDE) $(LINTFLAGS) $1 
 endef
 
 define lint
@@ -44,7 +44,7 @@ CPP_DEPS := $(subst .cpp,.d,$(HELPER))
 OUTPUT_TREE := $(sort $(dir $(OBJS)))
 make-output-dir := $(shell $(MKDIR) $(OUTPUT_TREE))
 
-.PHONY: clean debug test todo doxygen lint lintaloa
+.PHONY: clean debug test todo doxy lint lintaloa deploy
 
 all:
 
@@ -61,32 +61,42 @@ endif
 all: $(TARGET_EXE)
 
 $(TARGET_EXE): $(OBJS)
+	@echo [Building $@]
 	$(CXX) -o $(TARGET_EXE) $^
 
 lint:
+	@echo [Linting]
 	$(call lint)
 
 lintaloa:
+	@echo [Executing ALOA]
 	$(call lint,env-xml.lnt -e830 -e831) > lint.output.xml
 	aloa -f lint.output.xml
 
 clean:
+	@echo [Cleaning]
 	-$(RM) $(OBJ_DIR) $(TARGET_EXE) $(DOXY_DIR)
 
-debug:
-	@echo SRCS_ALOA: $(SRCS_ALOA)
-	@echo SRCS: $(SRCS)
-	@echo OBJS: $(OBJS)
-	@echo CPP_DEPS: $(CPP_DEPS)
-	@echo OUTPUT_TREE: $(OUTPUT_TREE)
-
 test: $(TARGET_EXE)
-	cd ../test && test.sh
+	@echo [Testing]
+	cd ../test && test.sh ; cd ../make
 
 todo:
+	@echo [Grepping for TODOs]
 	@# Put an escape before ':' to avoid finding ourselves.
-	@-grep --exclude-dir ".svn*" -RE "TODO\:" ..
+	grep --exclude-dir ".svn*" -RE "TODO\:" .. ; true
 
 doxy:
-	@cd $(SRC_DIR) && doxygen $(DOXY_FILE)
+	@echo [Generating doxygen documentation]
+	cd $(SRC_DIR) && doxygen $(DOXY_FILE)
+
+deploy: 
+	make clean
+	make $(TARGET_EXE)
+	make test
+	make lint
+	make doxy
+	make todo
+	@echo [Checking for local modifications]
+	svn status .. -q
 
