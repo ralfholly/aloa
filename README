@@ -3,6 +3,18 @@
 This project is the continuation of the original ALOA project, as featured in DDJ:
     http://www.drdobbs.com/184401810
 
+History:
+
+4.0.0  2010-12-04   NEW   Initial release.
+4.1.0  2010-12-26   NEW   XML output, major refactoring, Doxygen documentation,
+                          make test, make todo, make doxy.
+4.1.1  2011-01-16   FIX   Lint issues with numbers >= 1000 didn't work.
+4.2.0  2011-01-28   NEW   PC-Lint support ('make lint' etc.)
+                    NEW   Cleanup of lint issues
+                    FIX   Minor bugfixes (exit code was not 0 if no lint issues
+                          were found, handling of malformed lint output files.)
+                    NEW   'make deploy'
+
 Usage:
 
 - Do a PC-Lint run and use Gimpel's env-xml.lnt file to produce XML-formatted
@@ -20,6 +32,5 @@ legacy/
 
 tools/
     Contains various PC-Lint-related utilities; see tools/README for details.
-
 
 

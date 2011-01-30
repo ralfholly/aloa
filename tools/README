@@ -19,8 +19,8 @@ GCCLINT
     
     GCCLINT allows you to use PC-Lint via the Wine emulator with Linux/GCC. 
 
-    In a first step, GCCLINT extracts GCC include path settings and
-    preprocesser definitions and creates a corresponding .lnt file. In a second
+    In a first step, GCCLINT extracts GCC include path settings as well as
+    preprocessor definitions and creates a corresponding .lnt file. In a second
     step, this .lnt file is passed (together with any user provided PC-Lint
     command-line options) to PC-Lint.
 

@@ -69,7 +69,23 @@ if [ ! -d $SETTINGS_DIR ]; then
         popd >/dev/null
 fi
 
-# Now, invoke PC-Lint.
-$PCLINT_PATH/LINT-NT.EXE -I$SETTINGS_DIR -I$PCLINT_PATH/lnt co-gcc.lnt $INCLUDE_PATH_FILE $* | tr '\\\r' '/ ' 
+# Options that are passed to PC-Lint before any other options.
+# -fff: Under Linux, filenames are case-sensitive.
+# +rw(__is_pod): __is_pod is a GCC toolchain-specific keyword.
+PREOPTS="-fff +rw(__is_pod)"
 
+# Sometimes, the name of the PC-Lint executable is all-uppercase, sometimes
+# all-lowercase. Hence, we try both variants.
+PCLINT_EXE=$PCLINT_PATH/LINT-NT.EXE
+if [[ ! -x $PCLINT_EXE ]]; then
+    PCLINT_EXE=$PCLINT_PATH/lint-nt.exe
+fi
+
+# Ensure that PC-Lint exit code is not swallowed by subsequent pipe stages.
+set -o pipefail
+
+# Now, invoke PC-Lint.
+# Remove trailing \d characters and turn all backslashes into forward slashes
+# (to get posix-style pathnames).
+$PCLINT_EXE $PREOPTS -I$SETTINGS_DIR -I$PCLINT_PATH/lnt co-gcc.lnt $INCLUDE_PATH_FILE $* | tr '\\\r' '/ ' 
 
