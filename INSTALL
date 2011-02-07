@@ -10,5 +10,5 @@
     By default, make performs a debug build; in order to make a release build,
     do this:
      
-        'make CXXFLAGS=-O2'
+        'make TARGET=RELEASE'
 

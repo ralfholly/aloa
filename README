@@ -14,6 +14,9 @@ History:
                     FIX   Minor bugfixes (exit code was not 0 if no lint issues
                           were found, handling of malformed lint output files.)
                     NEW   'make deploy'
+TODO:2011-02-06:ralf:Update for a new release.
+4.x.x               NEW   Support for release builds via 'make TARGET=RELEASE'
+
 
 Usage:
 

@@ -12,10 +12,16 @@ DOXY_DIR := ../doxygen
 DOXY_FILE := $(PWD)/Doxyfile
 LINT_POLICY := policy.lnt
 LINTFLAGS := 
+TARGET := DEBUG
 
 # Remember: COMPILE.cpp = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
 # By default, do a debug build; pass -O3 as CXXFLAGS to get a release build.
+ifeq "$(TARGET)" "RELEASE"
+CXXFLAGS := -O2
+else
 CXXFLAGS := -O0 -g3 -Wall
+endif
+
 CPPFLAGS += -I $(INCLUDE)
 
 define lint-base-cmd
@@ -61,7 +67,7 @@ endif
 all: $(TARGET_EXE)
 
 $(TARGET_EXE): $(OBJS)
-	@echo [Building $@]
+	@echo [Building $@ $(TARGET)]
 	$(CXX) -o $(TARGET_EXE) $^
 
 lint:
@@ -92,7 +98,7 @@ doxy:
 
 deploy: 
 	make clean
-	make $(TARGET_EXE)
+	make $(TARGET_EXE) TARGET=RELEASE
 	make test
 	make lint
 	make doxy
