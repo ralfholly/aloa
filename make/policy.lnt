@@ -6,8 +6,8 @@
 -w3
 -wlib(1)
 
-// Only headers included via <> are library header files.
-+libclass(angle)
+// Directory of including file.
++fdi
 
 // These routines never return.
 -function(exit, Aloa::throwXmlParseError)
