@@ -6,8 +6,11 @@
 -w3
 -wlib(1)
 
-// Directory of including file.
+// Implicit base directory is directory of including file.
 +fdi
+
+// Ignore problems in third-party libs.
++libdir(tinyxml)
 
 // These routines never return.
 -function(exit, Aloa::throwXmlParseError)

@@ -6,7 +6,7 @@ GPPLINT := ../tools/g++lint
 # Project definitions.
 TARGET_EXE := aloa
 SRC_DIR := ../src
-INCLUDE := ../src
+#INCLUDE := ../src
 OBJ_DIR := obj
 DOXY_DIR := ../doxygen
 DOXY_FILE := $(PWD)/Doxyfile
@@ -22,7 +22,7 @@ else
 CXXFLAGS := -O0 -g3 -Wall
 endif
 
-CPPFLAGS += -I $(INCLUDE)
+CPPFLAGS += $(addprefix -I,$(INCLUDE))
 
 define lint-base-cmd
 $(GPPLINT) -b $(LINT_POLICY) -i$(INCLUDE) $(LINTFLAGS) $1 
