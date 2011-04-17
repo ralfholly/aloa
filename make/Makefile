@@ -17,12 +17,15 @@ TARGET := DEBUG
 # Remember: COMPILE.cpp = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
 # By default, do a debug build; pass -O3 as CXXFLAGS to get a release build.
 ifeq "$(TARGET)" "RELEASE"
-CXXFLAGS := -O2
+override CXXFLAGS += -O2
 else
-CXXFLAGS := -O0 -g3 -Wall
+override CXXFLAGS += -O0 -g3 -Wall
 endif
 
 CPPFLAGS += $(addprefix -I,$(INCLUDE))
+
+# Profiling
+#  CXXFLAGS += -fprofile-arcs -ftest-coverage
 
 define lint-base-cmd
 $(GPPLINT) -b $(LINT_POLICY) -i$(INCLUDE) $(LINTFLAGS) $1 
@@ -68,7 +71,7 @@ all: $(TARGET_EXE)
 
 $(TARGET_EXE): $(OBJS)
 	@echo [Building $@ $(TARGET)]
-	$(CXX) -o $(TARGET_EXE) $^
+	$(LINK.cc) -o $(TARGET_EXE) $^
 
 lint:
 	@echo [Linting]

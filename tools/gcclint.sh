@@ -1,5 +1,14 @@
 #!/bin/bash
 
+USE_CYGWIN=0
+PATH_CONV=echo
+# Is cygwin present?
+cygpath --version > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    USE_CYGWIN=1
+    PATH_CONV="cygpath -w"
+fi
+
 if [ "$PCLINT_PATH" == "" ] || [ ! -d "$PCLINT_PATH" ]; then
     echo "PCLINT_PATH not defined or directory does not exist"
     exit 1
@@ -29,7 +38,7 @@ if [ ! -d $SETTINGS_DIR ]; then
                 echo "Cannot create $SETTINGS_DIR"
                 exit 1
         fi
-        
+
         pushd . >/dev/null
         cd $SETTINGS_DIR
 
@@ -39,13 +48,13 @@ if [ ! -d $SETTINGS_DIR ]; then
         if [ $COMPILER == "g++" ]; then 
             PREPRO_FILE="lint_cppmac.h"
         fi
-       
+
         echo -n '' >$INCLUDE_PATH_FILE
         echo -n '' >$DUMMY_FILE
 
         # Generate predefined preprocessor symbols.
         $COMPILER -E -dM $DUMMY_FILE >$PREPRO_FILE
-       
+
         # Generate list of include paths
         skip=1
         $COMPILER -c -v $DUMMY_FILE 2>&1 | while read line; do
@@ -61,7 +70,7 @@ if [ ! -d $SETTINGS_DIR ]; then
                 fi
 
                 if [ $skip -eq 0 ]; then
-                        echo "--i$line" >>$INCLUDE_PATH_FILE
+                        echo "--i$($PATH_CONV $line)" >>$INCLUDE_PATH_FILE
                 fi;
         done
 
@@ -81,11 +90,14 @@ if [[ ! -x $PCLINT_EXE ]]; then
     PCLINT_EXE=$PCLINT_PATH/lint-nt.exe
 fi
 
+PCLINT_PATH=$($PATH_CONV "$PCLINT_PATH")
+SETTINGS_DIR=$($PATH_CONV "$SETTINGS_DIR")
+
 # Ensure that PC-Lint exit code is not swallowed by subsequent pipe stages.
 set -o pipefail
 
 # Now, invoke PC-Lint.
-# Remove trailing \d characters and turn all backslashes into forward slashes
+# Remove trailing \r characters and turn all backslashes into forward slashes
 # (to get posix-style pathnames).
 $PCLINT_EXE $PREOPTS -I$SETTINGS_DIR -I$PCLINT_PATH/lnt co-gcc.lnt $INCLUDE_PATH_FILE $* | tr '\\\r' '/ ' 
 
