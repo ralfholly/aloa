@@ -14,7 +14,7 @@ History:
                     FIX   Minor bugfixes (exit code was not 0 if no lint issues
                           were found, handling of malformed lint output files.)
                     NEW   'make deploy'
-4.3.0  2011-10-09   NEW   Support for release builds via 'make TARGET=RELEASE'.
+4.2.1  2011-10-09   NEW   Support for release builds via 'make TARGET=RELEASE'.
                     NEW   tools/gcclint: support for Cygwin.
                     NEW   Minor Lint policy improvements.
 
