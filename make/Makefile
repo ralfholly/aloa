@@ -6,7 +6,6 @@ GPPLINT := ../tools/g++lint
 # Project definitions.
 TARGET_EXE := aloa
 SRC_DIR := ../src
-#INCLUDE := ../src
 OBJ_DIR := obj
 DOXY_DIR := ../doxygen
 DOXY_FILE := $(PWD)/Doxyfile
