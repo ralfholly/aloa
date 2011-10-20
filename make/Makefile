@@ -7,11 +7,15 @@ GPPLINT := ../tools/g++lint
 TARGET_EXE := aloa
 SRC_DIR := ../src
 OBJ_DIR := obj
+LIB_DIR := ../lib
+INCLUDE := $(LIB_DIR)
+
 DOXY_DIR := ../doxygen
 DOXY_FILE := $(PWD)/Doxyfile
 LINT_POLICY := policy.lnt
 LINTFLAGS := 
 TARGET := DEBUG
+
 
 # Remember: COMPILE.cpp = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
 # By default, do a debug build; pass -O3 as CXXFLAGS to get a release build.
@@ -39,7 +43,7 @@ endef
 
 # Create list of all cpp files.
 SRCS_ALOA := $(wildcard $(SRC_DIR)/*.cpp)
-SRCS_TINYXML := $(wildcard $(SRC_DIR)/tinyxml/*.cpp)
+SRCS_TINYXML := $(wildcard $(LIB_DIR)/tinyxml/*.cpp)
 SRCS := $(SRCS_ALOA) $(SRCS_TINYXML)
 
 HELPER := $(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS))
@@ -87,7 +91,7 @@ clean:
 
 test: $(TARGET_EXE)
 	@echo [Testing]
-	cd ../test && test.sh ; cd ../make
+	cd ../test && ./test.sh && cd ../make
 
 todo:
 	@echo [Grepping for TODOs]
