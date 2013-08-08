@@ -28,8 +28,8 @@
 #include <string>
 
 /** ALOA version number. */
-const std::string VERSION   = "4.1.0"; 
-const std::string YEAR      = "2006 - 2010";
+const std::string VERSION   = "4.2.2"; 
+const std::string YEAR      = "2006 - 2013";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";
 

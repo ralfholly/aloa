@@ -17,6 +17,7 @@ History:
 4.2.1  2011-10-09   NEW   Support for release builds via 'make TARGET=RELEASE'.
                     NEW   tools/gcclint: support for Cygwin.
                     NEW   Minor Lint policy improvements.
+4.2.2  2013-08-08   FIX   Updated version info
 
 Usage:
 
