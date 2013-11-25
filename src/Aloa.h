@@ -26,9 +26,10 @@
 #include "MetricsBuilder.h"
 
 #include <string>
+#include <vector>
 
 /** ALOA version number. */
-const std::string VERSION   = "4.2.2"; 
+const std::string VERSION   = "4.3.0"; 
 const std::string YEAR      = "2006 - 2013";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";
@@ -82,13 +83,14 @@ private:
     void showVersion() const;
     void showHelp() const;
     const char* getArgOption(const char* optShort, const char* optLong) const;
+    const char* getArgOptionFromIndex(const char* optShort, const char* optLong, int* index) const;
     void scanCommandLine();
     void parseLintOutputFile();
-    void throwXmlParseError(const TiXmlBase *xmlbase, const std::string &desc) const;
+    void throwXmlParseError(const char* filename, const TiXmlBase *xmlbase, const std::string &desc) const;
 
     int m_argc;
     const char** m_argv;
-    std::string m_lintOutputFile;
+    std::vector<std::string> m_lintOutputFiles;
     MetricsBuilder m_metricsBuilder;
     std::string m_xmlOutputFile;
     MetricsReporter* m_reporter;

@@ -18,6 +18,8 @@ History:
                     NEW   tools/gcclint: support for Cygwin.
                     NEW   Minor Lint policy improvements.
 4.2.2  2013-08-08   FIX   Updated version info
+4.3.0  2013-11-25   NEW   Support for multiple lint output files (-f may appear
+                          more than once).
 
 Usage:
 

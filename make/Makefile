@@ -78,12 +78,12 @@ $(TARGET_EXE): $(OBJS)
 
 lint:
 	@echo [Linting]
-	$(call lint)
+	$(call lint, -zero)
 
 lintaloa:
 	@echo [Executing ALOA]
-	$(call lint,env-xml.lnt -e830 -e831) > lint.output.xml
-	aloa -f lint.output.xml
+	$(call lint,env-xml.lnt -e830 -e831 -zero) > lint.output.xml
+	-./aloa -f lint.output.xml
 
 clean:
 	@echo [Cleaning]
