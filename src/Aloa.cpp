@@ -102,20 +102,19 @@ void Aloa::showHelp() const
         << "Usage: aloa <command> [option...]" << endl
         << endl
         << "command:" << endl
-        << "   -h, --help          Shows help message" << endl
-        << "   -v, --version       Shows version information" << endl
-        << "   -f, --file <file>   Analyzes Lint ouput file (XML-formatted)" << endl
-        << "                       Can be specified multiple-times for multiple files." << endl
+        << "   -h, --help             Shows help message" << endl
+        << "   -v, --version          Shows version information" << endl
+        << "   -f, --file <file>...   Analyzes Lint ouput file(s) (XML-formatted)" << endl
         << endl
         << "option:" << endl
-        << "   -x, --xmlout <file> Writes output to an XML file instead of stdout" << endl
-        << "   -m, --misra         Support for MISRA rules" << endl
+        << "   -x, --xmlout <file>    Writes output to an XML file instead of stdout" << endl
+        << "   -m, --misra            Support for MISRA rules" << endl
         << endl;
 
     exit(0);
 }
 
-const char* Aloa::getArgOptionFromIndex(const char* optShort, const char* optLong) const
+const char* Aloa::getArgOption(const char* optShort, const char* optLong) const
 {
     static int nextArg = 0;
 
@@ -162,17 +161,17 @@ void Aloa::scanCommandLine()
 {
     const char* opt = NULL;
 
-    if (m_argc < 2 || getArgOptionFromIndex("-h", "--help") != NULL) {
+    if (m_argc < 2 || getArgOption("-h", "--help") != NULL) {
         showHelp();
-    } else if (getArgOptionFromIndex("-v", "--version") != NULL) {
+    } else if (getArgOption("-v", "--version") != NULL) {
         showVersion();
         exit(0);
     } else {
         // Read in all lint output files.
-        opt = getArgOptionFromIndex("-f", "--file");
+        opt = getArgOption("-f", "--file");
         while (opt != NULL && *opt != '\0') {
             m_lintOutputFiles.push_back(string(opt));
-            opt = getArgOptionFromIndex(NULL, NULL);
+            opt = getArgOption(NULL, NULL);
         }
         
         if (m_lintOutputFiles.empty()) {
@@ -180,7 +179,7 @@ void Aloa::scanCommandLine()
         }
 
         // Write output to XML file instead of stdout?
-        if ((opt = getArgOptionFromIndex("-x", "--xmlout")) != NULL) {
+        if ((opt = getArgOption("-x", "--xmlout")) != NULL) {
             if (*opt == '\0') {
                 showHelp();
             }
@@ -188,7 +187,7 @@ void Aloa::scanCommandLine()
         }
 
         // Enable support for MISRA rules.
-        m_misraEnabled = (getArgOptionFromIndex("-m", "--misra") != NULL) ? true : false;
+        m_misraEnabled = (getArgOption("-m", "--misra") != NULL) ? true : false;
     }
 }
 

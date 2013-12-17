@@ -20,6 +20,11 @@ History:
 4.2.2  2013-08-08   FIX   Updated version info
 4.3.0  2013-11-25   NEW   Support for multiple lint output files (-f may appear
                           more than once).
+4.4.0  2013-12-17   CNG   Correction to 4.3.0: -f may not appear more than once
+                          anymore. Any additional lint output files must come
+                          directly after first lint output file.
+                    NEW   Support for fine-grained reports of MISRA issues (-m)
+                          through so-called "virtual issues".
 
 Usage:
 

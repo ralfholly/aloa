@@ -83,7 +83,7 @@ private:
 
     void showVersion() const;
     void showHelp() const;
-    const char* getArgOptionFromIndex(const char* optShort, const char* optLong) const;
+    const char* getArgOption(const char* optShort, const char* optLong) const;
     void scanCommandLine();
     void parseLintOutputFile();
     void throwXmlParseError(const char* filename, const TiXmlBase *xmlbase, const std::string &desc) const;
