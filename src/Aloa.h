@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -24,12 +24,13 @@
 #define Aloa_h
 
 #include "MetricsBuilder.h"
+#include "MisraParser.h"
 
 #include <string>
 #include <vector>
 
 /** ALOA version number. */
-const std::string VERSION   = "4.3.0"; 
+const std::string VERSION   = "4.4.0"; 
 const std::string YEAR      = "2006 - 2013";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";
@@ -82,8 +83,7 @@ private:
 
     void showVersion() const;
     void showHelp() const;
-    const char* getArgOption(const char* optShort, const char* optLong) const;
-    const char* getArgOptionFromIndex(const char* optShort, const char* optLong, int* index) const;
+    const char* getArgOptionFromIndex(const char* optShort, const char* optLong) const;
     void scanCommandLine();
     void parseLintOutputFile();
     void throwXmlParseError(const char* filename, const TiXmlBase *xmlbase, const std::string &desc) const;
@@ -91,9 +91,11 @@ private:
     int m_argc;
     const char** m_argv;
     std::vector<std::string> m_lintOutputFiles;
+    bool m_misraEnabled;
     MetricsBuilder m_metricsBuilder;
     std::string m_xmlOutputFile;
     MetricsReporter* m_reporter;
+    MisraParser* m_misraParser;
 
 };
 

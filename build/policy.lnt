@@ -9,9 +9,15 @@
 // Implicit base directory is directory of including file.
 +fdi
 
+// Output full file names.
++ffn
+
 // These routines never return.
 -function(exit, Aloa::throwXmlParseError)
+-function(exit, __assert)
+-function(exit, __assert_func)
 -function(exit, __assert_fail)
+
 -sem(TiXmlNode::LinkEndChild,custodial(1))
 
 //////////////////////////////////////////////////////////////////////
@@ -38,6 +44,13 @@
 // Repeatedly included standard header without include guards.
 -efile(451,cstddef)
 
+//////////////////////////////////////////////////////////////////////
+// PC-Lint nuisances 
+//
+
+-elib(10)   // Error reported against cstdlib of G++
+-elib(129)  // Error reported against cstdlib of G++
+
 // I couldn't get rid of this error message; it seems to be a problem in the
 // STL but is reported against MetricsBuilder.cpp
 // if (iterFile == m_fileMap.end()) { 
@@ -47,6 +60,4 @@
 //     std::basic_string<char>,File>>::operator==(const std::_Rb_tree_iterator<std::pair<const 
 //     std::basic_string<char>,File>> &) const'
 -e1702
-
-
 

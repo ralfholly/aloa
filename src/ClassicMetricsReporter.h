@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -25,6 +25,7 @@
 
 #include "MetricsReporter.h"
 
+
 /** This class is a concrete subclass of MetricsReporter that writes metrics to
  * standard output. */
 class ClassicMetricsReporter : public MetricsReporter
@@ -32,12 +33,12 @@ class ClassicMetricsReporter : public MetricsReporter
 public:
     virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList) const;
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList, const MISRA_STRING_ISSUE_LIST* misraStringIssueList) const;
 
 private:
     void printFileList(const FILE_LIST& fileList) const;
     void printIssueList(const ISSUE_LIST& issueList) const;
-    void printFooter() const;
+    void printFooter(const MISRA_STRING_ISSUE_LIST* misraStringIssueList) const;
 };
 
 #endif

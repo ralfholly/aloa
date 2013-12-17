@@ -16,38 +16,37 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
-/** MetricsReporter -- header file.
+/** MisraParser -- header file.
  * @file
  */
 
-#ifndef MetricsReporter_h
-#define MetricsReporter_h
+#ifndef MisraParser_h
+#define MisraParser_h
 
-#include "MetricsTypes.h"
 #include "MisraStringIssue.h"
 
-/** This class defines an abstract interface for concrete metrics reporting
- * subclasses.
- */
-class MetricsReporter
-{
-public:
-    /** Reports given metrics. 
-     * @param totalSeverityScore Total severity score.
-     * @param totalIssuesCount Total number of issues found.
-     * @param fileMap Filename vs. File object map.
-     * @param issueMap Issue number vs. Issue object map.
-     * @param fileList List of all File objects.
-     * @param issueList List of all Issue objects.
-     */
-    virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
-        const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList, const MISRA_STRING_ISSUE_LIST* misraStringIssueList) const = 0;
+#include <map>
+#include <string>
 
-    /** Destructor. */
-    virtual ~MetricsReporter() throw() { }
+
+class MisraParser {
+public:
+
+    MisraParser();
+    ~MisraParser() throw();
+    int parseMisraRule(const char* text, const char**  after);
+    const MISRA_STRING_ISSUE_LIST* getMisraStringIssueList() const;
+
+private:
+    typedef std::map<std::string, int> MISRA_ISSUE_BY_STRING_MAP;
+
+    MisraParser(const MisraParser& rhs);
+    MisraParser& operator=(const MisraParser&);
+
+    int m_nextVirtualIssueNumber;
+    MISRA_ISSUE_BY_STRING_MAP m_misraIssuebyStringMap;
+    MISRA_STRING_ISSUE_LIST m_misraStringIssueList;
 };
 
 #endif
-
 

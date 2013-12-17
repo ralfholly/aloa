@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -24,6 +24,7 @@
 #define XmlMetricsReporter_h
 
 #include "MetricsReporter.h"
+#include "MisraStringIssue.h"
 #include <string>
 
 class TiXmlElement;
@@ -38,14 +39,15 @@ public:
     XmlMetricsReporter(const std::string& xmlfile);
     virtual void reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList) const;
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList, const MISRA_STRING_ISSUE_LIST* misraStringIssueList) const;
 
     /** Destructor. */
     virtual ~XmlMetricsReporter() throw() { }
 
 private:
-    void printFileList(const FILE_LIST& fileList, TiXmlElement* root) const;
-    void printIssueList(const ISSUE_LIST& issueList, TiXmlElement* root) const;
+    void writeFileList(const FILE_LIST& fileList, TiXmlElement* root) const;
+    void writeIssueList(const ISSUE_LIST& issueList, TiXmlElement* root) const;
+    void writeMisraStringIssueList(const MISRA_STRING_ISSUE_LIST& misraStringIssueList, TiXmlElement* root) const;
 
     std::string m_xmlfile;
 };

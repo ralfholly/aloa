@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -29,6 +29,13 @@
 class IssueTable
 {
 public:
+    /** Virtual issue number space, start. */
+    static const int VIRTUAL_ISSUE_LOWER_BOUND = 1000000;
+    /** Virtual issue number space, end. */
+    static const int VIRTUAL_ISSUE_UPPER_BOUND = 1999999;
+    /** Common serverity of all virtual issues.. */
+    static const int VIRTUAL_ISSUE_SEVERITY = 1;
+
     /** Returns size of this table.
      * @return Number of table rows. 
      */

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -23,6 +23,8 @@
 #include "Aloa.h"
 #include "ClassicMetricsReporter.h"
 #include "XmlMetricsReporter.h"
+#include "IssueTable.h"
+
 #include "tinyxml/tinyxml.h"
 
 #include <iostream>
@@ -33,6 +35,7 @@
 #include <cassert>
 #include <cstring>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -40,23 +43,30 @@ Aloa::Aloa(int argc, const char* argv[]) :
     m_argc(argc),
     m_argv(argv),
     m_lintOutputFiles(),
-    m_metricsBuilder(),
+    m_misraEnabled(false),
+    m_metricsBuilder(m_misraEnabled),
     m_xmlOutputFile(""),
-    m_reporter(NULL)
+    m_reporter(NULL),
+    m_misraParser(NULL)
 {
     scanCommandLine();
+    if (m_misraEnabled) {
+        m_misraParser = new MisraParser();
+    }
     parseLintOutputFile();
     if (m_xmlOutputFile.empty()) {
         m_reporter = new ClassicMetricsReporter;
     } else {
         m_reporter = new XmlMetricsReporter(m_xmlOutputFile);
     }
-    m_metricsBuilder.reportMetrics(m_reporter);
+
+    m_metricsBuilder.reportMetrics(m_reporter, m_misraParser);
 }
 
 Aloa::~Aloa() 
 {
     delete m_reporter;
+    delete m_misraParser;
     m_argv = NULL;
 }
 
@@ -95,37 +105,51 @@ void Aloa::showHelp() const
         << "   -h, --help          Shows help message" << endl
         << "   -v, --version       Shows version information" << endl
         << "   -f, --file <file>   Analyzes Lint ouput file (XML-formatted)" << endl
-        << "                       Can be specified multiple times to support multiple lint output files." << endl
+        << "                       Can be specified multiple-times for multiple files." << endl
         << endl
         << "option:" << endl
         << "   -x, --xmlout <file> Writes output to an XML file instead of stdout" << endl
+        << "   -m, --misra         Support for MISRA rules" << endl
         << endl;
 
     exit(0);
 }
 
-const char* Aloa::getArgOptionFromIndex(const char* optShort, const char* optLong, int* index) const
+const char* Aloa::getArgOptionFromIndex(const char* optShort, const char* optLong) const
 {
-    // Argument not found.
-    const char* opt = NULL;
-    if (index != NULL && *index > 0) {
+    static int nextArg = 0;
 
-        for (int i = *index; i < m_argc; ++i) {
+    // Option not found.
+    const char* opt = NULL;
+
+    // If in resume with next option value.
+    if (optShort == NULL && optLong == NULL) {
+        if (0 < nextArg && nextArg < m_argc) {
+            if (*m_argv[nextArg] != '-') {
+                return m_argv[nextArg++];
+            }
+        }
+
+    // If start search from beginning.
+    } else {
+        int i;
+        for (i = 1; i < m_argc; ++i) {
             // If short or long option found.
             if ((optShort != NULL && strcmp(optShort, m_argv[i]) == 0)
                 || (optLong != NULL && strcmp(optLong, m_argv[i]) == 0)) {
 
                 // Peek at next command-line argument; if it does not start with a
-                // dash, it's the option of our current argument.
+                // dash, it's the option value of our current option.
                 if (i < m_argc - 1 && *m_argv[i + 1] != '-') {
                     opt = m_argv[i + 1];
+                    // Potentially, there are more option values.
+                    nextArg = i + 2;
                 }
-                // Otherwise, we don't have an option for our current argument.
+                // Otherwise, we don't have an option value for our current
+                // option.
                 else {
                     opt = "";
                 }
-                // If called again, start search at this index
-                *index = i + 1;
                 break;
             }
         }
@@ -138,31 +162,33 @@ void Aloa::scanCommandLine()
 {
     const char* opt = NULL;
 
-    int startIndex = 1;
-
-    if (m_argc < 2 || getArgOptionFromIndex("-h", "--help", &startIndex) != NULL) {
+    if (m_argc < 2 || getArgOptionFromIndex("-h", "--help") != NULL) {
         showHelp();
-    } else if (getArgOptionFromIndex("-v", "--version", &startIndex) != NULL) {
+    } else if (getArgOptionFromIndex("-v", "--version") != NULL) {
         showVersion();
         exit(0);
     } else {
         // Read in all lint output files.
-        while ((opt = getArgOptionFromIndex("-f", "--file", &startIndex)) != NULL && *opt != '\0') { 
+        opt = getArgOptionFromIndex("-f", "--file");
+        while (opt != NULL && *opt != '\0') {
             m_lintOutputFiles.push_back(string(opt));
+            opt = getArgOptionFromIndex(NULL, NULL);
         }
-
+        
         if (m_lintOutputFiles.empty()) {
             showHelp();
         }
 
         // Write output to XML file instead of stdout?
-        startIndex = 1;
-        if ((opt = getArgOptionFromIndex("-x", "--xmlout", &startIndex)) != NULL) {
+        if ((opt = getArgOptionFromIndex("-x", "--xmlout")) != NULL) {
             if (*opt == '\0') {
                 showHelp();
             }
             m_xmlOutputFile = opt;
         }
+
+        // Enable support for MISRA rules.
+        m_misraEnabled = (getArgOptionFromIndex("-m", "--misra") != NULL) ? true : false;
     }
 }
 
@@ -183,7 +209,7 @@ void Aloa::parseLintOutputFile()
         TiXmlElement* messageElement = root->FirstChildElement("message");
 
         while (messageElement != 0) {
-            TiXmlElement* fileElement, *codeElement;
+            TiXmlElement *fileElement, *codeElement, *descElement;
 
             // Get filename from 'file' element.
             fileElement = messageElement->FirstChildElement("file");
@@ -215,7 +241,32 @@ void Aloa::parseLintOutputFile()
                 throwXmlParseError(lintOutputFile, codeElement, "'line' value missing");
             }
 
-            m_metricsBuilder.onNewIssue(atoi(number), filename, atoi(line));
+            bool alreadyHandled = false;
+
+            if (m_misraEnabled) {
+                // Get description from 'desc' element.
+                descElement = fileElement->NextSiblingElement("desc");
+                if (descElement == 0) {
+                    throwXmlParseError(lintOutputFile, fileElement, "'desc' element not found");
+                }
+                const char* desc = descElement->GetText();
+                if (desc == 0) {
+                    throwXmlParseError(lintOutputFile, descElement, "'desc' value missing");
+                }
+
+                const char* next;
+                int virtualIssue;
+                while ((virtualIssue = m_misraParser->parseMisraRule(desc, &next)) != -1) {
+                    m_metricsBuilder.onNewIssue(virtualIssue, filename, atoi(line));
+                    alreadyHandled = true;
+                    desc = next;
+                }
+            }
+
+            if (!alreadyHandled) {
+                m_metricsBuilder.onNewIssue(atoi(number), filename, atoi(line));
+            }
+
             messageElement = messageElement->NextSiblingElement();
         }
     }

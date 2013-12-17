@@ -16,36 +16,21 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ///////////////////////////////////////////////////////////////////////////////
 
-/** Aloa main entry point -- implementation file. 
+/** Misra-related types and definitions -- header file.
  * @file
  */
 
-#include "Aloa.h"
+#ifndef MisraStringIssue_h
+#define MisraStringIssue_h
 
-#include <cstdlib>
-#include <iostream>
+#include <vector>
+#include <string>
 
-using namespace std;
-
-static void reportFatalError(const string& message)
+typedef struct 
 {
-    cerr << endl << "Fatal error: " << message << endl;
-    exit(EXIT_FAILURE);
-}
+    std::string misraString;
+    int misraIssue;
+} MISRA_STRING_ISSUE;
+typedef std::vector<MISRA_STRING_ISSUE> MISRA_STRING_ISSUE_LIST;
 
-int main(int argc, const char* argv[])
-{
-    bool issues = true;
-    try {
-        Aloa aloa(argc, argv);
-        issues = aloa.getIssuesCount() != 0;
-    } catch (const ParseError& e) {
-        reportFatalError("Parse error: " + e.getMessage());
-    } catch (...) {
-        reportFatalError("Unspecified fatal error");
-    }
-
-    return issues ?
-           EXIT_FAILURE :
-           EXIT_SUCCESS;
-}
+#endif

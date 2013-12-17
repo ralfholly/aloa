@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -32,7 +32,7 @@ using namespace std;
 
 void ClassicMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssuesCount,
         const FILE_MAP& fileMap, const ISSUE_MAP& issueMap,
-        const FILE_LIST& fileList, const ISSUE_LIST& issueList) const
+        const FILE_LIST& fileList, const ISSUE_LIST& issueList, const MISRA_STRING_ISSUE_LIST* misraStringIssueList) const
 {
     // Unused parameters.
     (void)fileMap;
@@ -43,7 +43,7 @@ void ClassicMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssu
          << "Total severity score ....... : " << totalSeverityScore << endl;
     printFileList(fileList);
     printIssueList(issueList);
-    printFooter();
+    printFooter(misraStringIssueList);
 }
 
 void ClassicMetricsReporter::printFileList(const FILE_LIST& fileList) const
@@ -55,7 +55,7 @@ void ClassicMetricsReporter::printFileList(const FILE_LIST& fileList) const
          << setw(7) << "Rank"
          << setw(7) << "Score"
          << setw(7) << "Issues"
-         << setw(7) << "MMsg"
+         << setw(9) << "MMsg"
          << setw(5) << "MSev"
          << "   " << "File"
          << endl
@@ -72,7 +72,7 @@ void ClassicMetricsReporter::printFileList(const FILE_LIST& fileList) const
         cout << setw(7) << pos
              << setw(7) << (*iter).getSeverityScore()
              << setw(7) << (*iter).getIssueCount()
-             << setw(7) << severestIssueNr
+             << setw(9) << severestIssueNr
              << setw(5) << maxSeverity
              << "   "  << (*iter).getFilename()
              << endl;
@@ -86,7 +86,7 @@ void ClassicMetricsReporter::printIssueList(const ISSUE_LIST& issueList) const
          << "----------" << endl
          << endl
          << setw(7) << "Rank"
-         << setw(7) << "Msg"
+         << setw(9) << "Msg"
          << setw(5) << "Sev"
          << setw(7) << "Count"
          << endl
@@ -99,15 +99,27 @@ void ClassicMetricsReporter::printIssueList(const ISSUE_LIST& issueList) const
         ++pos;
         int severity = (*iter).getSeverity();
         cout << setw(7) << pos
-             << setw(7) << (*iter).getNumber()
+             << setw(9) << (*iter).getNumber()
              << setw(5) << severity
              << setw(7) << (*iter).getCount()
              << endl;
     }
 }
 
-void ClassicMetricsReporter::printFooter() const
+void ClassicMetricsReporter::printFooter(const MISRA_STRING_ISSUE_LIST* misraStringIssueList) const
 {
+    if (misraStringIssueList != NULL) {
+        cout << endl
+             << "MISRA Virtual Issues" << endl
+             << "--------------------" << endl
+             << endl;
+
+        MISRA_STRING_ISSUE_LIST::const_iterator iter = misraStringIssueList->begin();
+        for (; iter != misraStringIssueList->end(); ++iter) {
+            cout << setw(10) << (*iter).misraIssue << " " << (*iter).misraString << endl;
+        }
+    }
+
     cout << endl
          << "Legend" << endl
          << "------" << endl
@@ -128,4 +140,3 @@ void ClassicMetricsReporter::printFooter() const
          << "Issues Total number of issues in file" << endl
          << endl;
 }
-

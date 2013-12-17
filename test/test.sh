@@ -6,37 +6,39 @@
 
 exit_code=0
 
-ALOA_PATH=../make/aloa
-CURR_DIR=$(pwd)
+TEST_SCRIPT_DIR=$(dirname $0)
 
-if [ "test" != ${CURR_DIR##*/} ]; then
-    echo "Run this script from the 'test' directory."
-    exit 1
-fi
-if [ ! -x "$ALOA_PATH" ]; then
-    echo "$ALOA_PATH doesn't exist. Please perform a build first."
+if [ ! -x "$ALOA_EXE" ]; then
+    echo "$ALOA_EXE doesn't exist. Please perform a build first."
     exit 1
 fi
 
 ###################################
 # Test output to stdout.
 #
-$ALOA_PATH -f lint.output.xml > output
-diff output output.ref
+OUTPUT="$TEST_SCRIPT_DIR/output"
+"$ALOA_EXE" -f "$TEST_SCRIPT_DIR/lint.output.xml" > "$OUTPUT"
+diff "$OUTPUT" "$TEST_SCRIPT_DIR/output.ref"
 if [ $? -ne 0 ]; then 
     echo "*** Test (stdout) failed! ***"
     exit_code=1; 
-    fi
+else
+    rm "$OUTPUT"
+fi
+    
 
 ###################################
 # Test XML ouput.
 #
-$ALOA_PATH -f lint.output.xml -x output.xml 
-diff output.xml output.xml.ref
+OUTPUT="$TEST_SCRIPT_DIR/output.xml"
+"$ALOA_EXE" -f "$TEST_SCRIPT_DIR/lint.output.xml" -x "$OUTPUT"
+diff "$OUTPUT" "$TEST_SCRIPT_DIR/output.xml.ref"
 if [ $? -ne 0 ]; then 
     echo "*** Test (XML output) failed! ***"
     exit_code=1; 
-    fi
+else
+    rm "$OUTPUT"
+fi
 
 exit $exit_code
 

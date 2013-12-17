@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -23,15 +23,17 @@
 #include "MetricsBuilder.h"
 #include "IssueTable.h"
 #include "MetricsReporter.h"
+#include "MisraParser.h"
 
 #include <algorithm>
 #include <cassert>
 
 using namespace std;
 
-MetricsBuilder::MetricsBuilder() :
+MetricsBuilder::MetricsBuilder(bool misraEnabled) :
     m_severityScore(0),
-    m_issuesCount(0)
+    m_issuesCount(0),
+    m_misraEnabled(misraEnabled)
 {
 }
 
@@ -72,7 +74,7 @@ void MetricsBuilder::onNewIssue(int number, const std::string& filename, int lin
     pIssue->addFile(filename);
 }
 
-void MetricsBuilder::reportMetrics(const MetricsReporter* reporter)
+void MetricsBuilder::reportMetrics(const MetricsReporter* reporter, const MisraParser* misraParser)
 {
     // Create sorted file list
     FILE_MAP::iterator iterFile = m_fileMap.begin();
@@ -100,6 +102,7 @@ void MetricsBuilder::reportMetrics(const MetricsReporter* reporter)
         m_fileMap,
         m_issueMap,
         m_fileList,
-        m_issueList);
+        m_issueList,
+        misraParser != NULL ? misraParser->getMisraStringIssueList() : NULL);
 }
 

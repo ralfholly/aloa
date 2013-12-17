@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -48,7 +48,7 @@ XmlMetricsReporter::XmlMetricsReporter(const std::string& xmlfile) :
 }
 
 void XmlMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssuesCount,
-        const FILE_MAP& fileMap, const ISSUE_MAP& issueMap, const FILE_LIST& fileList, const ISSUE_LIST& issueList) const
+        const FILE_MAP& fileMap, const ISSUE_MAP& issueMap, const FILE_LIST& fileList, const ISSUE_LIST& issueList, const MISRA_STRING_ISSUE_LIST* misraStringIssueList) const
 {
     // Unused parameters.
     (void)fileMap;
@@ -64,8 +64,11 @@ void XmlMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssuesCo
     (void)NewXmlElementWithValue("TotalIssuesCount", totalIssuesCount, root);
     (void)NewXmlElementWithValue("TotalSeverityScore", totalSeverityScore, root);
 
-    printFileList(fileList, root);
-    printIssueList(issueList, root);
+    writeFileList(fileList, root);
+    writeIssueList(issueList, root);
+    if (misraStringIssueList != NULL) {
+        writeMisraStringIssueList(*misraStringIssueList, root);
+    }
 
     if (!doc.SaveFile(m_xmlfile.c_str())) {
         cerr << "Cannot write to " << m_xmlfile << endl;
@@ -73,7 +76,7 @@ void XmlMetricsReporter::reportMetrics(int totalSeverityScore, int totalIssuesCo
     }
 }
 
-void XmlMetricsReporter::printFileList(const FILE_LIST& fileList, TiXmlElement* root) const
+void XmlMetricsReporter::writeFileList(const FILE_LIST& fileList, TiXmlElement* root) const
 {
     TiXmlElement* flist = new TiXmlElement("FileList");
     root->LinkEndChild(flist);
@@ -99,7 +102,7 @@ void XmlMetricsReporter::printFileList(const FILE_LIST& fileList, TiXmlElement* 
     }
 }
 
-void XmlMetricsReporter::printIssueList(const ISSUE_LIST& issueList, TiXmlElement* root) const
+void XmlMetricsReporter::writeIssueList(const ISSUE_LIST& issueList, TiXmlElement* root) const
 {
     TiXmlElement* ilist = new TiXmlElement("IssueList");
     root->LinkEndChild(ilist);
@@ -117,6 +120,23 @@ void XmlMetricsReporter::printIssueList(const ISSUE_LIST& issueList, TiXmlElemen
         (void)NewXmlElementWithValue("Msg", iter->getNumber(), issue);
         (void)NewXmlElementWithValue("Sev", iter->getSeverity(), issue);
         (void)NewXmlElementWithValue("Count", iter->getCount(), issue);
+    }
+}
+
+void XmlMetricsReporter::writeMisraStringIssueList(const MISRA_STRING_ISSUE_LIST& misraStringIssueList, TiXmlElement* root) const
+{
+    TiXmlElement* misraVirtualIssues = new TiXmlElement("MisraVirtualIssues");
+    root->LinkEndChild(misraVirtualIssues);
+
+    for (MISRA_STRING_ISSUE_LIST::const_iterator iter = misraStringIssueList.begin(); 
+        iter != misraStringIssueList.end();
+        ++iter) {
+
+        TiXmlElement* virtualIssue = new TiXmlElement("VirtualIssue");
+        virtualIssue->LinkEndChild(virtualIssue);
+
+        (void)NewXmlElementWithValue("issue", (*iter).misraIssue, virtualIssue);
+        (void)NewXmlElementWithValue("string", (*iter).misraString, virtualIssue);
     }
 }
 

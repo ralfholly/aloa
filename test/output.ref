@@ -5,260 +5,260 @@ Total severity score ....... : 19475
 File List
 -----------
 
-   Rank  Score Issues   MMsg MSev   File
+   Rank  Score Issues     MMsg MSev   File
 
-      1   2322   1043    537    3   subst.c
-      2   1062    410    123    4   jobs.c
-      3   1034    454     40    4   variables.c
-      4   1021    380    537    3   xmalloc.h
-      5    999      1    305  999   <unknown>
-      6    973    415    537    3   bashline.c
-      7    886    370    123    4   execute_cmd.c
-      8    720    247     10    4   general.h
-      9    681    298     49    4   variables.h
-     10    494    213    652    3   y.tab.c
-     11    372    186    830    2   \usr\include\signal.h
-     12    363    122     18    4   externs.h
-     13    320    125    641    3   dispose_cmd.c
-     14    311    137    158    4   pcomplete.c
-     15    303    107     14    4   nojobs.c
-     16    290    115     14    4   shell.c
-     17    283    125    537    3   arrayfunc.c
-     18    271    104     10    4   sig.h
-     19    268    118    537    3   redir.c
-     20    267    106    124    4   print_cmd.c
-     21    266    119    537    3   array.c
-     22    266    122    537    3   expr.c
-     23    235     72     10    4   array.h
-     24    215     90     64    4   test.c
-     25    205     87     18    4   braces.c
-     26    202     74    537    3   trap.c
-     27    182     84    114    4   shell.h
-     28    178     89    830    2   lib\readline\readline.h
-     29    168     73    537    3   assoc.c
-     30    168     84    830    2   syntax.h
-     31    161     64    537    3   sig.c
-     32    156     68    537    3   general.c
-     33    148     74    773    2   quit.h
-     34    135     47     18    4   subst.h
-     35    133     64    537    3   make_cmd.c
-     36    127     42     49    4   assoc.h
-     37    113     46     40    4   locale.c
-     38    108     36    537    3   error.h
-     39    108     36    537    3   hashlib.h
-     40    106     53    830    2   \usr\include\unistd.h
-     41    105     35    537    3   dispose_cmd.h
-     42    105     35    537    3   make_cmd.h
-     43    105     42     78    4   unwind_prot.c
-     44    104     44     18    4   \usr\include\stdio.h
-     45    104     41    537    3   error.c
-     46    102     40     18    4   builtins\common.h
-     47    100     50    762    2   builtins\builtext.h
-     48     92     46    830    2   .\y.tab.h
-     49     91     42    537    3   input.c
-     50     89     42    537    3   copy_cmd.c
-     51     89     36    537    3   jobs.h
-     52     83     36    537    3   findcmd.c
-     53     82     37    537    3   trap.h
-     54     81     38    537    3   alias.c
-     55     80     36    537    3   stringlib.c
-     56     78     39    830    2   \usr\include\stdlib.h
-     57     78     33    537    3   mksyntax.c
-     58     70     21    114    4   \usr\include\bits\stat.h
-     59     66     26    537    3   bashhist.c
-     60     63     21    537    3   builtins.h
-     61     62     26    537    3   mailcheck.c
-     62     61     23    537    3   flags.h
-     63     59     26    537    3   pathexp.c
-     64     56     23    537    3   eval.c
-     65     56     24    537    3   hashlib.c
-     66     50     17     18    4   version.c
-     67     47     17    537    3   input.h
-     68     46     21    537    3   bracecomp.c
-     69     41     16    537    3   bashhist.h
-     70     39     13    537    3   alias.h
-     71     38     16     18    4   \usr\include\fcntl.h
-     72     38     18    534    3   flags.c
-     73     35     12    537    3   execute_cmd.h
-     74     32     16    773    2   pathexp.h
-     75     32     11    537    3   pcomplete.h
-     76     30     10    537    3   bashtypes.h
-     77     26      8     18    4   \usr\include\bits\fcntl.h
-     78     26      9    537    3   hashcmd.h
-     79     25     11    537    3   pcomplib.c
-     80     24      8     18    4   \usr\include\sys\select.h
-     81     22     11    830    2   \usr\include\libio.h
-     82     20      7    537    3   bashline.h
-     83     18      6    537    3   bashansi.h
-     84     18      6    537    3   findcmd.h
-     85     17      7    528    3   xmalloc.c
-     86     16      6     18    4   \Users\chet\src\bash\src\parse.y
-     87     16      5     18    4   command.h
-     88     15      7    516    3   list.c
-     89     14      7    830    2   lib\readline\history.h
-     90     12      3     10    4   \usr\include\ctype.h
-     91     10      5    830    2   \usr\include\locale.h
-     92     10      4     36    4   \usr\include\stdint.h
-     93     10      4    537    3   redir.h
-     94      9      3    537    3   test.h
-     95      8      4    830    2   \usr\include\libintl.h
-     96      8      4    830    2   \usr\include\sys\resource.h
-     97      6      3    830    2   \usr\include\sys\time.h
-     98      6      2    537    3   builtins\getopt.h
-     99      6      2    537    3   parser.h
-    100      4      2    830    2   \usr\include\getopt.h
-    101      4      2    830    2   \usr\include\strings.h
-    102      4      2    830    2   \usr\include\sys\stat.h
-    103      4      2    830    2   include\shtty.h
-    104      2      1    830    2   \usr\include\inttypes.h
-    105      2      1    830    2   include\ansi_stdlib.h
-    106      2      1   1713    2   somefile.cpp
-    107      2      1    766    2   syntax.c
+      1   2322   1043      537    3   subst.c
+      2   1062    410      123    4   jobs.c
+      3   1034    454       40    4   variables.c
+      4   1021    380      537    3   xmalloc.h
+      5    999      1      305  999   <unknown>
+      6    973    415      537    3   bashline.c
+      7    886    370      123    4   execute_cmd.c
+      8    720    247       10    4   general.h
+      9    681    298       49    4   variables.h
+     10    494    213      652    3   y.tab.c
+     11    372    186      830    2   \usr\include\signal.h
+     12    363    122       18    4   externs.h
+     13    320    125      641    3   dispose_cmd.c
+     14    311    137      158    4   pcomplete.c
+     15    303    107       14    4   nojobs.c
+     16    290    115       14    4   shell.c
+     17    283    125      537    3   arrayfunc.c
+     18    271    104       10    4   sig.h
+     19    268    118      537    3   redir.c
+     20    267    106      124    4   print_cmd.c
+     21    266    119      537    3   array.c
+     22    266    122      537    3   expr.c
+     23    235     72       10    4   array.h
+     24    215     90       64    4   test.c
+     25    205     87       18    4   braces.c
+     26    202     74      537    3   trap.c
+     27    182     84      114    4   shell.h
+     28    178     89      830    2   lib\readline\readline.h
+     29    168     73      537    3   assoc.c
+     30    168     84      830    2   syntax.h
+     31    161     64      537    3   sig.c
+     32    156     68      537    3   general.c
+     33    148     74      773    2   quit.h
+     34    135     47       18    4   subst.h
+     35    133     64      537    3   make_cmd.c
+     36    127     42       49    4   assoc.h
+     37    113     46       40    4   locale.c
+     38    108     36      537    3   error.h
+     39    108     36      537    3   hashlib.h
+     40    106     53      830    2   \usr\include\unistd.h
+     41    105     35      537    3   dispose_cmd.h
+     42    105     35      537    3   make_cmd.h
+     43    105     42       78    4   unwind_prot.c
+     44    104     44       18    4   \usr\include\stdio.h
+     45    104     41      537    3   error.c
+     46    102     40       18    4   builtins\common.h
+     47    100     50      762    2   builtins\builtext.h
+     48     92     46      830    2   .\y.tab.h
+     49     91     42      537    3   input.c
+     50     89     42      537    3   copy_cmd.c
+     51     89     36      537    3   jobs.h
+     52     83     36      537    3   findcmd.c
+     53     82     37      537    3   trap.h
+     54     81     38      537    3   alias.c
+     55     80     36      537    3   stringlib.c
+     56     78     39      830    2   \usr\include\stdlib.h
+     57     78     33      537    3   mksyntax.c
+     58     70     21      114    4   \usr\include\bits\stat.h
+     59     66     26      537    3   bashhist.c
+     60     63     21      537    3   builtins.h
+     61     62     26      537    3   mailcheck.c
+     62     61     23      537    3   flags.h
+     63     59     26      537    3   pathexp.c
+     64     56     23      537    3   eval.c
+     65     56     24      537    3   hashlib.c
+     66     50     17       18    4   version.c
+     67     47     17      537    3   input.h
+     68     46     21      537    3   bracecomp.c
+     69     41     16      537    3   bashhist.h
+     70     39     13      537    3   alias.h
+     71     38     16       18    4   \usr\include\fcntl.h
+     72     38     18      534    3   flags.c
+     73     35     12      537    3   execute_cmd.h
+     74     32     16      773    2   pathexp.h
+     75     32     11      537    3   pcomplete.h
+     76     30     10      537    3   bashtypes.h
+     77     26      8       18    4   \usr\include\bits\fcntl.h
+     78     26      9      537    3   hashcmd.h
+     79     25     11      537    3   pcomplib.c
+     80     24      8       18    4   \usr\include\sys\select.h
+     81     22     11      830    2   \usr\include\libio.h
+     82     20      7      537    3   bashline.h
+     83     18      6      537    3   bashansi.h
+     84     18      6      537    3   findcmd.h
+     85     17      7      528    3   xmalloc.c
+     86     16      6       18    4   \Users\chet\src\bash\src\parse.y
+     87     16      5       18    4   command.h
+     88     15      7      516    3   list.c
+     89     14      7      830    2   lib\readline\history.h
+     90     12      3       10    4   \usr\include\ctype.h
+     91     10      5      830    2   \usr\include\locale.h
+     92     10      4       36    4   \usr\include\stdint.h
+     93     10      4      537    3   redir.h
+     94      9      3      537    3   test.h
+     95      8      4      830    2   \usr\include\libintl.h
+     96      8      4      830    2   \usr\include\sys\resource.h
+     97      6      3      830    2   \usr\include\sys\time.h
+     98      6      2      537    3   builtins\getopt.h
+     99      6      2      537    3   parser.h
+    100      4      2      830    2   \usr\include\getopt.h
+    101      4      2      830    2   \usr\include\strings.h
+    102      4      2      830    2   \usr\include\sys\stat.h
+    103      4      2      830    2   include\shtty.h
+    104      2      1      830    2   \usr\include\inttypes.h
+    105      2      1      830    2   include\ansi_stdlib.h
+    106      2      1     1713    2   somefile.cpp
+    107      2      1      766    2   syntax.c
 
 Issue List
 ----------
 
-   Rank    Msg  Sev  Count
+   Rank      Msg  Sev  Count
 
-      1    830    2   1493
-      2    537    3    841
-      3    534    3    670
-      4    831    2    571
-      5    717    2    460
-      6    773    2    302
-      7    613    3    199
-      8    652    3    199
-      9    737    2    186
-     10    713    2    183
-     11    732    2    175
-     12    826    2    165
-     13    715    2    128
-     14    801    2     89
-     15    762    2     88
-     16    451    3     77
-     17    506    3     77
-     18    747    2     77
-     19    760    2     68
-     20    740    2     66
-     21     18    4     62
-     22    516    3     52
-     23    774    2     51
-     24    611    3     48
-     25    553    3     44
-     26    514    3     43
-     27    720    2     42
-     28    731    2     42
-     29    668    3     40
-     30    683    3     38
-     31    438    3     36
-     32    750    2     36
-     33    788    2     36
-     34    838    2     36
-     35    787    2     35
-     36    746    2     34
-     37    752    2     32
-     38    644    3     29
-     39    550    3     28
-     40    744    2     28
-     41    734    2     27
-     42     14    4     26
-     43    574    3     26
-     44    794    2     26
-     45    712    2     25
-     46    785    2     25
-     47    569    3     24
-     48    616    3     24
-     49    825    2     24
-     50    766    2     22
-     51    646    3     21
-     52     38    4     19
-     53    820    2     19
-     54    528    3     18
-     55     10    4     17
-     56    767    2     17
-     57    443    3     15
-     58    728    2     15
-     59    843    2     13
-     60     40    4     12
-     61    101    4     12
-     62    564    3     12
-     63    850    2     12
-     64    114    4     11
-     65    418    3     11
-     66    529    3     11
-     67    601    3     11
-     68    605    3     11
-     69    718    2     11
-     70     49    4     10
-     71    530    3     10
-     72    592    3     10
-     73    662    3     10
-     74    132    4      9
-     75    844    2      9
-     76    414    3      8
-     77    716    2      8
-     78    730    2      8
-     79    551    3      7
-     80    687    3      7
-     81    834    2      7
-     82    835    2      7
-     83     19    4      6
-     84    124    4      6
-     85    539    3      6
-     86    123    4      5
-     87    661    3      5
-     88    725    2      5
-     89    808    2      5
-     90     36    4      4
-     91     64    4      4
-     92    532    3      4
-     93    641    3      4
-     94    690    3      4
-     95    722    2      4
-     96    754    2      4
-     97    452    3      3
-     98    502    3      3
-     99    533    3      3
-    100    545    3      3
-    101    585    3      3
-    102    645    3      3
-    103    650    3      3
-    104    745    2      3
-    105    776    2      3
-    106    527    3      2
-    107    578    3      2
-    108    659    3      2
-    109    665    3      2
-    110    666    3      2
-    111    701    2      2
-    112    703    2      2
-    113    704    2      2
-    114    705    2      2
-    115    727    2      2
-    116    751    2      2
-    117    771    2      2
-    118    845    2      2
-    119    305  999      1
-    120     78    4      1
-    121    158    4      1
-    122    409    3      1
-    123    413    3      1
-    124    501    3      1
-    125    512    3      1
-    126    515    3      1
-    127    522    3      1
-    128    525    3      1
-    129    563    3      1
-    130    568    3      1
-    131    685    3      1
-    132    695    3      1
-    133    753    2      1
-    134    764    2      1
-    135    770    2      1
-    136    810    2      1
-    137    821    2      1
-    138    832    2      1
-    139   1713    2      1
+      1      830    2   1493
+      2      537    3    841
+      3      534    3    670
+      4      831    2    571
+      5      717    2    460
+      6      773    2    302
+      7      613    3    199
+      8      652    3    199
+      9      737    2    186
+     10      713    2    183
+     11      732    2    175
+     12      826    2    165
+     13      715    2    128
+     14      801    2     89
+     15      762    2     88
+     16      451    3     77
+     17      506    3     77
+     18      747    2     77
+     19      760    2     68
+     20      740    2     66
+     21       18    4     62
+     22      516    3     52
+     23      774    2     51
+     24      611    3     48
+     25      553    3     44
+     26      514    3     43
+     27      720    2     42
+     28      731    2     42
+     29      668    3     40
+     30      683    3     38
+     31      438    3     36
+     32      750    2     36
+     33      788    2     36
+     34      838    2     36
+     35      787    2     35
+     36      746    2     34
+     37      752    2     32
+     38      644    3     29
+     39      550    3     28
+     40      744    2     28
+     41      734    2     27
+     42       14    4     26
+     43      574    3     26
+     44      794    2     26
+     45      712    2     25
+     46      785    2     25
+     47      569    3     24
+     48      616    3     24
+     49      825    2     24
+     50      766    2     22
+     51      646    3     21
+     52       38    4     19
+     53      820    2     19
+     54      528    3     18
+     55       10    4     17
+     56      767    2     17
+     57      443    3     15
+     58      728    2     15
+     59      843    2     13
+     60       40    4     12
+     61      101    4     12
+     62      564    3     12
+     63      850    2     12
+     64      114    4     11
+     65      418    3     11
+     66      529    3     11
+     67      601    3     11
+     68      605    3     11
+     69      718    2     11
+     70       49    4     10
+     71      530    3     10
+     72      592    3     10
+     73      662    3     10
+     74      132    4      9
+     75      844    2      9
+     76      414    3      8
+     77      716    2      8
+     78      730    2      8
+     79      551    3      7
+     80      687    3      7
+     81      834    2      7
+     82      835    2      7
+     83       19    4      6
+     84      124    4      6
+     85      539    3      6
+     86      123    4      5
+     87      661    3      5
+     88      725    2      5
+     89      808    2      5
+     90       36    4      4
+     91       64    4      4
+     92      532    3      4
+     93      641    3      4
+     94      690    3      4
+     95      722    2      4
+     96      754    2      4
+     97      452    3      3
+     98      502    3      3
+     99      533    3      3
+    100      545    3      3
+    101      585    3      3
+    102      645    3      3
+    103      650    3      3
+    104      745    2      3
+    105      776    2      3
+    106      527    3      2
+    107      578    3      2
+    108      659    3      2
+    109      665    3      2
+    110      666    3      2
+    111      701    2      2
+    112      703    2      2
+    113      704    2      2
+    114      705    2      2
+    115      727    2      2
+    116      751    2      2
+    117      771    2      2
+    118      845    2      2
+    119      305  999      1
+    120       78    4      1
+    121      158    4      1
+    122      409    3      1
+    123      413    3      1
+    124      501    3      1
+    125      512    3      1
+    126      515    3      1
+    127      522    3      1
+    128      525    3      1
+    129      563    3      1
+    130      568    3      1
+    131      685    3      1
+    132      695    3      1
+    133      753    2      1
+    134      764    2      1
+    135      770    2      1
+    136      810    2      1
+    137      821    2      1
+    138      832    2      1
+    139     1713    2      1
 
 Legend
 ------

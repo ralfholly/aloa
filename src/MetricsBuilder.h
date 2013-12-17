@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2010 by Ralf Holly.
+// Copyright (c) 2006 - 2013 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -28,6 +28,7 @@
 class File;
 class Issue;
 class MetricsReporter;
+class MisraParser;
 
 /** This class collects and builds Lint metrics.
  * Whenever Aloa has fetched a Lint issue, it passes is to an instance of
@@ -38,8 +39,10 @@ class MetricsReporter;
 class MetricsBuilder
 {
 public:
-    /** MetricsBuild constructor. */
-    MetricsBuilder();
+    /** MetricsBuild constructor.
+     * @param misraEnabled Determines whether support for MISRA is requested.
+     */
+    MetricsBuilder(bool misraEnabled);
 
     /** Returns the total number of issues found. */
     int getIssuesCount() const;
@@ -57,7 +60,7 @@ public:
      * @note This method shall not be called before all issues have been
      * reported via onNewIssue().
      */
-    void reportMetrics(const MetricsReporter* reporter);
+    void reportMetrics(const MetricsReporter* reporter, const MisraParser* misraParser);
 
 private:
     MetricsBuilder(const MetricsBuilder& rhs);
@@ -70,6 +73,7 @@ private:
     ISSUE_MAP m_issueMap;
     FILE_LIST m_fileList;
     ISSUE_LIST m_issueList;
+    bool m_misraEnabled;
 };
 
 #endif

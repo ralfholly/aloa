@@ -17,7 +17,7 @@
  * ALOA is free software according to the GNU General Public License. You must read
  * and accept its terms before using ALOA.
  *
- * Copyright (c) 2006 - 2010 by Ralf Holly.
+ * Copyright (c) 2006 - 2013 by Ralf Holly.
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
