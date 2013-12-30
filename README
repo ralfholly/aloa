@@ -25,6 +25,8 @@ History:
                           directly after first lint output file.
                     NEW   Support for fine-grained reports of MISRA issues (-m)
                           through so-called "virtual issues".
+4.5.0  2013-12-30   NEW   Merged gcclint and g++lint. Now there is only gcclint
+                          and it supports both, C and C++.
 
 Usage:
 

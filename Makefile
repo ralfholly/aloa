@@ -1,7 +1,7 @@
 # Tools definitions.
 RM := rm -rf
 MKDIR := mkdir -p
-GPPLINT := tools/g++lint
+GPPLINT := tools/gcclint
 
 # Project definitions.
 export ALOA_EXE := build/aloa
@@ -22,8 +22,7 @@ SRCS_ALOA := $(wildcard $(SRC_DIR)/*.cpp)
 SRCS_TINYXML := $(wildcard $(LIB_DIR)/tinyxml/*.cpp)
 SRCS := $(SRCS_ALOA) $(SRCS_TINYXML)
 
-# Remember: COMPILE.cpp = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
-# By default, do a debug build; pass -O3 as CXXFLAGS to get a release build.
+# By default, do a debug build.
 ifeq "$(TARGET)" "RELEASE"
 override CXXFLAGS += -O2
 else
@@ -60,9 +59,8 @@ make-output-dir := $(shell $(MKDIR) $(OUTPUT_TREE))
 
 all:
 
-# Generate C/C++ dependencies.
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(COMPILE.cpp) -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	$(COMPILE.cpp) -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o"$@" "$<"
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(strip $(CPP_DEPS)),)
