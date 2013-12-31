@@ -30,7 +30,7 @@
 #include <vector>
 
 /** ALOA version number. */
-const std::string VERSION   = "4.4.0"; 
+const std::string VERSION   = "4.5.0"; 
 const std::string YEAR      = "2006 - 2013";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";
