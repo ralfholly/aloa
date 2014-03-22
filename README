@@ -27,6 +27,12 @@ History:
                           through so-called "virtual issues".
 4.5.0  2013-12-30   NEW   Merged gcclint and g++lint. Now there is only gcclint
                           and it supports both, C and C++.
+4.6.0  2014-03-22   NEW   gcclint: Suppression of issues coming from 
+                          lint_cmac.h/ lint_cppmac.h.
+                          Added build target COVERAGE to Makefile:
+                          make TARGET=COVERAGE
+                          Added 'gcov_report' and 'lcov_report' targets to 
+                          Makefile.
 
 Usage:
 

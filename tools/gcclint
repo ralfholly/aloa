@@ -13,25 +13,29 @@ function generate_settings
     echo -n '' >$DUMMY_FILE
 
     # Generate predefined preprocessor symbols.
-    $compiler -E -dM $DUMMY_FILE >$prepro_file
+    echo "/*lint -efile(*, $prepro_file) */" >$prepro_file
+    echo "/*lint -save -e* */" >>$prepro_file
+    $compiler -E -dM $DUMMY_FILE >>$prepro_file
+    echo "/*lint -restore */" >>$prepro_file
 
     # Generate list of include paths
     skip=1
     $compiler -c -v $DUMMY_FILE 2>&1 | while read line; do
-            if [ "$line" == '#include "..." search starts here:' ]; then
-                    read line
-                    if [ "$line" == '#include <...> search starts here:' ]; then
-                            read line
-                            skip=0
-                    fi
+        if [ "$line" == '#include "..." search starts here:' ]; then
+            read line
+            if [ "$line" == '#include <...> search starts here:' ]; then
+                read line
+                skip=0
             fi
-            if [ "$line" == 'End of search list.' ]; then
-                    skip=1
-            fi
+        fi
 
-            if [ $skip -eq 0 ]; then
-                    echo "--i$($PATH_CONV $line)" >>$INCLUDE_PATH_FILE
-            fi;
+        if [ "$line" == 'End of search list.' ]; then
+            skip=1
+        fi
+
+        if [ $skip -eq 0 ]; then
+            echo "--i$($PATH_CONV $line)" >>$INCLUDE_PATH_FILE
+        fi
     done
 }
 

@@ -4,16 +4,18 @@ MKDIR := mkdir -p
 GPPLINT := tools/gcclint
 
 # Project definitions.
-export ALOA_EXE := build/aloa
+BUILD_DIR := build
+export ALOA_EXE := $(BUILD_DIR)/aloa
 SRC_DIR := src
-OBJ_DIR := build/obj
+OBJ_DIR := $(BUILD_DIR)/obj
 LIB_DIR := $(SRC_DIR)/lib
+GCOV_DIR := $(BUILD_DIR)/gcov
 INCLUDE := $(LIB_DIR)
 
-DOXY_DIR := build/doxygen
-DOXY_FILE := build/Doxyfile
+DOXY_DIR := $(BUILD_DIR)/doxygen
+DOXY_FILE := $(BUILD_DIR)/Doxyfile
 TEST_SCRIPT := test/test.sh
-LINT_POLICY := build/policy.lnt
+LINT_POLICY := $(BUILD_DIR)/policy.lnt
 LINT_ALOA_XML_OUTFILE := lint.output.xml
 TARGET := DEBUG
 
@@ -24,15 +26,14 @@ SRCS := $(SRCS_ALOA) $(SRCS_TINYXML)
 
 # By default, do a debug build.
 ifeq "$(TARGET)" "RELEASE"
-override CXXFLAGS += -O2
+override CXXFLAGS += -O2 -DNDEBUG
+else ifeq "$(TARGET)" "COVERAGE"
+override CXXFLAGS += --coverage -DNDEBUG
 else
 override CXXFLAGS += -O0 -g3 -Wall
 endif
 
 CPPFLAGS += $(addprefix -I,$(INCLUDE))
-
-# Profiling
-#  CXXFLAGS += -fprofile-arcs -ftest-coverage
 
 define lint-base-cmd
 $(GPPLINT) -b $(LINT_POLICY) -i$(INCLUDE) $(LINTFLAGS) $1 
@@ -55,7 +56,7 @@ CPP_DEPS := $(subst .cpp,.d,$(HELPER))
 OUTPUT_TREE := $(sort $(dir $(OBJS)))
 make-output-dir := $(shell $(MKDIR) $(OUTPUT_TREE))
 
-.PHONY: clean debug test todo doxy lint lintaloa deploy 
+.PHONY: clean debug test todo doxy lint lintaloa deploy gcov
 
 all:
 
@@ -85,7 +86,7 @@ lintaloa:
 
 clean:
 	@echo [Cleaning]
-	-$(RM) $(OBJ_DIR) $(ALOA_EXE) $(DOXY_DIR) $(LINT_ALOA_XML_OUTFILE)
+	-$(RM) $(OBJ_DIR) $(ALOA_EXE) $(DOXY_DIR) $(LINT_ALOA_XML_OUTFILE) $(GCOV_DIR)
 
 test: $(ALOA_EXE)
 	@echo [Testing]
@@ -101,6 +102,18 @@ doxy:
 	# @echo [Generating doxygen documentation]
 	# cd $(SRC_DIR) && doxygen $(DOXY_FILE)
 
+gcov_report: 
+	rm -rf *.gcov
+	$(MKDIR) $(GCOV_DIR)
+	gcov -b -o $(OBJ_DIR) $(SRCS_ALOA)
+	mv *.gcov $(GCOV_DIR)
+	
+lcov_report: 
+	$(MKDIR) $(GCOV_DIR)
+	lcov -c -d . -b . -o $(GCOV_DIR)/gcov.info.raw  
+	lcov -r $(GCOV_DIR)/gcov.info.raw /usr/include/\* -o $(GCOV_DIR)/gcov.info
+	genhtml $(GCOV_DIR)/gcov.info -o $(GCOV_DIR)/html
+	
 deploy: 
 	@$(eval ALOA_VERSION=`grep -E 'VERSION\s+=\s+"[^"]+"' src/Aloa.h | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'`)
 	@$(eval ALOA_VERSION_DIR="aloa-$(ALOA_VERSION)")
