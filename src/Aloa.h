@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2006 - 2013 by Ralf Holly.
+// Copyright (c) 2006 - 2014 by Ralf Holly.
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -30,7 +30,7 @@
 #include <vector>
 
 /** ALOA version number. */
-const std::string VERSION   = "4.6.0"; 
+const std::string VERSION   = "4.7.0"; 
 const std::string YEAR      = "2006 - 2014";
 const std::string COPYRIGHT = "ALOA version " + VERSION + 
     ". Copyright " + YEAR + " by Ralf Holly.\n";

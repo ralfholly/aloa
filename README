@@ -33,6 +33,7 @@ History:
                           make TARGET=COVERAGE
                           Added 'gcov_report' and 'lcov_report' targets to 
                           Makefile.
+4.7.0  2014-11-08   NEW   Upgraded gcclint to support PC-lint versions >= 9.00L
 
 Usage:
 
