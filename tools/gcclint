@@ -93,6 +93,9 @@ if [ ! -d $SETTINGS_DIR ]; then
         echo "#error \"gcclint fatal error: C++ support missing. Please delete directory $SETTINGS_DIR and retry.\"" > lint_cppmac.h
     fi
 
+    # Create dummies for files needed by newer versions of co-gcc.lnt.
+    touch size-options.lnt gcc-include-path.lnt
+
     echo "DONE" 1>&2
     popd >/dev/null
 fi
