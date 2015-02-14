@@ -35,6 +35,7 @@ function generate_settings
 
         if [ $skip -eq 0 ]; then
             echo "--i$($PATH_CONV $line)" >>$INCLUDE_PATH_FILE
+            echo "+libdir($($PATH_CONV $line))" >>$INCLUDE_PATH_FILE
         fi
     done
 }

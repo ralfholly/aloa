@@ -34,6 +34,8 @@ History:
                           Added 'gcov_report' and 'lcov_report' targets to 
                           Makefile.
 4.7.0  2014-11-08   NEW   Upgraded gcclint to support PC-lint versions >= 9.00L
+4.8.0  2015-02-14   NEW   Upgraded gcclint to automatically mark gcc include file
+                          directories as library header directories (+libdir)
 
 Usage:
 
