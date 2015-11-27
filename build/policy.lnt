@@ -4,6 +4,7 @@
 -v
 
 -w3
+-wlib(4)
 -wlib(1)
 
 // Implicit base directory is directory of including file.

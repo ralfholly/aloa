@@ -39,6 +39,8 @@
 
 using namespace std;
 
+const char ALOA_XML_ROOT_ELEMENT[] = "doc";
+
 Aloa::Aloa(int argc, const char* argv[]) :
     m_argc(argc),
     m_argv(argv),
@@ -104,7 +106,7 @@ void Aloa::showHelp() const
         << "command:" << endl
         << "   -h, --help             Shows help message" << endl
         << "   -v, --version          Shows version information" << endl
-        << "   -f, --file <file>...   Analyzes Lint ouput file(s) (XML-formatted)" << endl
+        << "   -f, --file <file>...   Analyzes Lint ouput file(s) (XML-formatted output created via env-xml.lnt)" << endl
         << endl
         << "option:" << endl
         << "   -x, --xmlout <file>    Writes output to an XML file instead of stdout" << endl
@@ -204,7 +206,13 @@ void Aloa::parseLintOutputFile()
             throwXmlParseError(lintOutputFile, &doc, doc.ErrorDesc());
         }
 
-        TiXmlNode* root = doc.FirstChild("doc");
+        TiXmlNode* root = doc.FirstChild(ALOA_XML_ROOT_ELEMENT);
+        if (root == NULL) {
+            std::ostringstream ost;
+            ost << lintOutputFile << ": root element must be <" << ALOA_XML_ROOT_ELEMENT << ">";
+            throw ParseError(ost.str());
+        }
+
         TiXmlElement* messageElement = root->FirstChildElement("message");
 
         while (messageElement != 0) {
