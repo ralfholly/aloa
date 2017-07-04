@@ -1,5 +1,5 @@
 # ALOA -- A Lint Output Analyzer.
-This project is the continuation of the original [ALOA project, as featured in DDJ](http://www.drdobbs.com/184401810):
+ALOA generates useful metrics from PC-Lint output which are helpful for policy fine-tuning and prioritizing of refactoring activities. It's a GNU C++ remake of the original [ALOA tool](http://www.drdobbs.com/184401810).
 
 ## History
 ```
