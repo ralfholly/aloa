@@ -1,10 +1,8 @@
-                         ALOA -- A Lint Output Analyzer.
+# ALOA -- A Lint Output Analyzer.
+This project is the continuation of the original [ALOA project, as featured in DDJ](http://www.drdobbs.com/184401810):
 
-This project is the continuation of the original ALOA project, as featured in DDJ:
-    http://www.drdobbs.com/184401810
-
-History:
-
+## History
+```
 4.0.0  2010-12-04   NEW   Initial release.
 4.1.0  2010-12-26   NEW   XML output, major refactoring, Doxygen documentation,
                           make test, make todo, make doxy.
@@ -40,18 +38,20 @@ History:
                           different to <doc>.
                           Help text now stresses that lint output XML file must
                           be created via env-xml.lnt.
+4.8.2  2017-07-04   FIX   When XML output is selected (--xmlout) no legend of
+                          virtual MISRA issues was appended to the output XML
+                          file (Thanks, Peut!)
+```
+## Usage
 
-Usage:
-
-- Do a PC-Lint run and use Gimpel's env-xml.lnt file to produce XML-formatted
+* Do a PC-Lint run and use Gimpel's env-xml.lnt file to produce XML-formatted
   output.
-- Redirect standard output to a file, e. g. output.xml.
-- Run ALOA and provide the output file as an argument, e. g.:
-    aloa -f output.xml
+* Redirect standard output to a file, e. g. output.xml.
+* Run ALOA and provide the output file as an argument, eg. `aloa -f output.xml`
 
-For further information consult the ALOA help, e. g.:
-    aloa --help
+For further information consult the ALOA help, eg.` aloa --help`
 
+## Subfolders
 legacy/ 
     Contains the original version of ALOA for Win32 as well as the
     corresponding DDJ article.

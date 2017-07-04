@@ -1,0 +1,6 @@
+
+
+build/aloa
+build/obj/
+cscope.*
+.gdb_history

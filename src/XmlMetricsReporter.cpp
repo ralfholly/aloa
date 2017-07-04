@@ -112,7 +112,6 @@ void XmlMetricsReporter::writeIssueList(const ISSUE_LIST& issueList, TiXmlElemen
         iter != issueList.end();
         ++iter) {
         ++pos;
-
         TiXmlElement* issue = new TiXmlElement("Issue");
         ilist->LinkEndChild(issue);
 
@@ -131,9 +130,8 @@ void XmlMetricsReporter::writeMisraStringIssueList(const MISRA_STRING_ISSUE_LIST
     for (MISRA_STRING_ISSUE_LIST::const_iterator iter = misraStringIssueList.begin(); 
         iter != misraStringIssueList.end();
         ++iter) {
-
         TiXmlElement* virtualIssue = new TiXmlElement("VirtualIssue");
-        virtualIssue->LinkEndChild(virtualIssue);
+        misraVirtualIssues->LinkEndChild(virtualIssue);
 
         (void)NewXmlElementWithValue("issue", (*iter).misraIssue, virtualIssue);
         (void)NewXmlElementWithValue("string", (*iter).misraString, virtualIssue);

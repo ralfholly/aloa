@@ -13,11 +13,12 @@ if [ ! -x "$ALOA_EXE" ]; then
     exit 1
 fi
 
+
 ###################################
 # Test output to stdout.
 #
 OUTPUT="$TEST_SCRIPT_DIR/output"
-"$ALOA_EXE" -f "$TEST_SCRIPT_DIR/lint.output.xml" > "$OUTPUT"
+"$ALOA_EXE" -m -f "$TEST_SCRIPT_DIR/lint.output.xml" > "$OUTPUT"
 diff "$OUTPUT" "$TEST_SCRIPT_DIR/output.ref"
 if [ $? -ne 0 ]; then 
     echo "*** Test (stdout) failed! ***"
@@ -25,13 +26,13 @@ if [ $? -ne 0 ]; then
 else
     rm "$OUTPUT"
 fi
-    
+
 
 ###################################
 # Test XML ouput.
 #
 OUTPUT="$TEST_SCRIPT_DIR/output.xml"
-"$ALOA_EXE" -f "$TEST_SCRIPT_DIR/lint.output.xml" -x "$OUTPUT"
+"$ALOA_EXE" -m -f "$TEST_SCRIPT_DIR/lint.output.xml" -x "$OUTPUT"
 diff "$OUTPUT" "$TEST_SCRIPT_DIR/output.xml.ref"
 if [ $? -ne 0 ]; then 
     echo "*** Test (XML output) failed! ***"

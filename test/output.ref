@@ -1,264 +1,225 @@
 
-Total number of issues found : 7673
-Total severity score ....... : 19475
+Total number of issues found : 5912
+Total severity score ....... : 14047
 
 File List
 -----------
 
    Rank  Score Issues     MMsg MSev   File
 
-      1   2322   1043      537    3   subst.c
-      2   1062    410      123    4   jobs.c
-      3   1034    454       40    4   variables.c
-      4   1021    380      537    3   xmalloc.h
-      5    999      1      305  999   <unknown>
-      6    973    415      537    3   bashline.c
-      7    886    370      123    4   execute_cmd.c
-      8    720    247       10    4   general.h
-      9    681    298       49    4   variables.h
-     10    494    213      652    3   y.tab.c
-     11    372    186      830    2   \usr\include\signal.h
-     12    363    122       18    4   externs.h
-     13    320    125      641    3   dispose_cmd.c
-     14    311    137      158    4   pcomplete.c
-     15    303    107       14    4   nojobs.c
-     16    290    115       14    4   shell.c
-     17    283    125      537    3   arrayfunc.c
-     18    271    104       10    4   sig.h
-     19    268    118      537    3   redir.c
-     20    267    106      124    4   print_cmd.c
-     21    266    119      537    3   array.c
-     22    266    122      537    3   expr.c
-     23    235     72       10    4   array.h
-     24    215     90       64    4   test.c
-     25    205     87       18    4   braces.c
-     26    202     74      537    3   trap.c
-     27    182     84      114    4   shell.h
-     28    178     89      830    2   lib\readline\readline.h
-     29    168     73      537    3   assoc.c
-     30    168     84      830    2   syntax.h
-     31    161     64      537    3   sig.c
-     32    156     68      537    3   general.c
-     33    148     74      773    2   quit.h
-     34    135     47       18    4   subst.h
-     35    133     64      537    3   make_cmd.c
-     36    127     42       49    4   assoc.h
-     37    113     46       40    4   locale.c
-     38    108     36      537    3   error.h
-     39    108     36      537    3   hashlib.h
-     40    106     53      830    2   \usr\include\unistd.h
-     41    105     35      537    3   dispose_cmd.h
-     42    105     35      537    3   make_cmd.h
-     43    105     42       78    4   unwind_prot.c
-     44    104     44       18    4   \usr\include\stdio.h
-     45    104     41      537    3   error.c
-     46    102     40       18    4   builtins\common.h
-     47    100     50      762    2   builtins\builtext.h
-     48     92     46      830    2   .\y.tab.h
-     49     91     42      537    3   input.c
-     50     89     42      537    3   copy_cmd.c
-     51     89     36      537    3   jobs.h
-     52     83     36      537    3   findcmd.c
-     53     82     37      537    3   trap.h
-     54     81     38      537    3   alias.c
-     55     80     36      537    3   stringlib.c
-     56     78     39      830    2   \usr\include\stdlib.h
-     57     78     33      537    3   mksyntax.c
-     58     70     21      114    4   \usr\include\bits\stat.h
-     59     66     26      537    3   bashhist.c
-     60     63     21      537    3   builtins.h
-     61     62     26      537    3   mailcheck.c
-     62     61     23      537    3   flags.h
-     63     59     26      537    3   pathexp.c
-     64     56     23      537    3   eval.c
-     65     56     24      537    3   hashlib.c
-     66     50     17       18    4   version.c
-     67     47     17      537    3   input.h
-     68     46     21      537    3   bracecomp.c
-     69     41     16      537    3   bashhist.h
-     70     39     13      537    3   alias.h
-     71     38     16       18    4   \usr\include\fcntl.h
-     72     38     18      534    3   flags.c
-     73     35     12      537    3   execute_cmd.h
-     74     32     16      773    2   pathexp.h
-     75     32     11      537    3   pcomplete.h
-     76     30     10      537    3   bashtypes.h
-     77     26      8       18    4   \usr\include\bits\fcntl.h
-     78     26      9      537    3   hashcmd.h
-     79     25     11      537    3   pcomplib.c
-     80     24      8       18    4   \usr\include\sys\select.h
-     81     22     11      830    2   \usr\include\libio.h
-     82     20      7      537    3   bashline.h
-     83     18      6      537    3   bashansi.h
-     84     18      6      537    3   findcmd.h
-     85     17      7      528    3   xmalloc.c
-     86     16      6       18    4   \Users\chet\src\bash\src\parse.y
-     87     16      5       18    4   command.h
-     88     15      7      516    3   list.c
-     89     14      7      830    2   lib\readline\history.h
-     90     12      3       10    4   \usr\include\ctype.h
-     91     10      5      830    2   \usr\include\locale.h
-     92     10      4       36    4   \usr\include\stdint.h
-     93     10      4      537    3   redir.h
-     94      9      3      537    3   test.h
-     95      8      4      830    2   \usr\include\libintl.h
-     96      8      4      830    2   \usr\include\sys\resource.h
-     97      6      3      830    2   \usr\include\sys\time.h
-     98      6      2      537    3   builtins\getopt.h
-     99      6      2      537    3   parser.h
-    100      4      2      830    2   \usr\include\getopt.h
-    101      4      2      830    2   \usr\include\strings.h
-    102      4      2      830    2   \usr\include\sys\stat.h
-    103      4      2      830    2   include\shtty.h
-    104      2      1      830    2   \usr\include\inttypes.h
-    105      2      1      830    2   include\ansi_stdlib.h
-    106      2      1     1713    2   somefile.cpp
-    107      2      1      766    2   syntax.c
+      1   2004   1002      830    2   Z:/usr/include/c++/5/ostream
+      2   1696    424       40    4   Z:/usr/include/c++/5/cwchar
+      3   1462    425     1062    4   Z:/usr/include/c++/5/bits/basic_string.tcc
+      4   1193    982     1066    4   Z:/home/ralf/work/aloa/src/ClassicMetricsReporter.cpp
+      5   1024    256       40    4   Z:/usr/include/c++/5/bits/basic_string.h
+      6    879    503     1066    4   Z:/home/ralf/work/aloa/src/Aloa.cpp
+      7    602    169       40    4   Z:/usr/include/c++/5/iosfwd
+      8    484    170     1066    4   Z:/usr/include/c++/5/bits/locale_classes.tcc
+      9    368    134     1066    4   Z:/usr/include/c++/5/bits/locale_facets.tcc
+     10    360    167       10    4   Z:/home/ralf/work/aloa/src/XmlMetricsReporter.cpp
+     11    308    161       10    4   Z:/home/ralf/work/aloa/src/File.h
+     12    240     60       40    4   Z:/usr/include/c++/5/cstdlib
+     13    230    110       10    4   Z:/home/ralf/work/aloa/src/Issue.h
+     14    210    104       49    4   Z:/usr/include/c++/5/bits/locale_classes.h
+     15    209    120     1066    4   Z:/home/ralf/work/aloa/src/MisraParser.cpp
+     16    205     92       10    4   Z:/home/ralf/work/aloa/src/Aloa.h
+     17    194     80     1066    4   Z:/usr/include/c++/5/bits/locale_facets.h
+     18    176     44       49    4   Z:/usr/include/c++/5/stdexcept
+     19    170     50       40    4   Z:/home/ralf/work/aloa/src/MetricsTypes.h
+     20    162     54     1066    4   Z:/usr/include/c++/5/bits/stl_tree.h
+     21    156     56       40    4   Z:/home/ralf/work/aloa/src/MisraParser.h
+     22    156     47       96    4   Z:/usr/include/string.h
+     23    153     51     1066    4   Z:/home/ralf/work/aloa/src/MetricsBuilder.cpp
+     24    143     94       10    4   Z:/home/ralf/work/aloa/src/Main.cpp
+     25    142     65     1066    4   Z:/usr/include/c++/5/istream
+     26    112     28       40    4   Z:/usr/include/c++/5/cstring
+     27     92     24       40    4   Z:/usr/include/c++/5/bits/sstream.tcc
+     28     84     21     1066    4   Z:/usr/include/c++/5/bits/istream.tcc
+     29     78     78  1000000    1   Z:/home/ralf/work/aloa/src/IssueTable.h
+     30     76     19     1066    4   Z:/usr/include/c++/5/bits/algorithmfwd.h
+     31     74     22       96    4   Z:/usr/include/wchar.h
+     32     67     38       10    4   Z:/home/ralf/work/aloa/src/MetricsBuilder.h
+     33     50     50  1000053    1   <unknown>
+     34     44     38      830    2   Z:/home/ralf/work/aloa/src/IssueTable.cpp
+     35     44     13       96    4   Z:/usr/include/stdlib.h
+     36     40     17       10    4   Z:/home/ralf/work/aloa/src/XmlMetricsReporter.h
+     37     40     10     1066    4   Z:/usr/include/c++/5/bits/ostream.tcc
+     38     40     20      830    2   Z:/usr/include/c++/5/bits/stl_algobase.h
+     39     36     12     1066    4   Z:/usr/include/c++/5/bits/char_traits.h
+     40     36     10       49    4   Z:/usr/include/c++/5/streambuf
+     41     33     21     1039    4   Z:/home/ralf/work/aloa/src/File.cpp
+     42     27     11       10    4   Z:/home/ralf/work/aloa/src/Issue.cpp
+     43     24     12      601    3   Z:/home/ralf/work/aloa/src/MisraStringIssue.h
+     44     24      6     1066    4   Z:/usr/include/c++/5/bits/basic_ios.tcc
+     45     16      4       49    4   Z:/usr/include/c++/5/bits/ios_base.h
+     46     16      4     1066    4   Z:/usr/include/x86_64-linux-gnu/c++/5/bits/ctype_inline.h
+     47     14     11      830    2   Z:/home/ralf/work/aloa/src/MetricsReporter.h
+     48     12      8      830    2   Z:/home/ralf/work/aloa/src/ClassicMetricsReporter.h
+     49     12      6      830    2   Z:/usr/include/c++/5/bits/basic_ios.h
+     50     12      3     1066    4   Z:/usr/include/c++/5/bits/streambuf_iterator.h
+     51      8      2     1066    4   Z:/usr/include/c++/5/bits/streambuf.tcc
+     52      6      2     1066    4   Z:/usr/include/c++/5/bits/stl_tempbuf.h
+     53      4      2      830    2   Z:/usr/include/c++/5/bits/move.h
 
 Issue List
 ----------
 
    Rank      Msg  Sev  Count
 
-      1      830    2   1493
-      2      537    3    841
-      3      534    3    670
-      4      831    2    571
-      5      717    2    460
-      6      773    2    302
-      7      613    3    199
-      8      652    3    199
-      9      737    2    186
-     10      713    2    183
-     11      732    2    175
-     12      826    2    165
-     13      715    2    128
-     14      801    2     89
-     15      762    2     88
-     16      451    3     77
-     17      506    3     77
-     18      747    2     77
-     19      760    2     68
-     20      740    2     66
-     21       18    4     62
-     22      516    3     52
-     23      774    2     51
-     24      611    3     48
-     25      553    3     44
-     26      514    3     43
-     27      720    2     42
-     28      731    2     42
-     29      668    3     40
-     30      683    3     38
-     31      438    3     36
-     32      750    2     36
-     33      788    2     36
-     34      838    2     36
-     35      787    2     35
-     36      746    2     34
-     37      752    2     32
-     38      644    3     29
-     39      550    3     28
-     40      744    2     28
-     41      734    2     27
-     42       14    4     26
-     43      574    3     26
-     44      794    2     26
-     45      712    2     25
-     46      785    2     25
-     47      569    3     24
-     48      616    3     24
-     49      825    2     24
-     50      766    2     22
-     51      646    3     21
-     52       38    4     19
-     53      820    2     19
-     54      528    3     18
-     55       10    4     17
-     56      767    2     17
-     57      443    3     15
-     58      728    2     15
-     59      843    2     13
-     60       40    4     12
-     61      101    4     12
-     62      564    3     12
-     63      850    2     12
-     64      114    4     11
-     65      418    3     11
-     66      529    3     11
-     67      601    3     11
-     68      605    3     11
-     69      718    2     11
-     70       49    4     10
-     71      530    3     10
-     72      592    3     10
-     73      662    3     10
-     74      132    4      9
-     75      844    2      9
-     76      414    3      8
-     77      716    2      8
-     78      730    2      8
-     79      551    3      7
-     80      687    3      7
-     81      834    2      7
-     82      835    2      7
-     83       19    4      6
-     84      124    4      6
-     85      539    3      6
-     86      123    4      5
-     87      661    3      5
-     88      725    2      5
-     89      808    2      5
-     90       36    4      4
-     91       64    4      4
-     92      532    3      4
-     93      641    3      4
-     94      690    3      4
-     95      722    2      4
-     96      754    2      4
-     97      452    3      3
-     98      502    3      3
-     99      533    3      3
-    100      545    3      3
-    101      585    3      3
-    102      645    3      3
-    103      650    3      3
-    104      745    2      3
-    105      776    2      3
-    106      527    3      2
-    107      578    3      2
-    108      659    3      2
-    109      665    3      2
-    110      666    3      2
-    111      701    2      2
-    112      703    2      2
-    113      704    2      2
-    114      705    2      2
-    115      727    2      2
-    116      751    2      2
-    117      771    2      2
-    118      845    2      2
-    119      305  999      1
-    120       78    4      1
-    121      158    4      1
-    122      409    3      1
-    123      413    3      1
-    124      501    3      1
-    125      512    3      1
-    126      515    3      1
-    127      522    3      1
-    128      525    3      1
-    129      563    3      1
-    130      568    3      1
-    131      685    3      1
-    132      695    3      1
-    133      753    2      1
-    134      764    2      1
-    135      770    2      1
-    136      810    2      1
-    137      821    2      1
-    138      832    2      1
-    139     1713    2      1
+      1      830    2   1555
+      2  1000018    1   1034
+      3       40    4    865
+      4       49    4    338
+      5  1000000    1    322
+      6  1000017    1    177
+      7     1066    4    163
+      8     1098    4    112
+      9       36    4    102
+     10       10    4     82
+     11       19    4     76
+     12     1062    4     71
+     13  1000019    1     61
+     14  1000009    1     52
+     15  1000053    1     50
+     16     1013    4     45
+     17      808    2     43
+     18     1054    4     37
+     19  1000010    1     36
+     20  1000011    1     36
+     21  1000021    1     36
+     22       14    4     33
+     23  1000002    1     33
+     24  1000001    1     30
+     25       96    4     28
+     26     1087    4     24
+     27     1055    4     23
+     28       55    4     22
+     29  1000007    1     19
+     30       60    4     18
+     31     1073    4     18
+     32  1000027    1     17
+     33      601    3     16
+     34  1000008    1     16
+     35       64    4     14
+     36     1023    4     14
+     37      526    3     14
+     38      628    3     14
+     39      746    2     14
+     40      701    2     13
+     41     1793    2     13
+     42  1000022    1     13
+     43  1000031    1     13
+     44       59    4     12
+     45  1000006    1     12
+     46  1000033    1     11
+     47      522    3     10
+     48  1000047    1      9
+     49  1000048    1      9
+     50  1000049    1      9
+     51       26    4      8
+     52      118    4      8
+     53  1000030    1      7
+     54  1000038    1      7
+     55  1000040    1      7
+     56  1000016    1      6
+     57      730    2      5
+     58  1000034    1      5
+     59      504    3      4
+     60  1000024    1      4
+     61  1000025    1      4
+     62  1000026    1      4
+     63  1000029    1      4
+     64  1000051    1      4
+     65       63    4      3
+     66      119    4      3
+     67  1000044    1      3
+     68     1025    4      2
+     69      728    2      2
+     70      766    2      2
+     71  1000003    1      2
+     72  1000004    1      2
+     73  1000005    1      2
+     74  1000020    1      2
+     75  1000035    1      2
+     76  1000036    1      2
+     77  1000037    1      2
+     78  1000039    1      2
+     79  1000041    1      2
+     80  1000050    1      2
+     81      133    4      1
+     82     1039    4      1
+     83     1542    3      1
+     84     1703    2      1
+     85  1000012    1      1
+     86  1000013    1      1
+     87  1000014    1      1
+     88  1000015    1      1
+     89  1000023    1      1
+     90  1000028    1      1
+     91  1000032    1      1
+     92  1000042    1      1
+     93  1000043    1      1
+     94  1000045    1      1
+     95  1000046    1      1
+     96  1000052    1      1
+
+MISRA Virtual Issues
+--------------------
+
+   1000000 [MISRA C++ Rule 3-9-2]
+   1000001 Violates MISRA C++ 2008 Required Rule 11-0-1
+   1000002 [MISRA C++ Rule 7-1-1]
+   1000003 [MISRA C++ Rules 0-1-11]
+   1000004 [MISRA C++ Rules 0-1-12]
+   1000005 [MISRA C++ Rule 8-5-1]
+   1000006 Violates MISRA C++ 2008 Required Rule 6-4-1
+   1000007 [MISRA C++ Rule 6-6-5]
+   1000008 [MISRA C++ Rule 2-10-6]
+   1000009 [MISRA C++ Rule 3-2-1]
+   1000010 [MISRA C++ Rule 3-2-2]
+   1000011 [MISRA C++ Rule 3-2-4]
+   1000012 [MISRA C++ Rule 18-0-1]
+   1000013 [MISRA C++ Rule 18-0-4]
+   1000014 [MISRA C++ Rule 18-7-1]
+   1000015 [MISRA C++ Rule 27-0-1]
+   1000016 Violates MISRA C++ 2008 Required Rule 7-3-4
+   1000017 Violates MISRA C++ 2008 Advisory Rule 5-0-2
+   1000018 Violates MISRA C++ 2008 Advisory Rule 14-8-2
+   1000019 Violates MISRA C++ 2008 Required Rule 8-4-4
+   1000020 Violates MISRA C++ 2008 Required Rule 5-0-4
+   1000021 Violates MISRA C++ 2008 Required Rule 16-0-6
+   1000022 Violates MISRA C++ 2008 Required Rule 3-2-3
+   1000023 [MISRA C++ Rule 2-10-2]
+   1000024 [MISRA C++ Rule 18-0-3]
+   1000025 [MISRA C++ Rules 0-1-7]
+   1000026 [MISRA C++ Rules 0-3-2]
+   1000027 Violates MISRA C++ 2008 Required Rule 5-0-15
+   1000028 [MISRA C++ Rule 5-2-7]
+   1000029 [MISRA C++ Rule 0-1-1]
+   1000030 Violates MISRA C++ 2008 Required Rule 7-3-1
+   1000031 Violates MISRA C++ 2008 Required Rule 5-0-21
+   1000032 [MISRA C++ Rule 0-1-4]
+   1000033 Violates MISRA C++ 2008 Required Rule 5-2-1
+   1000034 Violates MISRA C++ 2008 Required Rule 5-14-1
+   1000035 [MISRA C++ Rules 5-0-13]
+   1000036 [MISRA C++ Rules 5-0-14]
+   1000037 [MISRA C++ Rule 5-3-1]
+   1000038 [MISRA C++ Rule 4-10-2]
+   1000039 Violates MISRA C++ 2008 Advisory Rule 5-2-10
+   1000040 [MISRA C++ Rule 18-0-5]
+   1000041 Violates MISRA C++ 2008 Required Rule 6-2-1
+   1000042 Violates MISRA C++ 2008 Required Rule 5-2-12
+   1000043 Violates MISRA C++ 2008 Required Rule 8-0-1
+   1000044 [MISRA C++ Rule 18-0-2]
+   1000045 [MISRA C++ Rule 9-3-3]
+   1000046 [MISRA C++ Rule 12-8-1]
+   1000047 [MISRA C++ Rule 5-0-15]
+   1000048 [MISRA C++ Rule 5-0-17]
+   1000049 [MISRA C++ Rule 5-0-18]
+   1000050 [MISRA C++ Rule 9-3-1]
+   1000051 Violates MISRA C++ 2008 Required Rule 5-0-9
+   1000052 Violates MISRA C++ 2008 Required Rule 5-3-1
+   1000053 Violates MISRA C++ 2008 Required Rule 0-1-8
 
 Legend
 ------
