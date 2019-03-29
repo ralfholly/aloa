@@ -24,16 +24,18 @@ const IssueTable::IssueTableEntry IssueTable::ISSUE_TABLE[] =
 {
 //    Category             Sev     From      To
 //    -------------------------------------------------
-    { "Elective note",       1,     900,     999    },
-    { "Informational",       2,     700,     899    },
-    { "Warning",             3,     400,     699    },
-    { "Syntax error",        4,       1,     199    },
-    { "PC-Lint error",     999,     200,     399    },
-    { "Elective note",       1,    1900,    1999    },
-    { "Informational",       2,    1700,    1899    },
-    { "Warning",             3,    1400,    1699    },
-    { "Syntax error",        4,    1000,    1199    },
-    { "PC-Lint error",     999,    1200,    1399    },
+    { "C Syntax Errors",     4,       1,     199    },
+    { "Internal Errors",   999,     200,     299    },
+    { "Fatal Errors",      999,     300,     399    },
+    { "C Warnings",          3,     400,     699    },
+    { "C Informational",     2,     700,     899    },
+    { "C Elective Notes",    1,     900,     999    },
+    { "C++ Syntax Errors",   4,    1000,    1199    },
+    { "Internal Errors",   999,    1200,    1299    },
+    { "C++ Fatal Erros",   999,    1300,    1399    },
+    { "C++ Warnings",        3,    1400,    1699    },
+    { "C++ Informational",   2,    1700,    1899    },
+    { "C++ Elective Notes",  1,    1900,    1999    },
 };
 
 size_t IssueTable::getIssueTableSize()
