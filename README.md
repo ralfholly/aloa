@@ -43,7 +43,7 @@ ALOA generates useful metrics from PC-Lint output which are helpful for policy f
                           file (Thanks, Peut!)
 4.9.0  2019-03-29   NEW   Support for PC-lint Plus (additional messages and
                           message types).
-                          Note option --misra only applicable for pre PC-lint
+                          Note: option --misra is only valid for pre PC-lint
                           Plus editions of PC-lint (i. e. PC-lint 9.x).
 ```
 ## Usage
