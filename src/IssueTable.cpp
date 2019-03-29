@@ -29,6 +29,11 @@ const IssueTable::IssueTableEntry IssueTable::ISSUE_TABLE[] =
     { "Warning",             3,     400,     699    },
     { "Syntax error",        4,       1,     199    },
     { "PC-Lint error",     999,     200,     399    },
+    { "Elective note",       1,    1900,    1999    },
+    { "Informational",       2,    1700,    1899    },
+    { "Warning",             3,    1400,    1699    },
+    { "Syntax error",        4,    1000,    1199    },
+    { "PC-Lint error",     999,    1200,    1399    },
 };
 
 size_t IssueTable::getIssueTableSize()
@@ -42,15 +47,11 @@ int IssueTable::getSeverity(int number)
     if (VIRTUAL_ISSUE_LOWER_BOUND <= number && number <= VIRTUAL_ISSUE_UPPER_BOUND) {
         return VIRTUAL_ISSUE_SEVERITY;
     }
-
-    // Issue numbers 1xxx have same severity as numbers xxx.
-    int modNumber = number % 1000;
-
     const size_t tableSize = getIssueTableSize();
 
     for (size_t i = 0; i < tableSize; ++i) {
-        if (ISSUE_TABLE[i].lowerBound <= modNumber &&
-                ISSUE_TABLE[i].upperBound >= modNumber) {
+        if (ISSUE_TABLE[i].lowerBound <= number &&
+                ISSUE_TABLE[i].upperBound >= number) {
             return ISSUE_TABLE[i].severity;
         }
     }
