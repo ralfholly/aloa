@@ -216,10 +216,8 @@ void Aloa::parseLintOutputFile()
         TiXmlElement* messageElement = root->FirstChildElement("message");
 
         while (messageElement != 0) {
-            TiXmlElement *fileElement, *codeElement, *descElement;
-
             // Get filename from 'file' element.
-            fileElement = messageElement->FirstChildElement("file");
+            TiXmlElement* fileElement = messageElement->FirstChildElement("file");
             if (fileElement == 0) {
                 throwXmlParseError(lintOutputFile, root, "'file' element not found");
             }
@@ -229,7 +227,7 @@ void Aloa::parseLintOutputFile()
             }
 
             // Get issue number from 'code' element.
-            codeElement = fileElement->NextSiblingElement("code");
+            TiXmlElement* codeElement = fileElement->NextSiblingElement("code");
             if (codeElement == 0) {
                 throwXmlParseError(lintOutputFile, fileElement, "'code' element not found");
             }
@@ -239,20 +237,20 @@ void Aloa::parseLintOutputFile()
             }
 
             // Get line number from 'line' element.
-            codeElement = fileElement->NextSiblingElement("line");
-            if (codeElement == 0) {
+            TiXmlElement* lineElement = fileElement->NextSiblingElement("line");
+            if (lineElement == 0) {
                 throwXmlParseError(lintOutputFile, fileElement, "'line' element not found");
             }
-            const char* line = codeElement->GetText();
+            const char* line = lineElement->GetText();
             if (line == 0) {
-                throwXmlParseError(lintOutputFile, codeElement, "'line' value missing");
+                throwXmlParseError(lintOutputFile, lineElement, "'line' value missing");
             }
 
             bool alreadyHandled = false;
 
             if (m_misraEnabled) {
                 // Get description from 'desc' element.
-                descElement = fileElement->NextSiblingElement("desc");
+                TiXmlElement* descElement = fileElement->NextSiblingElement("desc");
                 if (descElement == 0) {
                     throwXmlParseError(lintOutputFile, fileElement, "'desc' element not found");
                 }
