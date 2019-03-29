@@ -95,7 +95,7 @@ test: $(ALOA_EXE)
 todo:
 	@echo [Grepping for TODOs]
 	@# Put an escape before ':' to avoid finding ourselves.
-	grep --exclude-dir ".svn*" -RE "TODO\:" . ; true
+	grep --exclude-dir ".git*" -RE "TODO\:" . ; true
 
 doxy:
 	@echo [Doxygen currently not supported]
@@ -115,17 +115,16 @@ lcov_report:
 	genhtml $(GCOV_DIR)/gcov.info -o $(GCOV_DIR)/html
 	
 deploy: 
+	@[ -z "`git status --porcelain`" ] || ( echo "Fatal: working copy not clean!" ; exit 1 )
 	@$(eval ALOA_VERSION=`grep -E 'VERSION\s+=\s+"[^"]+"' src/Aloa.h | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'`)
 	@$(eval ALOA_VERSION_DIR="aloa-$(ALOA_VERSION)")
 	@if [ -e $(ALOA_VERSION_DIR) ]; then echo "Fatal: version $(ALOA_VERSION) exist already"; exit 1; fi
-	make clean
-	make $(ALOA_EXE) TARGET=RELEASE
-	make test
-	make lint
-	make doxy
-	make todo
-	@echo [Checking for local modifications]
-	@svn export . "$(ALOA_VERSION_DIR)"
-	@tar cvzf "$(ALOA_VERSION_DIR).tar.gz" "aloa-$(ALOA_VERSION)"
-	@svn status . -q
+	@$(MKDIR) $(ALOA_VERSION_DIR)
+	@make clean
+	@make $(ALOA_EXE) TARGET=RELEASE
+	@make test
+	@make lint
+	@make doxy
+	@make todo
+	@git archive HEAD --prefix $(ALOA_VERSION_DIR)/ -o "$(ALOA_VERSION_DIR)/$(ALOA_VERSION_DIR).tar.gz"
 	@echo "Successfully deployed version $(ALOA_VERSION)"
