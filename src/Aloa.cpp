@@ -110,7 +110,7 @@ void Aloa::showHelp() const
         << endl
         << "option:" << endl
         << "   -x, --xmlout <file>    Writes output to an XML file instead of stdout" << endl
-        << "   -m, --misra            Support for MISRA rules" << endl
+        << "   -m, --misra            Better support for MISRA rules (PC-lint 9.x)" << endl
         << endl;
 
     exit(0);
