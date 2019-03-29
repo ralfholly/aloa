@@ -41,6 +41,10 @@ ALOA generates useful metrics from PC-Lint output which are helpful for policy f
 4.8.2  2017-07-04   FIX   When XML output is selected (--xmlout) no legend of
                           virtual MISRA issues was appended to the output XML
                           file (Thanks, Peut!)
+4.9.0  2019-03-29   NEW   Support for PC-lint Plus (additional messages and
+                          message types).
+                          Note option --misra only applicable for pre PC-lint
+                          Plus editions of PC-lint (i. e. PC-lint 9.x).
 ```
 ## Usage
 
@@ -58,5 +62,3 @@ legacy/
 
 tools/
     Contains various PC-Lint-related utilities; see tools/README for details.
-
-

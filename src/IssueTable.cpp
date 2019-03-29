@@ -36,6 +36,21 @@ const IssueTable::IssueTableEntry IssueTable::ISSUE_TABLE[] =
     { "C++ Warnings",        3,    1400,    1699    },
     { "C++ Informational",   2,    1700,    1899    },
     { "C++ Elective Notes",  1,    1900,    1999    },
+    { "C Syntax Errors",     4,    2000,    2199    },
+    { "Reserved",          999,    2200,    2399    },
+    { "C Warnings",          3,    2400,    2699    },
+    { "C Informational",     2,    2700,    2899    },
+    { "C Elective Notes",    1,    2900,    2999    },
+    { "C++ Syntax Errors",   4,    3000,    3199    },
+    { "Reserved",          999,    3200,    3399    },
+    { "C++ Warnings",        3,    3400,    3699    },
+    { "C++ Informational",   2,    3900,    3999    },
+    { "C++ Elective Notes",  1,    3900,    3999    },
+    { "C and C++ Errors",    4,    4000,    5999    },
+    { "Reserved",          999,    6000,    6999    },
+    { "Reserved",          999,    7000,    7999    },
+    { "User Defined",        2,    8000,    8999    },
+    { "Misc Elective Notes", 1,    9000,    9999    },
 };
 
 size_t IssueTable::getIssueTableSize()

@@ -236,6 +236,21 @@ Severity level 999 : C++ Fatal Erros
 Severity level   3 : C++ Warnings
 Severity level   2 : C++ Informational
 Severity level   1 : C++ Elective Notes
+Severity level   4 : C Syntax Errors
+Severity level 999 : Reserved
+Severity level   3 : C Warnings
+Severity level   2 : C Informational
+Severity level   1 : C Elective Notes
+Severity level   4 : C++ Syntax Errors
+Severity level 999 : Reserved
+Severity level   3 : C++ Warnings
+Severity level   2 : C++ Informational
+Severity level   1 : C++ Elective Notes
+Severity level   4 : C and C++ Errors
+Severity level 999 : Reserved
+Severity level 999 : Reserved
+Severity level   2 : User Defined
+Severity level   1 : Misc Elective Notes
 
 Score  Severity score
 MMsg   Number of issue with the highest severity encountered
